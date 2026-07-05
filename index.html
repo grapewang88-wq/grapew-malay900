@@ -197,16 +197,20 @@ function pickVoice(){
     || VOICES.find(v=>/id[-_]ID/i.test(v.lang))
     || VOICES.find(v=>/^id/i.test(v.lang)) || null;
   const b = document.getElementById('voiceBanner');
-  if(!VOICE){ b.textContent='⚠️ 未检测到马来语/印尼语语音包。建议：①用 Edge 浏览器打开本文件（自带 ms-MY 在线语音）；或 ② Windows 设置→时间和语言→语音→添加语音→Bahasa Melayu，装好后刷新本页。当前将无声。'; b.classList.remove('hidden'); }
-  else if(!/ms/i.test(VOICE.lang)){ b.textContent='ℹ️ 未找到马来语语音，暂用印尼语('+VOICE.name+')朗读，发音≈90%接近。建议用 Edge 打开本文件可获得马来西亚语原生语音。'; b.classList.remove('hidden'); }
+  if(!VOICE){ b.innerHTML='⚠️ 语音列表里没有马来语/印尼语——仍会用系统引擎<b>强制尝试</b>马来语朗读，点右侧按钮测试 → <button class="btn small" onclick="speak(\'Selamat pagi! Apa khabar?\')" style="vertical-align:middle">🔊 测试发音</button><br><span style="font-size:12px">若无声或读成英语：安卓→安装"Google 语音服务(Speech Services by Google)"，系统设置→文字转语音→选Google引擎→下载马来语数据；iPhone→设置→辅助功能→朗读内容→声音→马来语→下载；电脑→用Edge打开。装好后刷新，或到⚙️设置手动选语音。</span>'; b.classList.remove('hidden'); }
+  else if(!/ms/i.test(VOICE.lang)){ b.textContent='ℹ️ 未找到马来语语音，暂用印尼语('+VOICE.name+')朗读，发音≈90%接近。'; b.classList.remove('hidden'); }
   else b.classList.add('hidden');
 }
 speechSynthesis.onvoiceschanged = pickVoice; pickVoice();
+// 部分手机浏览器的语音列表延迟加载/需用户手势后才可见：延时重试 + 首次触摸时再试
+[600,1500,3500].forEach(t=>setTimeout(()=>{ if(!VOICE) pickVoice(); }, t));
+document.addEventListener('touchstart', ()=>{ if(!VOICE) pickVoice(); }, {passive:true});
 function speak(text, rate){
-  if(!VOICE) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text.replace(/\(.*?\)/g,''));
-  u.voice = VOICE; u.lang = VOICE.lang; u.rate = rate || S.settings.rate;
+  if(VOICE){ u.voice = VOICE; u.lang = VOICE.lang; }
+  else u.lang = 'ms-MY'; // 没有匹配语音也强制按马来语发声——多数安卓引擎能处理
+  u.rate = rate || S.settings.rate;
   speechSynthesis.speak(u);
 }
 
@@ -876,11 +880,13 @@ function renderSettings(){
       <div class="row" style="margin-top:6px">${[5,8,10,12,15].map(n=>`<span class="pill ${S.settings.newPerDay===n?'on':''}" onclick="S.settings.newPerDay=${n};save();renderSettings()">${n}句</span>`).join('')}</div></div>
     <div style="margin:12px 0"><b>朗读语速</b>
       <div class="row" style="margin-top:6px">${[[0.7,'慢'],[0.85,'适中'],[1.0,'正常']].map(([r,n])=>`<span class="pill ${S.settings.rate===r?'on':''}" onclick="S.settings.rate=${r};save();renderSettings()">${n} ${r}</span>`).join('')}</div></div>
-    <div style="margin:12px 0"><b>语音选择</b><div class="sub">优先选 ms-MY（马来语），没有则用 id-ID（印尼语，发音接近）</div>
-      <select onchange="S.settings.voiceURI=this.value||null;save();pickVoice()" style="margin-top:6px;max-width:100%">
+    <div style="margin:12px 0"><b>朗读语音</b><div class="sub">优先 ms-MY（马来语）> id-ID（印尼语，发音≈90%接近）；列表为空说明系统没装语音包（见首页横幅说明）。选好后点测试。</div>
+      <div class="row" style="margin-top:6px">
+      <select onchange="S.settings.voiceURI=this.value||null;save();pickVoice()" style="max-width:70%">
         <option value="">自动选择</option>
-        ${VOICES.filter(v=>/^(ms|id)/i.test(v.lang)).map(v=>`<option value="${v.voiceURI}" ${S.settings.voiceURI===v.voiceURI?'selected':''}>${v.name} (${v.lang})</option>`).join('')}
-      </select></div>
+        ${[...VOICES].sort((a,b)=>{const p=v=>/^ms/i.test(v.lang)?0:/^id/i.test(v.lang)?1:2;return p(a)-p(b);}).map(v=>`<option value="${v.voiceURI}" ${S.settings.voiceURI===v.voiceURI?'selected':''}>${/^(ms|id)/i.test(v.lang)?'★ ':''}${v.name} (${v.lang})</option>`).join('')}
+      </select>
+      <button class="btn small" onclick="speak('Selamat pagi! Apa khabar?')">🔊 测试</button></div></div>
     <div style="margin:12px 0"><b>每日复习上限</b>
       <div class="row" style="margin-top:6px">${[50,80,120].map(n=>`<span class="pill ${S.settings.maxReview===n?'on':''}" onclick="S.settings.maxReview=${n};save();renderSettings()">${n}题</span>`).join('')}</div></div>
     <div style="margin:12px 0"><b>🎙 语音识别语言</b><div class="sub">跟读评分总是0分且"识别到"显示中文/乱码时，切换为印尼语——Google识别引擎对印尼语支持更好，且与马来语发音高度互通</div>
