@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrapeW专项学习-马来语900句</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d5c44">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GrapeW专项学习-马来语900句">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --bg:#f4f6f9; --card:#fff; --ink:#22272e; --sub:#6b7280; --line:#e5e8ee;
+  --p:#0f6a4e; --p-soft:#e0f2ec; --amber:#b45309; --amber-soft:#fef3c7;
+  --blue:#1d4ed8; --blue-soft:#dbeafe; --red:#b91c1c; --red-soft:#fee2e2;
+  --gold:#92400e; --gold-soft:#fde68a;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#15181d; --card:#1e232b; --ink:#e6e9ee; --sub:#9aa3b2; --line:#2c333e;
+  --p:#34d399; --p-soft:#0c2b21; --amber:#fbbf24; --amber-soft:#3a2c08;
+  --blue:#93c5fd; --blue-soft:#12233f; --red:#f87171; --red-soft:#3a1414;
+  --gold:#fcd34d; --gold-soft:#3a2e08;}
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 80px}
+header{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 14px;flex-wrap:wrap;gap:8px}
+header h1{font-size:17px}
+header .meta{font-size:12.5px;color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.btn{display:inline-block;border:none;border-radius:10px;padding:10px 18px;font-size:15px;cursor:pointer;background:var(--p);color:#fff;font-family:inherit}
+.btn.big{width:100%;padding:15px;font-size:17px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--p);border:1.5px solid var(--p)}
+.btn.gray{background:transparent;color:var(--sub);border:1.5px solid var(--line)}
+.btn.warn{background:var(--red)}
+.btn.small{padding:6px 12px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:5px;padding:1px 7px;vertical-align:1px}
+.b1{background:var(--blue-soft);color:var(--blue)} .b2{background:var(--amber-soft);color:var(--amber)}
+.b3{background:var(--p-soft);color:var(--p)} .bm{background:var(--gold-soft);color:var(--gold)}
+.b0{background:var(--line);color:var(--sub)}
+.bar{height:9px;background:var(--line);border-radius:5px;overflow:hidden;margin:4px 0 2px}
+.bar>div{height:100%;border-radius:5px}
+.lvlrow{margin:10px 0}
+.lvlrow .t{display:flex;justify-content:space-between;font-size:13.5px}
+h2{font-size:16.5px;margin-bottom:10px}
+.sub{color:var(--sub);font-size:13px}
+.malay{font-size:21px;font-weight:700;line-height:1.5}
+.zh{font-size:16.5px}
+.stepbar{display:flex;gap:6px;margin-bottom:14px}
+.stepbar div{flex:1;text-align:center;font-size:12px;padding:7px 2px;border-radius:8px;background:var(--card);border:1px solid var(--line);color:var(--sub)}
+.stepbar div.on{background:var(--p);color:#fff;border-color:var(--p);font-weight:700}
+.stepbar div.done{background:var(--p-soft);color:var(--p);border-color:var(--p-soft)}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;color:var(--p)}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;margin:7px 0;font-size:15.5px;cursor:pointer;color:var(--ink);font-family:inherit}
+.opt.right{border-color:var(--p);background:var(--p-soft)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.tile{display:inline-block;background:var(--blue-soft);color:var(--blue);border:1.5px solid transparent;border-radius:8px;padding:6px 11px;margin:4px;font-size:16px;font-weight:600;cursor:pointer;user-select:none}
+.tile.used{opacity:.25;pointer-events:none}
+.buildzone{min-height:52px;border:1.5px dashed var(--line);border-radius:10px;padding:6px;margin:10px 0}
+.buildzone .tile{background:var(--p-soft);color:var(--p)}
+.gradebtns{display:flex;gap:8px;margin-top:14px}
+.gradebtns .btn{flex:1;text-align:center}
+.g-again{background:var(--red)} .g-good{background:var(--p)} .g-easy{background:var(--blue)}
+.play{background:none;border:1.5px solid var(--p);color:var(--p);border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;flex:none}
+.wordcard{border-bottom:1px solid var(--line);padding:11px 0}
+.wordcard:last-child{border:none}
+.wordcard .w{font-size:18px;font-weight:700}
+.wordcard .m{color:var(--p);font-size:14.5px;margin-left:8px}
+.ex{font-size:13.5px;color:var(--sub);margin-top:3px}
+.banner{background:var(--amber-soft);color:var(--amber);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:12px}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.stat{background:var(--bg);border-radius:10px;padding:10px 6px;text-align:center}
+.stat .n{font-size:20px;font-weight:800}
+.stat .l{font-size:11.5px;color:var(--sub)}
+select,input[type=number]{font-family:inherit;font-size:14px;padding:6px 9px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.chap{cursor:pointer;padding:11px 4px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:14.5px}
+.slist{border-top:1px solid var(--line)}
+.sitem{padding:10px 4px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.sitem .tx{flex:1}
+.sitem .ma{font-size:15.5px;font-weight:600}
+.sitem .zc{font-size:13px;color:var(--sub)}
+.center{text-align:center}
+.hidden{display:none!important}
+footer{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:5}
+footer button{flex:1;background:none;border:none;padding:11px 4px;font-size:12.5px;color:var(--sub);cursor:pointer;font-family:inherit}
+footer button.on{color:var(--p);font-weight:700}
+.cw{cursor:pointer;border-bottom:1px dotted var(--sub)}
+.cw:hover,.cw:active{background:var(--blue-soft);border-radius:3px}
+.sheet-mask{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-radius:16px 16px 0 0;padding:18px 18px 30px;z-index:21;max-height:72vh;overflow:auto;border-top:1px solid var(--line);max-width:760px;margin:0 auto}
+.sheet h3{font-size:21px;display:inline}
+.whit{color:var(--p);font-weight:700}
+.wmiss{color:var(--red);font-weight:700;border-bottom:2px solid var(--red)}
+.scorebig{font-size:36px;font-weight:800}
+.mic{background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:15px;cursor:pointer;font-family:inherit}
+.mic.listening{animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.5}}
+.wbitem{border-bottom:1px solid var(--line);padding:10px 0;display:flex;gap:10px;align-items:center}
+.wbitem .w{font-size:17px;font-weight:700}
+.wbitem .g{color:var(--p);font-size:13.5px}
+.errn{font-size:11.5px;background:var(--red-soft);color:var(--red);border-radius:5px;padding:1px 7px}
+.okn{font-size:11.5px;background:var(--p-soft);color:var(--p);border-radius:5px;padding:1px 7px}
+.done-icon{font-size:52px}
+.pill{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:3px 10px;color:var(--sub);cursor:pointer}
+.pill.on{background:var(--p);color:#fff;border-color:var(--p)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>🌺 GrapeW专项学习-马来语900句</h1><div class="meta" id="hdrMeta"></div></div>
+    <div class="row"><span class="timer" id="hdrTimer"></span></div>
+  </header>
+  <div id="voiceBanner" class="banner hidden"></div>
+  <div id="view"></div>
+</div>
+<footer>
+  <button data-nav="home" class="on">🏠 今日</button>
+  <button data-nav="browse">📖 全书</button>
+  <button data-nav="wordbook">📒 单词本</button>
+  <button data-nav="stats">📊 统计</button>
+  <button data-nav="settings">⚙️ 设置</button>
+</footer>
+<div id="sheetWrap" class="hidden"><div class="sheet-mask" onclick="closeSheet()"></div><div class="sheet" id="sheetBody"></div></div>
+
+<script>
+const SENTENCES = [{"id":1,"malay":"satu","chinese":"一","chapterName":"第一章·数字"},{"id":2,"malay":"dua","chinese":"二","chapterName":"第一章·数字"},{"id":3,"malay":"tiga","chinese":"三","chapterName":"第一章·数字"},{"id":4,"malay":"empat","chinese":"四","chapterName":"第一章·数字"},{"id":5,"malay":"lima","chinese":"五","chapterName":"第一章·数字"},{"id":6,"malay":"enam","chinese":"六","chapterName":"第一章·数字"},{"id":7,"malay":"tujuh","chinese":"七","chapterName":"第一章·数字"},{"id":8,"malay":"lapan","chinese":"八","chapterName":"第一章·数字"},{"id":9,"malay":"sembilan","chinese":"九","chapterName":"第一章·数字"},{"id":10,"malay":"sepuluh","chinese":"十","chapterName":"第一章·数字"},{"id":11,"malay":"sebelas","chinese":"十一","chapterName":"第一章·数字"},{"id":12,"malay":"dua puluh","chinese":"二十","chapterName":"第一章·数字"},{"id":13,"malay":"dua puluh satu","chinese":"二十一","chapterName":"第一章·数字"},{"id":14,"malay":"ratus","chinese":"百","chapterName":"第一章·数字"},{"id":15,"malay":"ribu","chinese":"千","chapterName":"第一章·数字"},{"id":16,"malay":"sepuluh ribu","chinese":"万（一万）","chapterName":"第一章·数字"},{"id":17,"malay":"seratus ribu","chinese":"十万","chapterName":"第一章·数字"},{"id":18,"malay":"juta","chinese":"百万","chapterName":"第一章·数字"},{"id":19,"malay":"sepuluh juta","chinese":"千万","chapterName":"第一章·数字"},{"id":20,"malay":"seratus juta","chinese":"亿（一亿）","chapterName":"第一章·数字"},{"id":21,"malay":"bilion","chinese":"十亿","chapterName":"第一章·数字"},{"id":22,"malay":"kelmarin","chinese":"前天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":23,"malay":"semalam","chinese":"昨天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":24,"malay":"hari ini","chinese":"今天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":25,"malay":"esok","chinese":"明天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":26,"malay":"lusa","chinese":"后天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":27,"malay":"tulat","chinese":"大后天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":28,"malay":"tahun","chinese":"年","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":29,"malay":"bulan","chinese":"月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":30,"malay":"jam","chinese":"时","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":31,"malay":"minit","chinese":"分","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":32,"malay":"saat","chinese":"秒","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":33,"malay":"Isnin","chinese":"星期一","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":34,"malay":"Selasa","chinese":"星期二","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":35,"malay":"Rabu","chinese":"星期三","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":36,"malay":"Khamis","chinese":"星期四","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":37,"malay":"Jumaat","chinese":"星期五","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":38,"malay":"Sabtu","chinese":"星期六","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":39,"malay":"Ahad","chinese":"星期日","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":40,"malay":"Januari","chinese":"1月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":41,"malay":"Februari","chinese":"2月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":42,"malay":"Mac","chinese":"3月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":43,"malay":"April","chinese":"4月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":44,"malay":"Mei","chinese":"5月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":45,"malay":"Jun","chinese":"6月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":46,"malay":"Julai","chinese":"7月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":47,"malay":"Ogos","chinese":"8月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":48,"malay":"September","chinese":"9月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":49,"malay":"Oktober","chinese":"10月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":50,"malay":"November","chinese":"11月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":51,"malay":"Disember","chinese":"12月","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":52,"malay":"Pukul berapa sekarang?","chinese":"现在几点？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":53,"malay":"Hari ini hari apa?","chinese":"今天是几月几日？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":54,"malay":"Bilakah Encik ada masa lapang?","chinese":"您什么时间有空？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":55,"malay":"Saya ada masa lapang pada hujung minggu ini.","chinese":"我这周末有空。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":56,"malay":"Esok bertolak pada pukul berapa?","chinese":"明天几点出发？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":57,"malay":"Kita pulang pada pukul lima petang esok.","chinese":"咱们明天下午五点返程。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":58,"malay":"Adakah masa kerja mereka dari pukul sembilan pagi hingga pukul lima petang?","chinese":"他们的上班时间是从早上九点到下午五点吗？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":59,"malay":"Boleh tak kita berjumpa pada hari Khamis pukul enam petang?","chinese":"请问星期四晚上六点见面方便吗？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":60,"malay":"Tolong saya menempah tiket hari Ahad ini.","chinese":"请帮我定这周日的票。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":61,"malay":"Esok saya ada mesyuarat.","chinese":"明天我有个会议。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":62,"malay":"Saya akan pulang ke China pada hujung bulan Ogos.","chinese":"8月底我要回中国了。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":63,"malay":"cerah ceria","chinese":"晴天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":64,"malay":"hari redup","chinese":"阴天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":65,"malay":"hari hujan","chinese":"雨天","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":66,"malay":"Di Malaysia ada dua musim, musim kemarau dan musim hujan.","chinese":"马来西亚有两个季节，旱季和雨季。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":67,"malay":"Di China ada empat musim, iaitu musim bunga, musim panas, musim gugur dan musim sejuk.","chinese":"中国有四个季节，即春季、夏季、秋季和冬季。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":68,"malay":"Musim apa yang paling kamu suka?","chinese":"你最喜欢哪个季节？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":69,"malay":"Saya suka musim gugur.","chinese":"我喜欢秋季。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":70,"malay":"Bulan Oktober hingga Mac tahun belakang ialah musim hujan, amat seronok.","chinese":"10月至次年3月是雨季，很凉快。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":71,"malay":"Bulan April hingga September ialah musim kemarau, amat panas.","chinese":"4月至9月是旱季，很热。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":72,"malay":"Musim apa paling sesuai untuk menyelam?","chinese":"哪个季节最适合潜水？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":73,"malay":"Musim kemarau paling sesuai untuk melancong.","chinese":"旱季最适合出游。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":74,"malay":"Saya amat suka iklim sini.","chinese":"我很喜欢这里的气候。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":75,"malay":"Hari terlalu panas sehingga saya hampir menjadi cecair.","chinese":"太阳好大，快把我晒化了。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":76,"malay":"Semalam terlalu panas!","chinese":"昨天太热了！","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":77,"malay":"Cuaca hari ini amat nyaman!","chinese":"今天的天气很凉爽，舒服极了。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":78,"malay":"Baru-baru ini selalu hujan.","chinese":"最近都是下雨。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":79,"malay":"Saya tidak suka hari hujan, tak mudah untuk keluar.","chinese":"我不喜欢下雨天，出行不方便。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":80,"malay":"Oleh sebab hujan lebat, penerbangan hari ini dibatalkan.","chinese":"因为暴雨，今天的航班取消了。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":81,"malay":"Perjalanan kita diubah kerana banjir.","chinese":"因为洪水，我们的行程改期了。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":82,"malay":"Kita sudah boleh bertolak kerana hujan dah henti.","chinese":"雨停了，咱们出发吧。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":83,"malay":"Bagaimanakah cuaca esok?","chinese":"明天天气怎么样？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":84,"malay":"Cuaca hari ini baik!","chinese":"天气真好！","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":85,"malay":"Berdasarkan ramalan cuaca, suhu esok amat tinggi, berhati-hati untuk mengelakkan sinaran matahari.","chinese":"天气预报说明天是高温天气，要注意预防中暑。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":86,"malay":"Suhu sekarang berapa?","chinese":"现在气温多少摄氏度？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":87,"malay":"Suhu paling rendah esok ialah dua puluh darjah selsius.","chinese":"明天最低温度20摄氏度。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":88,"malay":"Akan hujan ke?","chinese":"是不是准备下雨了？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":89,"malay":"merah","chinese":"红色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":90,"malay":"oren","chinese":"橙色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":91,"malay":"kuning","chinese":"黄色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":92,"malay":"hijau","chinese":"绿色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":93,"malay":"biru","chinese":"蓝色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":94,"malay":"ungu","chinese":"紫色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":95,"malay":"merah jambu","chinese":"粉色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":96,"malay":"hitam","chinese":"黑色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":97,"malay":"putih","chinese":"白色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":98,"malay":"kelabu","chinese":"灰色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":99,"malay":"berwarna-warni","chinese":"五颜六色","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":100,"malay":"manis","chinese":"甜","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":101,"malay":"masam","chinese":"酸","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":102,"malay":"pahit","chinese":"苦","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":103,"malay":"pedas","chinese":"辣","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":104,"malay":"masin","chinese":"咸","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":105,"malay":"Sila ambilkan saya skirt merah itu.","chinese":"请给我那条红色的裙子。","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":106,"malay":"Ada warna lain tak pakaian tradisional ini?","chinese":"这套传统服装还有其他颜色吗？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":107,"malay":"Ringgit Malaysia","chinese":"林吉特","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":108,"malay":"dolar","chinese":"美元","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":109,"malay":"yuan","chinese":"人民币","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":110,"malay":"Seratus yuan sama dengan berapa ringgit?","chinese":"一百元人民币相当于多少林吉特？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":111,"malay":"Satu dolar boleh tukar berapa ringgit?","chinese":"一美元可以兑换多少林吉特？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":112,"malay":"gram","chinese":"克","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":113,"malay":"kilogram","chinese":"千克","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":114,"malay":"tan","chinese":"吨","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":115,"malay":"milimeter","chinese":"毫米","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":116,"malay":"sentimeter","chinese":"厘米","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":117,"malay":"meter","chinese":"米","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":118,"malay":"kilometer","chinese":"千米","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":119,"malay":"Tumpang tanya, berapa beratnya buah-buahan ini?","chinese":"请问，这些水果大概多重？","chapterName":"第一章·基本用语(时间/天气/颜色/货币/计量)"},{"id":120,"malay":"Encik, saya nak beli sekilogram manggis.","chinese":"老板，我想买1千克山竹。","chapterName":"第一章·重要节日"},{"id":121,"malay":"Berapa tingginya peti ini?","chinese":"这个盒子有多高？","chapterName":"第一章·重要节日"},{"id":122,"malay":"Ada apa-apa perayaan penting tak baru-baru ini?","chinese":"近期有什么重要节日吗？","chapterName":"第一章·重要节日"},{"id":123,"malay":"Bilakah mulanya bulan puasa?","chinese":"斋月什么时候开始？","chapterName":"第一章·重要节日"},{"id":124,"malay":"Hari Raya Puasa","chinese":"开斋节（伊斯兰历10月1日）","chapterName":"第一章·重要节日"},{"id":125,"malay":"Hari Raya Korban","chinese":"古尔邦节（伊斯兰历12月10日）","chapterName":"第一章·重要节日"},{"id":126,"malay":"Hari Raya Krismas","chinese":"圣诞节（公历12月25日）","chapterName":"第一章·重要节日"},{"id":127,"malay":"tahun baru","chinese":"元旦（公历1月1日）","chapterName":"第一章·重要节日"},{"id":128,"malay":"Tahun Baharu Cina","chinese":"春节（农历正月初一）","chapterName":"第一章·重要节日"},{"id":129,"malay":"Apa khabar!","chinese":"您好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":130,"malay":"Helo semua!","chinese":"大家好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":131,"malay":"Selamat pagi!","chinese":"早上好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":132,"malay":"Selamat tengah hari!","chinese":"中午好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":133,"malay":"Selamat petang!","chinese":"下午好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":134,"malay":"Selamat malam!","chinese":"晚上好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":135,"malay":"Sudah lama tak jumpa.","chinese":"好久不见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":136,"malay":"Selamat datang!","chinese":"欢迎光临！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":137,"malay":"Selamat hari raya!","chinese":"节日快乐！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":138,"malay":"Kamu nampak ceria!","chinese":"你的气色真好！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":139,"malay":"Bagaimanakah keadaan awak baru-baru ini?","chinese":"你最近怎么样？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":140,"malay":"Bagaimanakah hari ini?","chinese":"今天开心吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":141,"malay":"Sibuk tak baru-baru ini?","chinese":"近来忙吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":142,"malay":"Bagaimanakah dengan perjalanan anda?","chinese":"路上顺利吧？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":143,"malay":"Terima kasih, semuanya amat baik.","chinese":"谢谢，我们路上很顺利。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":144,"malay":"Sudah makan tak?","chinese":"你吃饭了吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":145,"malay":"Sudah makan.","chinese":"我吃过了。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":146,"malay":"Belum makan.","chinese":"我还没吃饭。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":147,"malay":"Perlu tunjukkan pasport tak?","chinese":"需要出示护照吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":148,"malay":"Apakah kod Wi-Fi?","chinese":"Wi-Fi 密码多少？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":149,"malay":"Bolehkah merokok di sini?","chinese":"这里可以吸烟吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":150,"malay":"Bolehkah ambil gambar di sini?","chinese":"这里可以拍照吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":151,"malay":"Boleh tak tolong ambilkan gambar?","chinese":"可以帮忙拍照吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":152,"malay":"Tandas di mana?","chinese":"卫生间在什么位置？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":153,"malay":"Tumpang tanya, di mana boleh mengecas?","chinese":"请问哪里可以充电？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":154,"malay":"Perlu beli tiket tak untuk kanak-kanak?","chinese":"儿童需要买票吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":155,"malay":"Boleh tak carikan saya seorang penterjemah?","chinese":"能给我安排一位翻译吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":156,"malay":"Bayar di mana?","chinese":"在哪里结账？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":157,"malay":"Murah sikit boleh tak?","chinese":"请问有优惠吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":158,"malay":"Ada diskaun tak?","chinese":"可以打折吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":159,"malay":"Berapakah cajnya?","chinese":"怎么收费？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":160,"malay":"Jumlahnya berapa?","chinese":"一共多少钱？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":161,"malay":"Boleh tak bagi saya duit kecil?","chinese":"能替我换些零钱吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":162,"malay":"Boleh tak saya bayar dengan RMB?","chinese":"我可以用人民币支付吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":163,"malay":"Boleh guna kredit kad tak di sini?","chinese":"这里能用信用卡吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":164,"malay":"Boleh bayar secara elektronik tak?","chinese":"可以用手机支付吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":165,"malay":"Boleh tak bagi saya baucar?","chinese":"可以给我开一张发票吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":166,"malay":"Ini tip untuk kamu.","chinese":"这是给你的小费。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":167,"malay":"Helo, nama saya Li Hua.","chinese":"你好，我叫李华。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":168,"malay":"Siapakah nama Encik?","chinese":"请问您叫什么名字？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":169,"malay":"Amat gembira kerana dapat berkenalan dengan Encik.","chinese":"认识您很高兴。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":170,"malay":"Kami pernah berjumpa di Kuala Lumpur.","chinese":"我们曾在吉隆坡见过一面。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":171,"malay":"Amat gembira kerana dapat berjumpa lagi dengan Encik.","chinese":"很高兴又见到您！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":172,"malay":"Saya nak memperkenalkan seorang kawan kepada Encik.","chinese":"我给您介绍一位朋友。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":173,"malay":"Berapakah umur kamu tahun ini?","chinese":"你今年多少岁了？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":174,"malay":"Umur saya dua puluh tujuh tahun.","chinese":"我今年27岁。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":175,"malay":"Izinkan saya perkenalkan hadirin di sini.","chinese":"我来介绍一下。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":176,"malay":"Ini isteri saya.","chinese":"这是我的妻子。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":177,"malay":"Dia kawan suami saya.","chinese":"他是我丈夫的朋友。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":178,"malay":"Izinkan saya perkenalkan diri sendiri.","chinese":"请允许我自我介绍。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":179,"malay":"Nama saya Han Meimei, saya orang China.","chinese":"我叫韩梅梅，是中国人。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":180,"malay":"Helo! Saya bekerja di syarikat pelancongan.","chinese":"您好！我在旅游公司工作。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":181,"malay":"Ini ketua saya.","chinese":"这位是我的领导。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":182,"malay":"Mereka kawan sepejabat saya.","chinese":"他们是我的同事。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":183,"malay":"Tumpang tanya, ini Encik Lim dari Pulau Pinang ke?","chinese":"请问您是从槟城来的林先生吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":184,"malay":"Ini kawan saya, namanya Ali.","chinese":"这是我的同伴，他叫阿里。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":185,"malay":"Ini hadiah yang saya bawa.","chinese":"这是我的一点心意。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":186,"malay":"Terima kasih banyak.","chinese":"十分感谢。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":187,"malay":"Ini pen untuk kamu.","chinese":"这支笔送给你。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":188,"malay":"Ini hadiah hari jadi untuk kamu.","chinese":"这是送给你的生日礼物。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":189,"malay":"Kek yang sedap ini disediakan untuk kamu.","chinese":"这美味的蛋糕是为你准备的。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":190,"malay":"Ini hadiah yang saya pilih untuk kamu.","chinese":"这是我特意为你挑选的礼物。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":191,"malay":"Ini bunga untuk kamu, suka tak?","chinese":"为你买了束花，喜欢吗？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":192,"malay":"Terima kasih kerana bagi saya hadiah, saya amat suka.","chinese":"谢谢你的礼物，我很喜欢。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":193,"malay":"Hadiah apa yang lebih sesuai jika nak menziarahi kawan Melayu?","chinese":"送礼物给马来朋友，什么礼物比较合适？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":194,"malay":"Kain batik yang Encik bagi cantik sekali, saya amat suka!","chinese":"您送的蜡染布真漂亮，我非常喜欢！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":195,"malay":"Kopi putih ialah hadiah yang amat disukai oleh kawan-kawan berbangsa asing.","chinese":"白咖啡是外国朋友很喜欢的礼物。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":196,"malay":"Cubalah kuih istimewa kampung kami.","chinese":"请尝尝我们村子的特色糕点。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":197,"malay":"Ini cawan tembikar Ni Xing Guangxi.","chinese":"这是广西特产的瓷杯，送给你。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":198,"malay":"Ini ceongsam China, memang cantik jika dipakai.","chinese":"这件中国旗袍真好看，穿上很漂亮。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":199,"malay":"Ini teh Pu Er yang terkenal di provinsi Yun Nan, cubalah.","chinese":"这是云南的普洱茶，您尝一尝。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":200,"malay":"Boneka panda ini untuk kamu sebagai cenderamata.","chinese":"这个熊猫玩偶送给你做纪念。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":201,"malay":"Tali Simpulan China ini adalah untuk Encik, semoga kehidupan Encik berbahagia.","chinese":"中国结送给您，祝您日子红红火火。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":202,"malay":"Lukisan pemandangan Gui Lin ini adalah untuk Encik, selamat datang ke Gui Lin bila ada masa lapang.","chinese":"这幅桂林山水画送给您，欢迎有空来游览。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":203,"malay":"Sutera Hang Zhou amat terkenal, ini selendang sutera yang dipilih khas untuk Encik.","chinese":"杭州丝绸很有名，我特意为您挑选了一条丝巾。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":204,"malay":"Jaga diri baik-baik!","chinese":"保重！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":205,"malay":"Jumpa esok.","chinese":"明天见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":206,"malay":"Jumpa lagi.","chinese":"再见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":207,"malay":"Jumpa minggu depan.","chinese":"下周见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":208,"malay":"Jumpa malam nanti.","chinese":"今晚见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":209,"malay":"Jumpa nanti.","chinese":"待会儿见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":210,"malay":"Jumpa lagi kawan-kawan!","chinese":"朋友们，再见！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":211,"malay":"Jumpa lagi.","chinese":"后会有期。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":212,"malay":"Selamat berjaya!","chinese":"祝你事业成功！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":213,"malay":"Selamat jalan!","chinese":"一路平安！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":214,"malay":"Saya doakan yang terbaik untuk anda!","chinese":"祝你一切顺利！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":215,"malay":"Selamat datang pada bila-bila masa saja.","chinese":"随时欢迎你。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":216,"malay":"Jemput datang jika ada masa lapang.","chinese":"欢迎有空常来。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":217,"malay":"Harap kita akan berjumpa lagi.","chinese":"期待下次见面。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":218,"malay":"Harap dapat berjumpa lagi dengan kamu tidak lama.","chinese":"希望很快能再见到你。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":219,"malay":"Kami akan rindu akan kamu.","chinese":"你走后，我们会想你的。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":220,"malay":"Saya minta diri dulu.","chinese":"您忙吧，我先告辞了。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":221,"malay":"Jumpa lagi tahun depan.","chinese":"我走了，明年再见。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":222,"malay":"Jaga diri baik-baik, jangan lupa berhubung dengan saya.","chinese":"保重，别忘了跟我联系。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":223,"malay":"Selamat jalan, datang lagi jika ada masa lapang.","chinese":"慢走，有空再来。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":224,"malay":"Terima kasih kerana datang.","chinese":"非常感谢你能在百忙之中来看我。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":225,"malay":"Amat sedih kerana akan berpisah.","chinese":"要分开了，真舍不得。","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":226,"malay":"Gembiranya!","chinese":"好开心！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":227,"malay":"Gembiranya hari ini!","chinese":"今天真开心！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":228,"malay":"Mengapakah awak nampak sangat gembira?","chinese":"什么事让你这么开心？","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":229,"malay":"Tidak pernah rasa gembira macam ini!","chinese":"我从未如此开心过！","chapterName":"第二章·交流(问候/介绍/赠物/告别/心情)"},{"id":230,"malay":"Amat dinanti-nantikan!","chinese":"我很期待！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":231,"malay":"Amat mengagumkan!","chinese":"太意外了！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":232,"malay":"Itulah yang buat saya rasa senang hati.","chinese":"那我就放心了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":233,"malay":"Ribuan terima kasih!","chinese":"非常感谢！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":234,"malay":"Memang perlu diraikan!","chinese":"值得庆祝！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":235,"malay":"Aku cinta padamu!","chinese":"我爱你！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":236,"malay":"Kami semua suka kamu.","chinese":"我们都很喜欢你。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":237,"malay":"Kami memang rasa gembira untuk kamu!","chinese":"真为你感到高兴！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":238,"malay":"Saya rasa sesal.","chinese":"我很后悔。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":239,"malay":"Kasihannya!","chinese":"真可惜！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":240,"malay":"Gemuruhnya!","chinese":"好紧张！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":241,"malay":"Saya rasa sangat marah!","chinese":"我很生气！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":242,"malay":"Minta maaf.","chinese":"非常抱歉。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":243,"malay":"Bosannya!","chinese":"好无聊啊！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":244,"malay":"Saya rindukan kampung halaman.","chinese":"我想家了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":245,"malay":"Takutnya!","chinese":"太可怕了！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":246,"malay":"Sedihnya.","chinese":"有点郁闷。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":247,"malay":"Susah hatinya.","chinese":"好伤心啊。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":248,"malay":"Susahlah.","chinese":"这下麻烦了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":249,"malay":"Agak susah hati.","chinese":"有一点难过。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":250,"malay":"Saya terkejut.","chinese":"我被吓到了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":251,"malay":"Memang kecewa.","chinese":"太让人失望了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":252,"malay":"Susah diterimalah!","chinese":"真让人难以置信！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":253,"malay":"Letihnya!","chinese":"太累了。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":254,"malay":"Boleh tak jika macam ini?","chinese":"这样可以吗？","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":255,"malay":"Boleh.","chinese":"可以。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":256,"malay":"Tak boleh.","chinese":"不可以。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":257,"malay":"OK, tak ada masalah.","chinese":"好的，没有问题。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":258,"malay":"Bagus!","chinese":"很好！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":259,"malay":"Hebat!","chinese":"太棒了！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":260,"malay":"Saya tak setuju.","chinese":"我不同意。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":261,"malay":"Saya setuju.","chinese":"我赞成。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":262,"malay":"Saya bantah.","chinese":"我反对。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":263,"malay":"Tak apa, terima kasih.","chinese":"不用了，谢谢。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":264,"malay":"Biar saya fikir dulu.","chinese":"让我考虑一下。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":265,"malay":"Apa pendapat kamu?","chinese":"你觉得怎么样？","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":266,"malay":"Saya rasa ini kurang baik.","chinese":"我认为这样不妥。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":267,"malay":"Saya rasa ini memang baik.","chinese":"我觉得这样很好。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":268,"malay":"Tak boleh macam ini.","chinese":"不能这样。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":269,"malay":"Tak ada masalah.","chinese":"没问题。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":270,"malay":"Terima kasih kerana menjamu kami.","chinese":"谢谢您的款待/宴请。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":271,"malay":"Ribuan terima kasih kerana datang hantar kami di lapangan terbang.","chinese":"非常感谢您来机场接送我们。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":272,"malay":"Persidangan esok diadakan di mana?","chinese":"会议明天在哪里举行？","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":273,"malay":"Bilakah persidangan akan diadakan?","chinese":"会议的时间定在什么时候？","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":274,"malay":"Rancangan ini perlu dibincang lagi.","chinese":"这个环节，还需要进一步讨论。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":275,"malay":"Boleh tak saya nak tanya soalan?","chinese":"我可以提个问题吗？","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":276,"malay":"Minta maaf, saya ada panggilan.","chinese":"抱歉，我先接个电话。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":277,"malay":"Minta maaf, ini perlu minta izin ketua.","chinese":"对不起，这个需要请示领导。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":278,"malay":"Program ini perlu melalui prosedur permohonan.","chinese":"这个项目还在走申报程序。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":279,"malay":"Saya akan buat laporan kepada syarikat sekejap lagi.","chinese":"我一会儿向公司汇报情况。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":280,"malay":"Rancangan ini boleh dianggap sempurna.","chinese":"这个方案考虑得很周全。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":281,"malay":"Ini bukan untuk kepentingan kedua-dua pihak.","chinese":"这样不符合双方的利益。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":282,"malay":"Saya faham kesusahan pihak kamu.","chinese":"我很理解贵公司的难处。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":283,"malay":"Pihak kami bersetuju dengan cara ini.","chinese":"我方很赞成这个做法。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":284,"malay":"Kita boleh berusaha sedaya upaya untuk selesaikan masalah ini.","chinese":"我们一起想办法解决。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":285,"malay":"Baik!","chinese":"成交！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":286,"malay":"Terima kasih atas sokongan penuh pihak kamu!","chinese":"感谢贵公司的大力支持！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":287,"malay":"Terima kasih atas sumbangan pihak kamu terhadap projek ini!","chinese":"感谢贵公司为这个项目付出的努力！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":288,"malay":"Selamat bekerjasama!","chinese":"合作愉快！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":289,"malay":"Kerjasama kali ini adalah saling menguntungkan!","chinese":"这真是一次互利共赢的合作！","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":290,"malay":"Ini permulaan yang baik untuk kerjasama kita pada masa depan.","chinese":"这为我们未来的合作打下了很好的基础。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":291,"malay":"Harap kita akan bekerjasama lagi.","chinese":"期待我们再一次合作。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":292,"malay":"Harap Encik datang ke syarikat kami jika ada masa lapang untuk beri tunjuk ajar.","chinese":"期待您抽空到我们公司参观指导。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":293,"malay":"Sila duduk.","chinese":"您请坐。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":294,"malay":"Jemput makan.","chinese":"请用餐。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":295,"malay":"Sila cuba.","chinese":"您尝尝这个。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":296,"malay":"Makan lebih banyak.","chinese":"您多吃一些。","chapterName":"第二章·态度/商务/聚餐礼仪"},{"id":297,"malay":"Mari saya tolong tambah sikit lagi.","chinese":"我再给您添点。","chapterName":"第三章·出行(问路/飞机)"},{"id":298,"malay":"Jangan malu, makanlah apa-apa yang kamu suka.","chinese":"大家不要客气，随便吃。","chapterName":"第三章·出行(问路/飞机)"},{"id":299,"malay":"Sesuai tak lauk ini?","chinese":"这菜合您胃口吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":300,"malay":"Jemput minum teh.","chinese":"请喝茶。","chapterName":"第三章·出行(问路/飞机)"},{"id":301,"malay":"Mari saya tolong tambah sup untuk Encik.","chinese":"我替您盛汤。","chapterName":"第三章·出行(问路/飞机)"},{"id":302,"malay":"Ini tisu.","chinese":"这是餐巾纸。","chapterName":"第三章·出行(问路/飞机)"},{"id":303,"malay":"Kami boleh guna penyepit itu.","chinese":"咱们用公筷吧。","chapterName":"第三章·出行(问路/飞机)"},{"id":304,"malay":"Terima kasih atas jamuan Encik.","chinese":"感谢您的款待。","chapterName":"第三章·出行(问路/飞机)"},{"id":305,"malay":"Suara kami boleh perlahan sikit supaya tak ganggu orang lain.","chinese":"我们尽量小声一些，以免影响到其他人。","chapterName":"第三章·出行(问路/飞机)"},{"id":306,"malay":"Tumpang tanya, mana kawasan merokok?","chinese":"你好，请问吸烟区在什么位置？","chapterName":"第三章·出行(问路/飞机)"},{"id":307,"malay":"Orang Melayu tak boleh makan minum pada masa siang pada bulan puasa.","chinese":"把斋期间马来人白天是不能进食的。","chapterName":"第三章·出行(问路/飞机)"},{"id":308,"malay":"Jangan buat bising ketika makan.","chinese":"吃饭的时候最好不要发出声音。","chapterName":"第三章·出行(问路/飞机)"},{"id":309,"malay":"Kami perlu bayar cukai ketika makan di restoran.","chinese":"在餐馆用餐是需要缴税的。","chapterName":"第三章·出行(问路/飞机)"},{"id":310,"malay":"Boleh tak bawa saya ke sana?","chinese":"可以帮忙带一下路吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":311,"malay":"Ikut jalan ini ke?","chinese":"顺着这条路一直往前走吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":312,"malay":"Ke arah ini ke?","chinese":"是朝这个方向走吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":313,"malay":"Ke belah kiri ke?","chinese":"请问是往左边走吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":314,"malay":"Betulkah kami ke sebelah kanan?","chinese":"我们往右边走，对吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":315,"malay":"Tumpang tanya, bagaimana kami boleh sampai ke stesen metro yang paling dekat?","chinese":"请问最近的地铁站怎么走？","chapterName":"第三章·出行(问路/飞机)"},{"id":316,"malay":"Berapa bayarannya jika naik kereta api ringan?","chinese":"请问轻轨怎么收费？","chapterName":"第三章·出行(问路/飞机)"},{"id":317,"malay":"Tumpang tanya, laluan bas ini ke mana?","chinese":"请问，这辆巴士开往哪里？","chapterName":"第三章·出行(问路/飞机)"},{"id":318,"malay":"Tumpang tanya, kamu ada jadual waktu metro tak?","chinese":"请问，你有地铁时刻表吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":319,"malay":"Metro yang paling awal di stesen ini akan berlepas pada pukul berapa?","chinese":"这个站最早一班地铁几点发车？","chapterName":"第三章·出行(问路/飞机)"},{"id":320,"malay":"Metro yang terakhir di stesen ini akan berlepas pada pukul berapa?","chinese":"这个站最后一班地铁几点发车？","chapterName":"第三章·出行(问路/飞机)"},{"id":321,"malay":"Kereta api ini akan terus tiba ke?","chinese":"这辆火车是直达的吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":322,"malay":"Berapa minit akan datangnya kereta api?","chinese":"还要多久火车才会到？","chapterName":"第三章·出行(问路/飞机)"},{"id":323,"malay":"Sila ingatkan saya ketika saya tiba.","chinese":"到站的时候请提醒我一下。","chapterName":"第三章·出行(问路/飞机)"},{"id":324,"malay":"Bagaimanakah cara pergi ke stesen kereta api?","chinese":"到火车站怎么走？","chapterName":"第三章·出行(问路/飞机)"},{"id":325,"malay":"Berapakah lama nak sampai di sana?","chinese":"去那里大概需要多长时间？","chapterName":"第三章·出行(问路/飞机)"},{"id":326,"malay":"Apakah nama jalan ini?","chinese":"这是什么街？","chapterName":"第三章·出行(问路/飞机)"},{"id":327,"malay":"Tumpang tanya, dekat sini ada kedai yang jual peta tak?","chinese":"请问附近有卖地图的店吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":328,"malay":"Boleh tak bagitahu saya apa yang ditulis pada papan tanda itu?","chinese":"能告诉我指示牌上写的是什么吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":329,"malay":"Di manakah letaknya taman itu?","chinese":"这附近的公园在什么位置？","chapterName":"第三章·出行(问路/飞机)"},{"id":330,"malay":"Saya nak ke lapangan terbang.","chinese":"我要去机场。","chapterName":"第三章·出行(问路/飞机)"},{"id":331,"malay":"Di manakah tempat untuk ambil tiket yang ditempah dalam talian?","chinese":"在哪里可以取网上订的机票？","chapterName":"第三章·出行(问路/飞机)"},{"id":332,"malay":"Saya nak satu tiket sehala.","chinese":"我要买一张单程票。","chapterName":"第三章·出行(问路/飞机)"},{"id":333,"malay":"Tiket sehala dan tiket pergi balik, mana lebih murah?","chinese":"单程票和往返票，哪个更便宜？","chapterName":"第三章·出行(问路/飞机)"},{"id":334,"malay":"Saya nak menempah dua tiket kelas ekonomi.","chinese":"我要预订两张经济舱机票。","chapterName":"第三章·出行(问路/飞机)"},{"id":335,"malay":"Sila tukarkan saya tiket kelas perniagaan.","chinese":"请帮我换成商务舱机票。","chapterName":"第三章·出行(问路/飞机)"},{"id":336,"malay":"Adakah penerbangan yang lebih awal?","chinese":"有更早的航班吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":337,"malay":"Saya nak tukar ke penerbangan yang paling awal dari ini.","chinese":"我想改签到最近一个时段的航班。","chapterName":"第三章·出行(问路/飞机)"},{"id":338,"malay":"Berapakah harga pertukarannya?","chinese":"改签费是多少？","chapterName":"第三章·出行(问路/飞机)"},{"id":339,"malay":"Kat mana perlepasan dalam negara?","chinese":"国内出发大厅在哪里？","chapterName":"第三章·出行(问路/飞机)"},{"id":340,"malay":"Kat mana ketibaan antarabangsa?","chinese":"国际到达大厅在哪里？","chapterName":"第三章·出行(问路/飞机)"},{"id":341,"malay":"Bilakah penerbangan ini akan tiba?","chinese":"这趟航班什么时间抵达？","chapterName":"第三章·出行(问路/飞机)"},{"id":342,"malay":"Adakah contoh borang pengakuan kastam?","chinese":"海关申报表有模板吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":343,"malay":"Kat mana laluan VIP?","chinese":"VIP通道在什么位置？","chapterName":"第三章·出行(问路/飞机)"},{"id":344,"malay":"Adakah terdapat tempat tukar wang di lapangan terbang?","chinese":"机场有货币兑换处吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":345,"malay":"Ini tiket dan pasport saya.","chinese":"这是我的机票和护照。","chapterName":"第三章·出行(问路/飞机)"},{"id":346,"malay":"Ini surat laporan kesihatan saya.","chinese":"这是我的健康证明。","chapterName":"第三章·出行(问路/飞机)"},{"id":347,"malay":"Ini visa pelancongan.","chinese":"这是旅游签证。","chapterName":"第三章·出行(问路/飞机)"},{"id":348,"malay":"Saya tak ada apa-apa yang perlu dilaporkan.","chinese":"我没有需要报关的物品。","chapterName":"第三章·出行(问路/飞机)"},{"id":349,"malay":"Ini pas masuk saya.","chinese":"这是登机牌。","chapterName":"第三章·出行(问路/飞机)"},{"id":350,"malay":"Adakah terdapat tempat simpan bagasi di lapangan terbang?","chinese":"请问机场有行李寄存服务吗？","chapterName":"第三章·出行(问路/飞机)"},{"id":351,"malay":"Tumpang tanya, di mana kaunter daftar masuk?","chinese":"请问行李托运柜台在哪里？","chapterName":"第三章·出行(问路/飞机)"},{"id":352,"malay":"Berapakah berat bagasi yang boleh saya daftar secara percuma?","chinese":"能免费托运多少公斤行李呢？","chapterName":"第三章·出行(问路/飞机)"},{"id":353,"malay":"Berapakah bayarannya jika bagasi berlebihan berat?","chinese":"如果行李超重怎么收费？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":354,"malay":"Penerbangan ini akan tiba tepat pada waktunya?","chinese":"飞机准点到达吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":355,"malay":"Penerbangan itu kelewatan ke?","chinese":"是飞机延误了吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":356,"malay":"Ada tak makanan percuma dalam penerbangan ini?","chinese":"这趟航班有免费的餐食吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":357,"malay":"Boleh tak bagi saya satu lagi bungkusan makanan?","chinese":"可以多给我一份盒饭吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":358,"malay":"Boleh tak saya tukar tempat duduk dengan Encik?","chinese":"我想跟您换座位，可以吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":359,"malay":"Saya rasa sedikit pening kepala, tolong ambilkan saya segelas air suam.","chinese":"我有点晕机，请给我一杯温开水。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":360,"malay":"Tolong ambilkan saya bantal dan selimut.","chinese":"请帮我拿枕头和薄毯。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":361,"malay":"Di manakah tempat untuk mengambil bagasi yang didaftarkan?","chinese":"到哪里领取托运的行李？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":362,"malay":"Bas lapangan terbang yang paling lewat itu pukul berapa?","chinese":"机场接驳巴士最晚那趟是几点？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":363,"malay":"Di mana tempat ambil tiket?","chinese":"取票口在哪里？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":364,"malay":"Tumpang tanya, kat mana boleh beli tiket?","chinese":"请问在哪里买票？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":365,"malay":"Saya nak beli tiket biasa.","chinese":"我买一张普通座位票。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":366,"malay":"Ada diskaun tak untuk tiket pelajar?","chinese":"请问学生购票有优惠吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":367,"malay":"Kat mana pintu masuk?","chinese":"请问进站口在哪个方向？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":368,"malay":"Kat mana kedai runcit stesen?","chinese":"车站的便捷超市在哪里呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":369,"malay":"Tumpang tanya, kat mana bilik menyusu?","chinese":"请问母婴哺乳室在哪里呀？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":370,"malay":"Tumpang tanya, kat mana tempat menunggu?","chinese":"请问在哪里候车呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":371,"malay":"Kat mana laluan pemeriksaan keselamatan?","chinese":"安检点在哪里？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":372,"malay":"Perlu pasport tak ketika semak tiket?","chinese":"请问检票需要用护照吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":373,"malay":"Perlu tukar laluan tak?","chinese":"需要换乘吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":374,"malay":"Kat mana hendak pergi untuk pemindahan yang mudah?","chinese":"便捷换乘往哪里走？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":375,"malay":"Bagaimanakah cara pergi ke pusat bandar dari stesen kereta api?","chinese":"从火车站到市中心有哪些交通方式？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":376,"malay":"Boleh tak tolong saya panggil teksi?","chinese":"请帮我叫一辆出租车可以吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":377,"malay":"Kat mana mudah untuk panggil teksi?","chinese":"什么位置方便打车呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":378,"malay":"Kat sini mudah tak panggil teksi?","chinese":"这个地方可以打到车吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":379,"malay":"Bolehkah tempah teksi pada larut malam?","chinese":"凌晨还能打到车吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":380,"malay":"Berapanya caj permulaan teksi?","chinese":"请问出租车的起步价是多少呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":381,"malay":"Adakah tambang teksi dikira mengikut jarak perjalanan?","chinese":"出租车是按路程计价吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":382,"malay":"Pakai meter atau bayar dengan harga tetap?","chinese":"坐出租车是打表计费还是与司机议价？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":383,"malay":"Bagaimanakah cara membuat bayaran teksi?","chinese":"出租车费用支持哪些支付方式呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":384,"malay":"Adakah bayaran tol dibayar oleh penumpang?","chinese":"走高速过路费是乘客支付吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":385,"malay":"Berapakah harga sewa teksi sepanjang hari?","chinese":"租出租车一天的费用是多少？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":386,"malay":"Kereta Encik boleh pergi ke bandar lain tak?","chinese":"您的车可以去外地吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":387,"malay":"Encik boleh ikut arahan pemanduan ini.","chinese":"您可以跟着导航走。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":388,"malay":"Sila hantar saya ke stesen kereta api.","chinese":"请送我到火车站。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":389,"malay":"Tolong cepat sedikit.","chinese":"请快点。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":390,"malay":"Saya tergesa-gesa, sila ambil kelajuan tinggi.","chinese":"我赶时间，请走高速。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":391,"malay":"Sila memandu perlahan sikit, saya nak tengok pemandangan jalan.","chinese":"请开慢点，我想看街景。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":392,"malay":"Berapa lama lagi akan sampai di destinasi?","chinese":"到目的地还要多久？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":393,"malay":"Boleh tak singgah sekejap di pasar raya depan?","chinese":"可以在前面超市门口停一下吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":394,"malay":"Saya nak ambil kawan saya di persimpangan depan.","chinese":"我想在前面路口接一个朋友。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":395,"malay":"Encik boleh berhenti di tepi jalan.","chinese":"师傅，你靠边停就好了。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":396,"malay":"Boleh tak bagi saya nombor telefon, saya masih nak naik kereta kamu esok.","chinese":"方便留个电话吗？我明天还想继续坐你的车。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":397,"malay":"Saya ada lesen memandu antarabangsa, boleh tak kita sewa kereta untuk melancong dengan memandu sendiri?","chinese":"我有国际驾照，可以租车自驾游吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":398,"malay":"Di mana boleh sewa kereta?","chinese":"请问哪里可以租车？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":399,"malay":"Apakah yang perlu disediakan untuk sewa kereta?","chinese":"租车需要什么手续？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":400,"malay":"Hanya daftar nombor pasport ke?","chinese":"登记护照号码就可以了吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":401,"malay":"Perlu tak bayar wang deposit?","chinese":"要不要交押金呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":402,"malay":"Boleh tak cuba memandu sebelum sewa?","chinese":"租之前可以先试开一下吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":403,"malay":"Berapakah kos yang termasuk dalam sewaan kereta?","chinese":"租车包含哪些费用？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":404,"malay":"Kereta apa yang lebih sesuai untuk tujuh orang?","chinese":"七个人租哪种车合适呢？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":405,"malay":"Berapakah harganya jika sewa kereta tujuh tempat duduk untuk sehari?","chinese":"租七座的车，一天租金多少？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":406,"malay":"Ada lagikah kereta untuk disewa?","chinese":"还有车子可以出租吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":407,"malay":"Kereta di kedai itu kereta elektrik atau kereta petrol?","chinese":"车行的车子是电车还是油车？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":408,"malay":"Helo, saya nak sewa kereta dengan audio yang baik.","chinese":"你好，我想租一辆音响好的车。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":409,"malay":"Saya nak sewa kereta yang agak baru.","chinese":"我想租新一点的车。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":410,"malay":"Ada diskaun tak jika nak sewa seminggu?","chinese":"租车一周，可以优惠点吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":411,"malay":"Bagaimanakah caranya untuk pulangkan kereta?","chinese":"到期怎样还车？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":412,"malay":"Boleh kembalikan kereta di bandar lain tak?","chinese":"可以在别的城市租车点还车吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":413,"malay":"Ada tak bas persiaran untuk disewa?","chinese":"有旅游大巴租用吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":414,"malay":"Kami perlu seorang pemandu.","chinese":"我们需要一位司机。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":415,"malay":"Di manakah stesen minyak yang paling dekat?","chinese":"请问最近的加油站在哪里？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":416,"malay":"Jika ada masalah, dengan siapakah saya nak berhubung?","chinese":"如果车子出问题，我需要联系谁？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":417,"malay":"Di manakah tempat untuk mendapatkan tiket penalti?","chinese":"哪里可以处理交通罚单？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":418,"malay":"Mana jeti yang boleh naik kapal?","chinese":"登船码头在哪？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":419,"malay":"Ada berapa laluan?","chinese":"请问有几条航线？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":420,"malay":"Berapakah harga satu tiket?","chinese":"船票多少钱一张？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":421,"malay":"Apakah dokumen pengenalan yang diperlukan?","chinese":"乘坐轮船需要出示什么证件吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":422,"malay":"Di manakah kaunter semakan tiket daftar masuk?","chinese":"请问在哪里检票？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":423,"malay":"Ada makanan layan diri tak di atas kapal?","chinese":"轮船上有自助餐吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":424,"malay":"Boleh makan tak di atas kapal?","chinese":"在船上可以用餐吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":425,"malay":"Ada ubat mabuk laut tak?","chinese":"你有晕船药吗？","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":426,"malay":"Sila beri saya jaket keselamatan.","chinese":"请给我一件救生衣。","chapterName":"第三章·出行(火车/出租车/租车/船)"},{"id":427,"malay":"Ada bilik kosong tak?","chinese":"还有空房吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":428,"malay":"Ada berapa jenis bilik?","chinese":"请问有什么房型？","chapterName":"第四章·住宿(预订/入住)"},{"id":429,"malay":"Berapakah harga bilik standard sehari?","chinese":"标间每天多少钱？","chapterName":"第四章·住宿(预订/入住)"},{"id":430,"malay":"Boleh tak saya berhenti berlanggan pada bila-bila saja selepas tempah?","chinese":"预订后可以随时退吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":431,"malay":"Perlu tak bayar wang deposit dulu?","chinese":"需要预付订金吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":432,"malay":"Ada bilik yang murah tak?","chinese":"有便宜一些的房间吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":433,"malay":"Perlu tak tempah dulu untuk bilik pemandangan laut?","chinese":"海景房需要提前预订吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":434,"malay":"Saya nak tempah satu bilik bujang.","chinese":"我想预订一个单人间。","chapterName":"第四章·住宿(预订/入住)"},{"id":435,"malay":"Saya akan sampai pada petang lapan belas hari bulan Jun, sila berikan saya satu bilik set keluarga.","chinese":"我在6月18日下午到店，请给我留一个家庭套房。","chapterName":"第四章·住宿(预订/入住)"},{"id":436,"malay":"Saya nak satu bilik yang jauh dari jalan raya.","chinese":"我要一间不靠近马路的房间。","chapterName":"第四章·住宿(预订/入住)"},{"id":437,"malay":"Saya tak nak bilik yang dekat dengan lif.","chinese":"我不想要电梯口附近的房间。","chapterName":"第四章·住宿(预订/入住)"},{"id":438,"malay":"Saya nak menginap selama tiga malam.","chinese":"我要住三个晚上。","chapterName":"第四章·住宿(预订/入住)"},{"id":439,"malay":"Ada alat pendingin hawa tak di dalam bilik?","chinese":"房间有空调吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":440,"malay":"Adakah perkhidmatan ambil penumpang secara percuma di lapangan terbang?","chinese":"有免费接机服务吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":441,"malay":"Ada sarapan tak?","chinese":"提供早餐吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":442,"malay":"Ada bilik cuci pakaian layan diri tak?","chinese":"有自助洗衣房吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":443,"malay":"Biasanya pukul berapa perlu mendaftar luar?","chinese":"退房一般是几点？","chapterName":"第四章·住宿(预订/入住)"},{"id":444,"malay":"Bilakah boleh mendaftar masuk?","chinese":"几点后可以入住？","chapterName":"第四章·住宿(预订/入住)"},{"id":445,"malay":"Jauh tak hotel dari tepi laut?","chinese":"酒店离海边远吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":446,"malay":"Ada kolam berenang tak di hotel?","chinese":"酒店内有泳池吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":447,"malay":"Ada bilik yang boleh lihat Menara Berkembar tak?","chinese":"有能看到双子塔的房间吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":448,"malay":"Saya nak mendaftar masuk.","chinese":"我要办理入住手续。","chapterName":"第四章·住宿(预订/入住)"},{"id":449,"malay":"Nama yang saya guna untuk tempah bilik ialah Han Meimei.","chinese":"我是用韩梅梅名字预订的房间。","chapterName":"第四章·住宿(预订/入住)"},{"id":450,"malay":"Perlu bayar wang deposit tak?","chinese":"需要押金吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":451,"malay":"Boleh tak naik taraf bilik saya?","chinese":"我的客房能否免费升级？","chapterName":"第四章·住宿(预订/入住)"},{"id":452,"malay":"Boleh tak tukar bilik?","chinese":"可以换个房间吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":453,"malay":"Saya nak tukar bilik yang ada tingkap.","chinese":"我想换一间有窗的房间。","chapterName":"第四章·住宿(预订/入住)"},{"id":454,"malay":"Di tingkat berapa bilik saya?","chinese":"我的房间在几楼？","chapterName":"第四章·住宿(预订/入住)"},{"id":455,"malay":"Boleh tak bagi saya satu lagi kad bilik?","chinese":"可以多给我一张房卡吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":456,"malay":"Boleh tak bawa saya ke bilik?","chinese":"可以带我去房间吗？","chapterName":"第四章·住宿(预订/入住)"},{"id":457,"malay":"Di manakah letaknya tangga dan pintu keluar sekiranya berlaku kecemasan?","chinese":"紧急出口和楼梯在哪里？","chapterName":"第四章·住宿(预订/入住)"},{"id":458,"malay":"Bilakah waktu sarapan?","chinese":"早餐几点开始供应？","chapterName":"第四章·住宿(预订/入住)"},{"id":459,"malay":"Di manakah kantin hotel?","chinese":"酒店餐厅在哪儿？","chapterName":"第四章·住宿(预订/入住)"},{"id":460,"malay":"Di manakah lif bilik tamu?","chinese":"客房电梯在哪儿？","chapterName":"第四章·住宿(预订/入住)"},{"id":461,"malay":"Tolong saya ambil bagasi.","chinese":"请帮我拿一下行李。","chapterName":"第四章·住宿(预订/入住)"},{"id":462,"malay":"Saya lupa bawa kad bilik, tolong saya buka pintu.","chinese":"我忘了带房卡，请帮我开一下房门。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":463,"malay":"Tolong saya tekan butang lif.","chinese":"请帮我刷一下电梯。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":464,"malay":"Tak ada air minuman, tolong ambil dua botol dan hantar ke bilik.","chinese":"没有饮用水了，请帮我送两瓶到房间。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":465,"malay":"Makanan dalam peti sejuk perlu dibayar tak?","chinese":"冰箱里的食物是收费的吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":466,"malay":"Telefon dalam bilik boleh diguna?","chinese":"房间电话可以使用吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":467,"malay":"Telefon tetap dalam bilik boleh membuat panggilan antarabangsa?","chinese":"房间里的座机可以打国际电话吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":468,"malay":"Sila kejutkan saya pada pukul tujuh pagi.","chinese":"请明早七点叫醒我。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":469,"malay":"Tolong seterika sut ini.","chinese":"请帮忙熨一下这套西服。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":470,"malay":"Tolong lap kasut kulit ini.","chinese":"请帮忙擦一下皮鞋。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":471,"malay":"Tolong bersihkan bilik.","chinese":"请打扫一下房间。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":472,"malay":"Bilik saya tak perlu dibersihkan hari ini.","chinese":"我的房间今天不用打扫。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":473,"malay":"Televisyen tak dapat berfungsi.","chinese":"电视看不了了。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":474,"malay":"Bekalan elektrik bilik terputus.","chinese":"房间停电了。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":475,"malay":"Alat kawalan jauh penghawa dingin rosak.","chinese":"空调遥控器坏了。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":476,"malay":"Tak ada air panas, saya tak dapat mandi.","chinese":"房间没有热水了，我无法洗澡。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":477,"malay":"Tandas tersumbat.","chinese":"下水道堵了。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":478,"malay":"Tandas rosak, bolehkah tukar bilik?","chinese":"马桶坏了，能换个房间吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":479,"malay":"Kepala paip rosak, sila baiki secepat mungkin.","chinese":"淋浴龙头坏了，请尽快维修。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":480,"malay":"Adakah perkhidmatan cuci pakaian?","chinese":"有洗衣服务吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":481,"malay":"Sila bagi saya lagi satu bantal.","chinese":"请再给我一个枕头。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":482,"malay":"Boleh tak tambah katil?","chinese":"请问可以加床吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":483,"malay":"Kain cadar agak kotor, tolong tukar ya.","chinese":"床单有点脏，请帮我换一下。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":484,"malay":"Bilik di sebelah terlalu bising, boleh tak minta mereka perlahankan suara?","chinese":"隔壁房间太吵了，可以请他们小声一点吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":485,"malay":"Ada pisau buah? Saya nak potong buah-buahan.","chinese":"请问有水果刀吗？我想切一下水果。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":486,"malay":"Ada peti sejuk tak?","chinese":"请问有冰箱吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":487,"malay":"Saya perlu ubat penghalau nyamuk.","chinese":"我的房间需要一个驱蚊器。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":488,"malay":"Di hotel ada tak pengecas berkongsi untuk disewa?","chinese":"酒店有共享充电器出租吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":489,"malay":"Di hotel ada tak plag penukar?","chinese":"酒店有插头转换器吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":490,"malay":"Di hotel ada tak aktiviti yang istimewa?","chinese":"酒店有什么特色活动吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":491,"malay":"Saya nak tempah perkhidmatan SPA hotel.","chinese":"我想预约酒店的SPA服务。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":492,"malay":"Sila hantar sepinggan nasi goreng ke bilik saya.","chinese":"请送一份炒饭到我房间。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":493,"malay":"Saya nak sambung dua malam penginapan.","chinese":"我想续住两晚。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":494,"malay":"Saya nak mendaftar keluar.","chinese":"我要退房。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":495,"malay":"Ada apa-apa masalah lagi tak?","chinese":"客房检查没问题了吧？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":496,"malay":"Sila bagi balik wang deposit saya.","chinese":"麻烦退回我的押金。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":497,"malay":"Sudah siap tak?","chinese":"手续办好了吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":498,"malay":"Tolong masukkan bagasi saya ke dalam kereta.","chinese":"请帮我把行李搬到车上。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":499,"malay":"Terima kasih atas perkhidmatan anda.","chinese":"感谢你们周到的服务。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":500,"malay":"Ada tak bilik untuk disewa?","chinese":"请问有公寓出租吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":501,"malay":"Sewaan dikira ikut hari ke? Kadar sewaan sebulan berapa?","chinese":"房租按天计算吗？月租多少钱？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":502,"malay":"Sewaan bilik termasuk tak bayaran air elektrik dan internet?","chinese":"房租包括水电费、网费吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":503,"malay":"Berapakah bilangan hari paling minimum untuk menyewa?","chinese":"多少天起租？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":504,"malay":"Adakah bilik suit?","chinese":"是套间吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":505,"malay":"Saya nak sewa bilik yang lebih besar.","chinese":"我想租一间更大一点儿的。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":506,"malay":"Bilakah boleh daftar masuk?","chinese":"什么时候可以入住？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":507,"malay":"Ada diskaun tak jika sewa masa panjang?","chinese":"租的时间长，有优惠吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":508,"malay":"Ada balkoni tak dalam bilik ini?","chinese":"这间房有阳台吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":509,"malay":"Boleh tak guna dapur untuk memasak?","chinese":"可以使用厨房做饭吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":510,"malay":"Ada bilik airkah dalam bilik ini?","chinese":"房子带卫生间吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":511,"malay":"Selamat tak di sekeliling bilik ini?","chinese":"房子附近治安怎么样？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":512,"malay":"Masih ada orang lain tak di bilik ini?","chinese":"公寓现在还有其他旅客在住吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":513,"malay":"Ada tak perabot dan alat elektrik yang diperlukan?","chinese":"家具家电都齐全吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":514,"malay":"Di sekitar sini ada parkir kereta tak?","chinese":"附近可以停车吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":515,"malay":"Saya nak bilik yang ada satu bilik tidur dan satu ruang depan.","chinese":"我要一房一厅的小公寓。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":516,"malay":"Saya nak bilik yang baru sikit.","chinese":"房子不要太旧。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":517,"malay":"Di sini agak bising.","chinese":"这附近有点吵。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":518,"malay":"Tingkat ini sedikit gelap.","chinese":"这楼层采光不太好。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":519,"malay":"Bilik ini kurang sesuai.","chinese":"这房子不太合适。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":520,"malay":"Boleh tak saya semak kontrak?","chinese":"可以看一下合同吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":521,"malay":"Ada tak wang denda jika janji tak ditunaikan?","chinese":"请问有违约金吗？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":522,"malay":"Apakah bahan yang diperlukan untuk orang asing jika ingin menyewa bilik?","chinese":"外国人租房需要哪些材料？","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":523,"malay":"Saya nak sambung menyewa.","chinese":"我想续租。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":524,"malay":"Saya tak nak sambung menyewa.","chinese":"我不打算继续租了。","chapterName":"第四章·住宿(入住服务/退房/短租)"},{"id":525,"malay":"Ada tak restoran Cina sekitar sini?","chinese":"请问附近有中餐厅吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":526,"malay":"Makanan di restoran itu sedap, mari kita cuba.","chinese":"那家餐厅的味道不错，我们一起去尝尝吧。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":527,"malay":"Saya nak makan makanan Melayu untuk makan malam.","chinese":"晚餐我想吃点马来特色的菜。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":528,"malay":"Perlu tempah tak jika nak datang makan?","chinese":"请问用餐需要预约吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":529,"malay":"Bilakah kedai akan dibuka?","chinese":"请问你们店里几点营业？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":530,"malay":"Saya nak tempah tempat makan pada pukul tujuh malam hari Sabtu.","chinese":"我想预定一个周六晚上七点的座位。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":531,"malay":"Ada lagi tak tempat?","chinese":"现在还有位置吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":532,"malay":"Saya nak tempah satu bilik pemandangan laut.","chinese":"我想要预定一个海景包间。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":533,"malay":"Dalam bilik ada televisyen tak?","chinese":"包间有电视吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":534,"malay":"Dalam bilik ada alat pendingin hawa tak?","chinese":"包间有空调吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":535,"malay":"Paling rendah berapa harganya jika tempah bilik persendirian?","chinese":"请问包间设有最低消费吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":536,"malay":"Boleh muat berapa orang?","chinese":"包间可以坐多少人？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":537,"malay":"Kami ada enam orang untuk datang makan.","chinese":"我们一共有六人用餐。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":538,"malay":"Saya dah tempah tempat duduk untuk empat orang.","chinese":"我预定了一张四人桌。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":539,"malay":"Tolong batalkan tempat duduk yang saya tempah dulu.","chinese":"请帮我取消之前预定的座位。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":540,"malay":"Apakah jenis pakaian yang perlu kami pakai jika makan di restoran ini?","chinese":"请问在你们餐厅用餐有着装要求吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":541,"malay":"Adakah perlu menunggu?","chinese":"现在需要等位吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":542,"malay":"Boleh tak kami pesan dahulu?","chinese":"请问可以提前点餐吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":543,"malay":"Helo, saya nak pesan sekarang.","chinese":"你好，我现在要点餐。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":544,"malay":"Tolong bagi saya menu, terima kasih.","chinese":"请给我一份菜单，谢谢。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":545,"malay":"Ada tak menu dalam bahasa Cina?","chinese":"请问有中文菜单吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":546,"malay":"Saya nak pesan sebentar lagi.","chinese":"我稍后点餐。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":547,"malay":"Adakah semua ini makanan tradisional Melayu?","chinese":"这些都是马来传统菜肴吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":548,"malay":"Sila cadangkan makanan istimewa di restoran ini.","chinese":"请推荐一下你们这儿的招牌菜。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":549,"malay":"Tiada makanan yang saya perlu elakkan.","chinese":"我没有忌口的食物。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":550,"malay":"Saya suka makan sayur, tak suka makan daging.","chinese":"我喜欢吃蔬菜，不喜欢吃肉。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":551,"malay":"Saya mempunyai alahan terhadap makanan laut, ada tak cadangan lain?","chinese":"我对海鲜过敏，有没有其他的菜可以推荐？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":552,"malay":"Apa bezanya makanan ini dan makanan itu?","chinese":"这道菜和那道菜有什么区别呢？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":553,"malay":"Makanan mana lebih sesuai untuk orang tua?","chinese":"哪道菜更适合老人？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":554,"malay":"Saya nak ini dan itu.","chinese":"我要这个，还有那个。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":555,"malay":"Saya nak makanan yang sama dengan mereka.","chinese":"点一份和他们一样的菜。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":556,"malay":"Ada tak makanan yang tawar?","chinese":"有没有清淡些的菜？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":557,"malay":"Ini saja.","chinese":"暂时就这些菜了。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":558,"malay":"Sila hidangkan makanan ini dulu, saya akan panggil kamu jika perlu.","chinese":"先上这些菜，有需要我再叫你们。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":559,"malay":"Kami lapar, bolehkah cepat hidangkan makanan.","chinese":"我们饿了，麻烦尽快上菜。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":560,"malay":"Berapa lama boleh hidangkan makanan?","chinese":"请问多久能上菜？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":561,"malay":"Boleh hidangkan makanan sekarang.","chinese":"现在可以上菜了。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":562,"malay":"Saya tak biasa dengan kicap manis, sila tukar kicap masin.","chinese":"我吃不惯甜酱油，麻烦帮我换成咸酱油。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":563,"malay":"Pedas tak masakan ini?","chinese":"请问这道菜辣吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":564,"malay":"Jangan pakai cili.","chinese":"请不要加辣椒。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":565,"malay":"Jangan pakai gula.","chinese":"请不要放糖。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":566,"malay":"Ada tak set kanak-kanak?","chinese":"有儿童套餐吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":567,"malay":"Ada tak set untuk dua orang?","chinese":"这里有没有双人套餐？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":568,"malay":"Buah-buahan itu percuma ke?","chinese":"饭后水果是免费的吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":569,"malay":"Ada tak manisan?","chinese":"有甜品吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":570,"malay":"Sila cadangkan kami minuman yang sedap.","chinese":"请给我们推荐一些好喝的饮料吧。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":571,"malay":"Saya nak segelas tairu.","chinese":"我要一杯酸奶。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":572,"malay":"Saya nak jus, bungkus ya.","chinese":"我要一杯果汁，打包带走。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":573,"malay":"Sila tambah satu kerusi.","chinese":"帮忙加一个位置。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":574,"malay":"Boleh tak bagi kami satu kerusi kanak-kanak?","chinese":"可以给我们一个儿童座椅吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":575,"malay":"Boleh tak nak tukar tempat duduk?","chinese":"可以换个座位吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":576,"malay":"Adakah semua masakan kami telah dihidangkan?","chinese":"我们的菜上齐了吗？","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":577,"malay":"Sila bagi saya satu set peralatan makanan lagi.","chinese":"请多给我一套餐具。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":578,"malay":"Tolong tukarkan saya peralatan makanan yang bersih.","chinese":"请帮我换一套干净的餐具。","chapterName":"第五章·餐饮(订餐/点餐)"},{"id":579,"malay":"Tolong tukarkan saya satu sudu.","chinese":"请帮我换个勺子。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":580,"malay":"Bagi saya semangkuk nasi.","chinese":"来一碗米饭。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":581,"malay":"Saya nak segelas air panas.","chinese":"我想要一杯热水。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":582,"malay":"Sila tambah sup.","chinese":"麻烦加点汤。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":583,"malay":"Sila bagi saya tisu.","chinese":"请给我一包餐巾纸。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":584,"malay":"Saya tinggalkan tempat duduk saya sekejap, jangan kemaskan meja dahulu ya.","chinese":"我暂时离开座位，请不要把菜收走。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":585,"malay":"Tumpang tanya, minuman ini boleh diisi lagi?","chinese":"请问饮品可以续杯吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":586,"malay":"Minta maaf, ini bukan masakan yang saya pesan.","chinese":"不好意思，这不是我点的菜。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":587,"malay":"Helo, saya nak tambah masakan.","chinese":"服务员，我想加个菜。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":588,"malay":"Ada tak sarung tangan sekali guna?","chinese":"有一次性手套吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":589,"malay":"Saya nak sos cili.","chinese":"我想要一些辣椒酱。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":590,"malay":"Tolong bersihkan meja kami.","chinese":"请帮我们收拾一下桌面。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":591,"malay":"Tolong bungkuskannya untuk saya.","chinese":"请帮我打包。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":592,"malay":"Kedai ini bersih dan luas.","chinese":"这家店又干净又宽敞。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":593,"malay":"Restoran ini popular dalam talian, sekitarnya baik.","chinese":"这家餐厅是网红餐厅，环境很好。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":594,"malay":"Restoran ini amat terkenal, ramai orang datang makan di sini.","chinese":"这家餐厅很有名，很多人来这里吃。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":595,"malay":"Masakan ini nampak sedap, saya ambil gambar dulu.","chinese":"这道菜看起来很美味，我拍个照。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":596,"malay":"Perisa masakan ini memang sedap!","chinese":"这道菜味道可真不错！","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":597,"malay":"Di dalamnya ditambah banyak rempah, wanginya!","chinese":"这里面放了很多香料，真香！","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":598,"malay":"Ada masakan yang ditambah kari.","chinese":"有些菜添加了咖喱。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":599,"malay":"Saya kurang suka perisa ini.","chinese":"我不太喜欢这个味道。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":600,"malay":"Banyaknya makanan ini, saya sendiri tak boleh habis makan.","chinese":"这道菜的分量非常大，一个人吃不完。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":601,"malay":"Hidangan kedai ini memang cukup untuk sekeluarga makan.","chinese":"这里的菜分量很足，适合一家人来吃。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":602,"malay":"Jenis masakan di kedai ini sikit saja.","chinese":"这家店的菜品太少了。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":603,"malay":"Harga makanan ini agak mahal.","chinese":"这些菜的价格有点贵。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":604,"malay":"Makanan di restoran ini sedap dan murah.","chinese":"这个餐厅的菜品物美价廉。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":605,"malay":"Perisa masakan di kedai ini biasa saja.","chinese":"这家店的菜味道一般。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":606,"malay":"Saya rasa makanan Melayu di kedai ini memang asli.","chinese":"我觉得这家店的马来菜很正宗。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":607,"malay":"Masakan ini manis.","chinese":"这道菜很甜。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":608,"malay":"Memang sesuai dengan orang yang suka makan makanan yang manis.","chinese":"非常适合爱吃甜食的朋友。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":609,"malay":"Perisa masakan ini sedikit pelik.","chinese":"这道菜味道有点怪。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":610,"malay":"Saya nak cuba masakan nyonya.","chinese":"我想尝一尝娘惹菜。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":611,"malay":"Di mana ada jual nasi goreng kampung yang asli?","chinese":"哪里可以吃到正宗的乡村炒饭？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":612,"malay":"Masakan ini memang sedap, saya nak pesan satu lagi.","chinese":"这道菜太好吃了，我要再点一份。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":613,"malay":"Sayur dan daging kedai ini tak cukup segar.","chinese":"这家店的蔬菜和肉类都不够新鲜。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":614,"malay":"Boleh tak saya bagi nasihat terhadap masakan kamu?","chinese":"我可以对你们的菜品提个意见吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":615,"malay":"Helo, saya nak bayar!","chinese":"服务员，买单！","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":616,"malay":"Di manakah kaunter?","chinese":"收银台在哪里？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":617,"malay":"Saya bayar dengan wang tunai.","chinese":"我用现金结账。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":618,"malay":"Sila bagi saya wang kecil.","chinese":"请给我找零钱。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":619,"malay":"Ada tak makanan istimewa yang boleh dibawa pulang di kedai ini?","chinese":"你们店里有没有可以带回去的特产？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":620,"malay":"Memang senang hati makan di sini.","chinese":"今天用餐很愉快。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":621,"malay":"Saya nak dua kotak bungkusan.","chinese":"我想要两个打包盒。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":622,"malay":"Terima kasih atas layanan yang baik.","chinese":"感谢你们的热情服务。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":623,"malay":"Makanan ringan di mana lebih popular?","chinese":"请问哪里的小吃比较受欢迎？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":624,"malay":"Apakah perisanya?","chinese":"这是什么味道的？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":625,"malay":"Sila hidangkan saya beberapa cucuk sate.","chinese":"请给我来一份烤肉串。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":626,"malay":"Boleh tak tolong saya potong dan bungkus?","chinese":"这个，能不能帮我切好打包？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":627,"malay":"Cukup, berapakah harganya?","chinese":"我选好了，这些多少钱？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":628,"malay":"rendang","chinese":"仁当","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":629,"malay":"pisang goreng","chinese":"炸香蕉","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":630,"malay":"nasi lemak","chinese":"椰浆饭","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":631,"malay":"sate","chinese":"沙爹烤串","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":632,"malay":"roti canai","chinese":"飞饼","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":633,"malay":"Char kue tiau","chinese":"炒粿条","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":634,"malay":"mi goreng","chinese":"炒面","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":635,"malay":"keropok udang","chinese":"虾片","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":636,"malay":"kuih-muih Melayu","chinese":"马来糕点","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":637,"malay":"nasi sup daging","chinese":"牛肉汤饭","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":638,"malay":"Ini rancangan perjalanan esok, boleh tak?","chinese":"这是明天出行的路线，您看合理吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":639,"malay":"Masa sehari cukup tak untuk melancong ke beberapa tempat menarik ini?","chinese":"游览这几个景点，一天时间够吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":640,"malay":"Ada apa tempat menarik dicadangkan lagi?","chinese":"还有什么可以推荐的景点吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":641,"malay":"Apakah jenis pengangkutan yang lebih murah?","chinese":"请问使用哪种出行交通工具比较划算？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":642,"malay":"Cukuplah kami melancong ke tempat menarik yang paling terkenal.","chinese":"我们游览最有名的几个地方就可以了。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":643,"malay":"Bilakah waktu yang lebih sesuai untuk pergi mendaki gunung esok?","chinese":"明天去爬山，几点出发合适？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":644,"malay":"Kami ingin pergi ke muzium esok, adakah masih menerima pelancong?","chinese":"明天想去博物馆，那里接待游客吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":645,"malay":"Jika nak melancong ke pulau, boleh kembali pada hari sama?","chinese":"上岛游览，能当天返航吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":646,"malay":"Ada acara paragliding tak di puncak gunung?","chinese":"山顶有滑翔伞项目吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":647,"malay":"Saya hanya nak berjalan-jalan di bandar.","chinese":"我只想在市内转转。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":648,"malay":"Di mana boleh naik belon udara?","chinese":"哪个景点有热气球体验？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":649,"malay":"Saya juga nak pergi berjalan-jalan di pasar.","chinese":"我想顺道去当地市场看看。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":650,"malay":"Di sini boleh tengok matahari terbit tak?","chinese":"这里早上可以看日出吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":651,"malay":"Saya nak pergi ke puncak gunung untuk tengok pemandangan malam yang indah.","chinese":"想去山上看美丽的夜景。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":652,"malay":"Saya nak pergi berkhemah di puncak gunung.","chinese":"我想在山上露营。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":653,"malay":"Saya nak menyertai aktiviti perayaan.","chinese":"我想去参加庆祝活动。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":654,"malay":"Apakah pakaian yang sesuai jika nak pergi ke masjid?","chinese":"去清真寺有什么着装要求吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":655,"malay":"Apakah yang perlu dititikberatkan sebelum pergi ke kuil Hindu?","chinese":"去印度庙有什么讲究吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":656,"malay":"Baru-baru ini ada pesta makanan ke?","chinese":"最近是不是有美食品鉴活动？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":657,"malay":"Saya akan hadir majlis berbuka puasa, apa perlu saya sedia?","chinese":"我打算去参加开斋活动，要做什么准备吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":658,"malay":"Tempat menarik itu ada acara snorkeling tak?","chinese":"那个景点有浮潜项目吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":659,"malay":"Kami akan bertolak pada pukul lapan setengah dari lobi hotel.","chinese":"我们早上八点半从酒店大厅出发。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":660,"malay":"Tumpang tanya, di mana boleh beli tiket?","chinese":"请问在哪里买门票？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":661,"malay":"Boleh tak beli tiket dalam talian?","chinese":"可以网上买门票吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":662,"malay":"Tiket Taman Negara berapa harganya?","chinese":"国家公园的门票是多少钱？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":663,"malay":"Adakah ini tiket terusan?","chinese":"这是联票吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":664,"malay":"Helo, saya nak mendaftar rombongan pelancongan.","chinese":"您好，我想报团。","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":665,"malay":"Ada tak diskaun untuk tiket kumpulan?","chinese":"团购门票有优惠吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":666,"malay":"Harga tiket ini termasuk insurans?","chinese":"这个票包含保险吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":667,"malay":"Harga tiket akan menjadi lebih mahalkah pada hujung minggu dan hari cuti?","chinese":"假期票价会调高吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":668,"malay":"Apakah tempat yang harus dilawati di tempat yang menarik ini?","chinese":"景区内有哪些必去的地方？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":669,"malay":"Boleh tak bagi peta tempat menarik dengan percuma?","chinese":"可以赠送景区地图吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":670,"malay":"Ada brosur tak?","chinese":"有宣传手册吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":671,"malay":"Ada tak pemandu yang boleh bercakap dalam Bahasa Cina?","chinese":"有中文导游吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":672,"malay":"Perlu tak simpan beg?","chinese":"需要存包吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":673,"malay":"Di mana tempat simpan beg?","chinese":"存包处在哪里？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":674,"malay":"Boleh tak bawa masuk makanan?","chinese":"可以带食物进去吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":675,"malay":"Berapa lamakah persembahan ini?","chinese":"这场表演大概多长时间？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":676,"malay":"Ada tempat duduk yang dekat dengan pentas?","chinese":"有靠近舞台的座位吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":677,"malay":"Ada tak kuil di puncak gunung?","chinese":"山顶有寺庙吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":678,"malay":"Bolehkah saya bawa balik barang yang saya kutip di kawasan pemandangan?","chinese":"景区里捡的东西，可以带走吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":679,"malay":"Masa yang paling baik untuk tengok matahari terbit dari laut pukul berapa?","chinese":"海上看日出的最佳时间是几点？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":680,"malay":"Di manakah sambutan perayaan Tahun Baru Cina diadakan?","chinese":"春节庆祝活动在哪里举行？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":681,"malay":"Berapa harga tambang untuk naik beca?","chinese":"乘三轮车游览要多少钱？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":682,"malay":"Dekat sini ada tempat sewa kereta untuk memandu sendiri tak?","chinese":"附近有自驾游览车出租吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":683,"malay":"Boleh tak berjalan kaki dari sini?","chinese":"可以从这里步行过去吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":684,"malay":"Ada tak kereta kabel ke atas gunung?","chinese":"有缆车上山吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":685,"malay":"Berapakah harga jika naik bas persiaran?","chinese":"观光车怎么收费？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":686,"malay":"Di manakah tempat untuk menaiki bas persiaran?","chinese":"在哪里乘坐观光车？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":687,"malay":"Ada bas terus tiba tak?","chinese":"有大巴车直达吗？","chapterName":"第五章·餐饮(用餐/结账/小吃)/游览"},{"id":688,"malay":"Berapakah tempoh masa jika berjalan kaki ke puncak gunung?","chinese":"步行到山顶，需要多长时间？","chapterName":"第六章·游览/购物"},{"id":689,"malay":"Berapakah harganya jika nak sewa sebuah bot?","chinese":"包一条船出海怎么收费？","chapterName":"第六章·游览/购物"},{"id":690,"malay":"Berapa caj harga bagi seorang jika ke laut?","chinese":"出海每个人多少钱？","chapterName":"第六章·游览/购物"},{"id":691,"malay":"Tiket kapal ini boleh pergi ke berapa pulau?","chinese":"这张船票可以去几个岛？","chapterName":"第六章·游览/购物"},{"id":692,"malay":"Adakah ini tiket pergi balik?","chinese":"这是往返票吗？","chapterName":"第六章·游览/购物"},{"id":693,"malay":"Di mana pusat pelancong?","chinese":"游客中心在哪里？","chapterName":"第六章·游览/购物"},{"id":694,"malay":"Bilakah dibuka?","chinese":"哪个时间段开放？","chapterName":"第六章·游览/购物"},{"id":695,"malay":"Ada tak restoran di tempat menarik itu?","chinese":"景区内有餐厅吗？","chapterName":"第六章·游览/购物"},{"id":696,"malay":"Bilakah persembahan bermula?","chinese":"几点开始表演？","chapterName":"第六章·游览/购物"},{"id":697,"malay":"Dokumen saya hilang, boleh tak tolong saya cari?","chinese":"我的证件遗失了，可以帮忙找一找吗？","chapterName":"第六章·游览/购物"},{"id":698,"malay":"Perlu buka kasut tak jika masuk?","chinese":"需要脱鞋进去吗？","chapterName":"第六章·游览/购物"},{"id":699,"malay":"Boleh tak tunjukkan kepada saya?","chinese":"可以示范一下吗？","chapterName":"第六章·游览/购物"},{"id":700,"malay":"Berapa lamakah sejarahnya?","chinese":"这个有多少年历史了？","chapterName":"第六章·游览/购物"},{"id":701,"malay":"Mana arah jalan ke bawah gunung?","chinese":"步行下山的路怎么走？","chapterName":"第六章·游览/购物"},{"id":702,"malay":"Adakah paragliding selamat?","chinese":"滑翔安全吗？","chapterName":"第六章·游览/购物"},{"id":703,"malay":"Di manakah bilik tukar pakaian?","chinese":"更衣室在哪里？","chapterName":"第六章·游览/购物"},{"id":704,"malay":"Di manakah boleh sewa kerusi panjang?","chinese":"去哪里租躺椅？","chapterName":"第六章·游览/购物"},{"id":705,"malay":"Apakah jenis sukan air yang ada di sini?","chinese":"这里有什么水上项目？","chapterName":"第六章·游览/购物"},{"id":706,"malay":"Di mana boleh sewa peralatan snorkeling?","chinese":"潜水设备去哪里租？","chapterName":"第六章·游览/购物"},{"id":707,"malay":"Ada tak jurulatih snorkeling?","chinese":"有潜水教练吗？","chapterName":"第六章·游览/购物"},{"id":708,"malay":"Menyewa kapal layar ialah idea yang baik.","chinese":"租游艇出海是个不错的主意。","chapterName":"第六章·游览/购物"},{"id":709,"malay":"Jet ski memang menarik.","chinese":"水上摩托艇很有趣。","chapterName":"第六章·游览/购物"},{"id":710,"malay":"Mari kita pergi tengok pemandangan malam di atas dek!","chinese":"我们到甲板上看夜景吧！","chapterName":"第六章·游览/购物"},{"id":711,"malay":"Di sini ada tempat khas untuk memancing tak?","chinese":"这里有专门的海钓点吗？","chapterName":"第六章·游览/购物"},{"id":712,"malay":"Bolehkah saya membawa pulang hasil tangkapan saya?","chinese":"钓上来的东西可以带走吗？","chapterName":"第六章·游览/购物"},{"id":713,"malay":"Di manakah saya boleh sewa pakaian tradisional untuk ambil gambar?","chinese":"哪里可以租传统服装拍照？","chapterName":"第六章·游览/购物"},{"id":714,"malay":"Boleh tak ambil gambar dengan pelakon?","chinese":"可以和演员拍照吗？","chapterName":"第六章·游览/购物"},{"id":715,"malay":"Minta maaf, saya tidak nampak notis larangan mengambil gambar.","chinese":"对不起，我没看到禁止拍照的提示。","chapterName":"第六章·游览/购物"},{"id":716,"malay":"Hebatnya! Terima kasih!","chinese":"您拍得真好！谢谢！","chapterName":"第六章·游览/购物"},{"id":717,"malay":"Boleh tak saya ambil gambar dengan Encik?","chinese":"可以跟您合个影吗？","chapterName":"第六章·游览/购物"},{"id":718,"malay":"Kamera kamu memang profesional.","chinese":"你的相机好专业！","chapterName":"第六章·游览/购物"},{"id":719,"malay":"Ini gambar yang berharga.","chinese":"这是一张珍贵的合影。","chapterName":"第六章·游览/购物"},{"id":720,"malay":"Boleh tak saya hantar ke Moments?","chinese":"可以发朋友圈吗？","chapterName":"第六章·游览/购物"},{"id":721,"malay":"Menara Berkembar","chinese":"双子塔（吉隆坡）","chapterName":"第六章·游览/购物"},{"id":722,"malay":"Masjid Putra","chinese":"粉红清真寺（布城）","chapterName":"第六章·游览/购物"},{"id":723,"malay":"Batu Caves","chinese":"黑风洞（雪兰莪）","chapterName":"第六章·游览/购物"},{"id":724,"malay":"Genting Highlands","chinese":"云顶高原（雪兰莪）","chapterName":"第六章·游览/购物"},{"id":725,"malay":"Cameron","chinese":"金马伦高原（彭亨）","chapterName":"第六章·游览/购物"},{"id":726,"malay":"Pulau Pangkor","chinese":"邦咯岛（霹雳）","chapterName":"第六章·游览/购物"},{"id":727,"malay":"Stadthuys","chinese":"荷兰红屋（马六甲）","chapterName":"第六章·游览/购物"},{"id":728,"malay":"Masjid Selat Melaka","chinese":"马六甲海峡清真寺（马六甲）","chapterName":"第六章·游览/购物"},{"id":729,"malay":"Rumah Biru: Cheong Fatt Tze Mansion","chinese":"蓝屋：张弼士故居（乔治市）","chapterName":"第六章·游览/购物"},{"id":730,"malay":"Seni Jalanan di George Town, Pulau Pinang","chinese":"槟城乔治市街头艺术","chapterName":"第六章·游览/购物"},{"id":731,"malay":"Chew Jetty","chinese":"姓周桥（乔治市）","chapterName":"第六章·游览/购物"},{"id":732,"malay":"Pulau Langkawi","chinese":"兰卡威岛（吉打）","chapterName":"第六章·游览/购物"},{"id":733,"malay":"Pulau Tioman","chinese":"刁曼岛（彭亨）","chapterName":"第六章·游览/购物"},{"id":734,"malay":"LEGOLAND","chinese":"乐高乐园（柔佛）","chapterName":"第六章·游览/购物"},{"id":735,"malay":"Semporna","chinese":"仙本那（沙巴）","chapterName":"第六章·游览/购物"},{"id":736,"malay":"Di sini ada tak kedai bebas cukai?","chinese":"这里有免税店吗？","chapterName":"第六章·游览/购物"},{"id":737,"malay":"Jalan keluar yang paling dekat di mana?","chinese":"最近的出口怎么走？","chapterName":"第六章·游览/购物"},{"id":738,"malay":"Di manakah kaunter perkhidmatan?","chinese":"服务台在哪里？","chapterName":"第六章·游览/购物"},{"id":739,"malay":"Perlu buat pemeriksaan keselamatan tak sebelum masuk ke pusat beli-belah?","chinese":"进入商场需要安检吗？","chapterName":"第六章·游览/购物"},{"id":740,"malay":"Ada tak panduan membeli-belah?","chinese":"有购物指南吗？","chapterName":"第六章·游览/购物"},{"id":741,"malay":"Saya nak beli sehelai baju.","chinese":"我想买件衣服。","chapterName":"第六章·游览/购物"},{"id":742,"malay":"Dia nak beli sehelai seluar.","chinese":"他想买一条裤子。","chapterName":"第六章·游览/购物"},{"id":743,"malay":"Di sini ada topi matahari dan pakaian renang tak?","chinese":"这里能买到遮阳帽和泳衣吗？","chapterName":"第六章·游览/购物"},{"id":744,"malay":"Tengok-tengok.","chinese":"我随便看看。","chapterName":"第六章·游览/购物"},{"id":745,"malay":"Rekaan ini sesuai dengan saya tak?","chinese":"这个款式适合我吗？","chapterName":"第六章·游览/购物"},{"id":746,"malay":"Boleh tak cadangkan saya beberapa rekaan?","chinese":"可以给我推荐一些款式吗？","chapterName":"第六章·游览/购物"},{"id":747,"malay":"Terlalu mahal.","chinese":"太贵了。","chapterName":"第六章·游览/购物"},{"id":748,"malay":"Ada yang lebih bermutu tinggi?","chinese":"还有质量更好些的吗？","chapterName":"第六章·游览/购物"},{"id":749,"malay":"Ada tak saiz yang besar sikit?","chinese":"这个有大一码的吗？","chapterName":"第六章·游览/购物"},{"id":750,"malay":"Tukar kasut yang kecil sikit.","chinese":"换小一码的鞋。","chapterName":"第六章·游览/购物"},{"id":751,"malay":"Boleh cuba?","chinese":"可以试穿吗？","chapterName":"第六章·游览/购物"},{"id":752,"malay":"Di manakah bilik persalinan?","chinese":"试衣间在哪里？","chapterName":"第六章·游览/购物"},{"id":753,"malay":"Ketat sikit.","chinese":"好像紧了一点。","chapterName":"第六章·游览/购物"},{"id":754,"malay":"Seluar ini terlalu longgar.","chinese":"这条裤子太松了。","chapterName":"第六章·游览/购物"},{"id":755,"malay":"Baik juga.","chinese":"还不错。","chapterName":"第六章·游览/购物"},{"id":756,"malay":"Selesa dipakai.","chinese":"穿起来很舒服。","chapterName":"第六章·游览/购物"},{"id":757,"malay":"Warna ini tak sesuai untuk saya.","chinese":"这个颜色不适合我。","chapterName":"第六章·游览/购物"},{"id":758,"malay":"Saya tak berapa suka.","chinese":"我不喜欢。","chapterName":"第六章·游览/购物"},{"id":759,"malay":"Buah apa ni?","chinese":"这是什么水果？","chapterName":"第六章·游览/购物"},{"id":760,"malay":"Boleh cuba tak?","chinese":"可以免费品尝吗？","chapterName":"第六章·游览/购物"},{"id":761,"malay":"Dah masak ke buah-buahan ini?","chinese":"这些水果成熟了吗？","chapterName":"第六章·游览/购物"},{"id":762,"malay":"Tolong pilih yang manis.","chinese":"帮我挑个甜的。","chapterName":"第六章·游览/购物"},{"id":763,"malay":"Berapa beratnya?","chinese":"这个多重？","chapterName":"第六章·游览/购物"},{"id":764,"malay":"Berapakah harganya satu kilogram?","chinese":"多少钱1千克？","chapterName":"第六章·游览/购物"},{"id":765,"malay":"Hasil dari mana?","chinese":"产地是哪里的？","chapterName":"第六章·游览/购物"},{"id":766,"malay":"Di manakah tarikh pengeluaran dicop?","chinese":"生产日期印在什么位置？","chapterName":"第六章·游览/购物"},{"id":767,"malay":"Berapa lamakah hayat simpanannya?","chinese":"请问保质期多久？","chapterName":"第六章·游览/购物"},{"id":768,"malay":"Ada tak perkhidmatan hantar ke rumah?","chinese":"有送货上门服务吗？","chapterName":"第六章·游览/购物"},{"id":769,"malay":"Saya nak bawa balik beberapa cenderamata.","chinese":"我想带一些纪念品回去。","chapterName":"第六章·游览/购物"},{"id":770,"malay":"Di lapangan terbang ada tak kedai cenderamata?","chinese":"机场有纪念品店吗？","chapterName":"第六章·游览/购物"},{"id":771,"malay":"Cenderamata apa paling popular?","chinese":"哪些纪念品最受欢迎？","chapterName":"第六章·游览/购物"},{"id":772,"malay":"Dekat sini ada kedai jual barangan khas tak?","chinese":"附近有当地特产商店吗？","chapterName":"第六章·游览/购物"},{"id":773,"malay":"Di manakah kedai yang menjual pakaian istimewa sesuatu kaum?","chinese":"哪里有民族服装店？","chapterName":"第六章·游览/购物"},{"id":774,"malay":"Saya nak beli baju kebaya.","chinese":"我想买一套可巴雅。","chapterName":"第六章·游览/购物"},{"id":775,"malay":"Bagaimanakah cara pakai baju sarung ini?","chinese":"这件纱笼裙怎么穿？","chapterName":"第六章·游览/购物"},{"id":776,"malay":"Ini kain batik buatan tangan?","chinese":"这是手工制作的巴迪布吗？","chapterName":"第六章·游览/购物"},{"id":777,"malay":"Saya nak beli sebuah beg anyaman rotan.","chinese":"我想买一个藤条编织的包包。","chapterName":"第六章·游览/购物"},{"id":778,"malay":"Dekat sini ada tak kedai barang kemas?","chinese":"附近有珠宝店吗？","chapterName":"第六章·游览/购物"},{"id":779,"malay":"Barang kemas ini ada sijil pengesahan?","chinese":"这款珠宝有鉴定证书吗？","chapterName":"第六章·游览/购物"},{"id":780,"malay":"Ini perhiasan emas tulen?","chinese":"这是足金首饰吗？","chapterName":"第六章·游览/购物"},{"id":781,"malay":"Saya nak tengok batu jed.","chinese":"我想看一下玉石。","chapterName":"第六章·游览/购物"},{"id":782,"malay":"Saya ingin mencari pemandu pelancong yang tahu tentang batu jed.","chinese":"我想找一个懂玉石的导游一起逛逛。","chapterName":"第六章·游览/购物"},{"id":783,"malay":"Apakah alat yang diperlukan untuk pilih batu jed?","chinese":"挑选玉石需要什么设备吗？","chapterName":"第六章·游览/购物"},{"id":784,"malay":"Dekat sini ada pejabat penilai tak?","chinese":"附近有鉴定处吗？","chapterName":"第六章·游览/购物"},{"id":785,"malay":"Ada tak cincin batu delima di sini?","chinese":"这里有红宝石戒指吗？","chapterName":"第六章·游览/购物"},{"id":786,"malay":"Ini dibuat daripada apa?","chinese":"这是什么材质的？","chapterName":"第六章·游览/购物"},{"id":787,"malay":"Adakah ini diperbuat daripada batu akik?","chinese":"这是用玛瑙做的吗？","chapterName":"第六章·游览/购物"},{"id":788,"malay":"Boleh tak beri saya sebuah kotak untuk menyimpan perhiasan?","chinese":"可以送一个首饰盒吗？","chapterName":"第六章·游览/购物"},{"id":789,"malay":"Boleh tak tolong saya cari gelang tangan yang sesuai untuk orang tua?","chinese":"可以帮我找一款适合老人戴的镯子吗？","chapterName":"第六章·游览/购物"},{"id":790,"malay":"Saya nak beli lukisan.","chinese":"我想买一幅画。","chapterName":"第六章·游览/购物"},{"id":791,"malay":"Ini lukisan yang dilukis tangan?","chinese":"这是手绘的画吗？","chapterName":"第六章·游览/购物"},{"id":792,"malay":"Minyak wangi ini hasil tempatan?","chinese":"这是产自本地的香水吗？","chapterName":"第六章·游览/购物"},{"id":793,"malay":"Boneka ini memang istimewa.","chinese":"这个木偶很有特色。","chapterName":"第六章·游览/购物"},{"id":794,"malay":"Ukiran ini ada yang lebih besar tak?","chinese":"这木雕有大一些的吗？","chapterName":"第六章·游览/购物"},{"id":795,"malay":"Ini diukir dengan kayu jati ke?","chinese":"这是柚木雕刻的吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":796,"malay":"Ini minyak rambut istimewa orang Melayu?","chinese":"这是马来特色护发精油吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":797,"malay":"Ada poskad lain tak?","chinese":"还有其他款式的明信片吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":798,"malay":"Ada tak model Menara Kuala Lumpur?","chinese":"有吉隆坡塔的模型吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":799,"malay":"Di mana ada kedai makanan istimewa Melayu?","chinese":"哪里有马来食品特产店？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":800,"malay":"Saya nak beli dodol durian untuk kawan.","chinese":"我想买一些马来榴莲糕点回去送给朋友。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":801,"malay":"Di sini ada tak dodol kelapa yang dah siap dibungkus?","chinese":"这里有包装好的椰子糕点吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":802,"malay":"Bolehkah saya bayar sendiri?","chinese":"请问可以自助买单吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":803,"malay":"Beg ini percuma?","chinese":"袋子免费吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":804,"malay":"Saya perlu beg.","chinese":"我需要个袋子。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":805,"malay":"Kami bayar asing-asing.","chinese":"分开支付。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":806,"malay":"Sila bagi balik kad kredit saya.","chinese":"请退回我的信用卡。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":807,"malay":"Saya dah bayar.","chinese":"我已经付款了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":808,"malay":"Bolehkah pelancong asing menikmati pemulangan balik cukai beli-belah?","chinese":"外国游客可以享受购物退税吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":809,"malay":"Di manakah boleh memohon pemulangan cukai?","chinese":"在哪里办理退税？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":810,"malay":"Apakah bahan yang diperlukan untuk memohon pemulangan cukai?","chinese":"退税需提供什么材料？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":811,"malay":"Ini invois dan pasport saya.","chinese":"这是我的发票和护照。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":812,"malay":"Di mana boleh saya pos?","chinese":"请问哪里可以发快递？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":813,"malay":"Syarikat pos mana lebih baik?","chinese":"哪个快递公司比较稳妥？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":814,"malay":"Boleh tak kirim ke China?","chinese":"可以寄到中国吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":815,"malay":"Bolehkah mengirim ubat-ubatan?","chinese":"药品可以寄吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":816,"malay":"Saya perlu nota kiriman.","chinese":"我需要一张寄货单。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":817,"malay":"Di sini tulis nombor penerima ke?","chinese":"在这里写收件人的联系方式吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":818,"malay":"Kirim melalui udara atau darat?","chinese":"是空运还是陆运？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":819,"malay":"Bagaimana kira harga kirim?","chinese":"运费怎么计算？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":820,"malay":"Boleh tak bayar selepas terima kargo?","chinese":"可以货到付款吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":821,"malay":"Ada tak insurans pengiriman?","chinese":"有运费险吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":822,"malay":"Boleh tak hantar ke rumah?","chinese":"送货上门吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":823,"malay":"Bilakah penghantaran akan tersedia?","chinese":"什么时候可以发货？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":824,"malay":"Berapa lamakah masa yang diperlukan untuk penghantaran?","chinese":"需要多长时间送达？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":825,"malay":"Di mana boleh semak maklumat pengiriman?","chinese":"在哪里可以查看物流信息？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":826,"malay":"Tolong saya lekat label \"pegang dengan berhati-hati\".","chinese":"请帮我贴上小心轻放的标签。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":827,"malay":"Adakah peraturan lain untuk kiriman pos antarabangsa?","chinese":"寄国际快递有其他规定吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":828,"malay":"Saya demam.","chinese":"我发烧了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":829,"malay":"Saya nak beli ubat antipiretik.","chinese":"我想买退烧药。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":830,"malay":"Saya nak beli termometer.","chinese":"我买体温计。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":831,"malay":"Saya nak ukur suhu badan dulu.","chinese":"我想先测体温。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":832,"malay":"Saya rasa sakit kepala sejak pagi ini.","chinese":"我早上开始头疼。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":833,"malay":"Saya nak beli ubat tahan sakit.","chinese":"我想买止痛药。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":834,"malay":"Tangan saya terluka.","chinese":"我手受伤了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":835,"malay":"Saya nak beli band aid.","chinese":"我想买创可贴。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":836,"malay":"Kaki saya terseliuh, sakitnya.","chinese":"我的脚崴了，很疼。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":837,"malay":"Ada tak ubat dieda?","chinese":"有跌打药吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":838,"malay":"Saya selesema.","chinese":"我感冒了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":839,"malay":"Saya nak beli ubat selesema.","chinese":"我想买感冒药。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":840,"malay":"Perut saya sakit hingga berpeluh sejuk.","chinese":"我肚子很疼，疼得直冒冷汗。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":841,"malay":"Saya cirit-birit, nak beli ubat antidiarea.","chinese":"我闹肚子，想买止泻药。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":842,"malay":"Dekat sini ada kedai ubat?","chinese":"这附近有药店吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":843,"malay":"Ubat ini untuk makan atau untuk kegunaan luaran?","chinese":"这药是内服还是外用的？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":844,"malay":"Saya nak ubat ramuan.","chinese":"我要冲剂。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":845,"malay":"Saya nak ubat kapsul.","chinese":"我要胶囊。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":846,"malay":"Ubat apa lebih berkesan?","chinese":"哪种药见效快？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":847,"malay":"Sehari makan berapa kali? Sekali makan berapa banyak?","chinese":"一天吃几次？一次吃多少？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":848,"malay":"Makan sebelum atau selepas makan?","chinese":"是饭前还是饭后服用？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":849,"malay":"Adakah ubat ini pahit?","chinese":"这药是不是比较苦？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":850,"malay":"Saya tidak boleh faham arahan dalam bahasa Melayu.","chinese":"马来文的说明书我看不懂。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":851,"malay":"Ubat ini ada tak kesan sampingan?","chinese":"这药有副作用吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":852,"malay":"Saya sakit, saya nak pergi ke hospital.","chinese":"我生病了，想去看医生。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":853,"malay":"Sila hantar saya ke hospital.","chinese":"请送我去医院。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":854,"malay":"Bila doktor akan datang?","chinese":"医生几点上班？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":855,"malay":"Ada tak doktor kecemasan?","chinese":"有急诊医生吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":856,"malay":"Saya menghidap penyakit darah tinggi dan kencing manis.","chinese":"我有高血压、糖尿病。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":857,"malay":"Bila akan dapat keputusan pemeriksaan?","chinese":"检查结果什么时候出来？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":858,"malay":"Perlu tak infusi?","chinese":"需要输液吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":859,"malay":"Berapa hari perlu makan ubat?","chinese":"需要吃几天的药？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":860,"malay":"Di manakah kaunter ambil ubat?","chinese":"请问取药处在哪里？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":861,"malay":"Apakah pantang-larang dalam tempoh makan ubat?","chinese":"服药期间，有什么禁忌吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":862,"malay":"Saya rasa baik sikit.","chinese":"我好些了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":863,"malay":"Saya beli sebungkus pelitup muka.","chinese":"我买一包口罩。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":864,"malay":"Saya lupa botol air saya di atas meja makan.","chinese":"我把水杯忘在餐桌上了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":865,"malay":"Saya lupa telefon bimbit saya di atas kerusi.","chinese":"我的手机忘在椅子上了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":866,"malay":"Boleh tak tolong saya cari?","chinese":"能帮我找一找吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":867,"malay":"Adakah kamu nampak sebuah beg biru?","chinese":"你们看到一个蓝色的包吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":868,"malay":"Dalam beg saya ada pasport dan wang kecil.","chinese":"我的包里有护照和零钱。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":869,"malay":"Tolong simpan untuk saya, saya akan segera balik untuk ambilnya.","chinese":"请帮我保管一下，我马上回去拿。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":870,"malay":"Alat kosmetik saya tertinggal di dalam bilik.","chinese":"我的化妆品落在房间里了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":871,"malay":"Tolong letak di kaunter lobi hotel.","chinese":"请帮我放在酒店前台。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":872,"malay":"Saya penghuni bilik satu kosong lima.","chinese":"我是105号房的住客。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":873,"malay":"Kad bilik saya hilang, sila bagi saya satu lagi.","chinese":"我的房卡丢了，请再给我办一张。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":874,"malay":"Tolong bawa saya ke kaunter kehilangan barang untuk membuat pertanyaan.","chinese":"请带我去失物招领处看看。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":875,"malay":"Pasport saya hilang.","chinese":"我的护照弄丢了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":876,"malay":"Saya perlu buat pasport.","chinese":"我需要补办护照。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":877,"malay":"Tumpang tanya, di mana Kedutaan China?","chinese":"请问中国大使馆在哪里？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":878,"malay":"Terima kasih kerana tolong cari barang saya.","chinese":"谢谢你帮我找到物品。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":879,"malay":"Tolong!","chinese":"救命！","chapterName":"第七章·支付/快递/求助/紧急"},{"id":880,"malay":"Terbakar!","chinese":"着火了！","chapterName":"第七章·支付/快递/求助/紧急"},{"id":881,"malay":"Saya dalam bahaya, perlu bantuan.","chinese":"我有危险，需要帮助。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":882,"malay":"Tolong lapor pada polis!","chinese":"快帮我报警！","chapterName":"第七章·支付/快递/求助/紧急"},{"id":883,"malay":"Sila panggil 994.","chinese":"请给消防队打电话。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":884,"malay":"Saya mabuk.","chinese":"我喝醉了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":885,"malay":"Saya terluka.","chinese":"我受伤了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":886,"malay":"Tolong panggil ambulans untuk saya.","chinese":"请帮我叫救护车。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":887,"malay":"Saya tersesat.","chinese":"我迷路了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":888,"malay":"Dekat sini ada balai polis?","chinese":"附近有警察局吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":889,"malay":"Sila bawa saya ke balai polis.","chinese":"请带我去警察局。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":890,"malay":"Saya nak lapor polis.","chinese":"我要报案。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":891,"malay":"Saya dirompak.","chinese":"我被抢劫了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":892,"malay":"Seorang lelaki rompak beg bagasi saya.","chinese":"有一个男人抢走了我的行李箱。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":893,"malay":"Dia lari ke arah itu.","chinese":"他往那个方向跑了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":894,"malay":"Saya ditipu.","chinese":"我遇到诈骗了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":895,"malay":"Dia menipu wang saya.","chinese":"他骗走了我的钱。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":896,"malay":"Dekat sini ada tak mesin ATM?","chinese":"附近有取款机吗？","chapterName":"第七章·支付/快递/求助/紧急"},{"id":897,"malay":"Pasport saya dicuri.","chinese":"我的护照被偷了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":898,"malay":"Telefon bimbit saya dicuri.","chinese":"我的手机被偷了。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":899,"malay":"Tolong hubungi Kedutaan China untuk saya.","chinese":"请帮我联系中国大使馆。","chapterName":"第七章·支付/快递/求助/紧急"},{"id":900,"malay":"Terima kasih atas bantuan Encik.","chinese":"感谢您的帮助。","chapterName":"第七章·支付/快递/求助/紧急"}];
+const GLOSSARY = {
+"saya":"我","kami":"我们(不含听者)","kita":"咱们(含听者)","awak":"你","kamu":"你","anda":"您","dia":"他/她","mereka":"他们","encik":"先生/您","ini":"这","itu":"那",
+"ada":"有;在","tak":"不(口语)","tidak":"不","bukan":"不是","boleh":"可以","nak":"想要(口语)","hendak":"想要","mahu":"要","perlu":"需要","mesti":"必须","akan":"将要","sudah":"已经","dah":"已经(口语)","belum":"还没","sedang":"正在","pernah":"曾经",
+"apa":"什么","siapa":"谁","mana":"哪里","bila":"什么时候","bilakah":"何时","mengapa":"为什么","bagaimana":"怎样","bagaimanakah":"怎样","berapa":"多少","berapakah":"多少",
+"di":"在","ke":"到;去","dari":"从","daripada":"从/比","pada":"在(时间)","untuk":"为了;给","dengan":"和;用","dalam":"在...里","atas":"上","bawah":"下","depan":"前面","belakang":"后面","tepi":"旁边","antara":"之间","sekitar":"周围","dekat":"近;附近","jauh":"远",
+"dan":"和","atau":"或者","tetapi":"但是","tapi":"但是(口语)","kerana":"因为","jika":"如果","kalau":"如果(口语)","supaya":"以便","juga":"也","lagi":"再;还","saja":"只;而已","sahaja":"只是","pun":"也;都",
+"yang":"(关系词)的","adalah":"是","ialah":"是","jadi":"成为;所以","macam":"像;种类","seperti":"像",
+"satu":"一","dua":"二","tiga":"三","empat":"四","lima":"五","enam":"六","tujuh":"七","lapan":"八","sembilan":"九","sepuluh":"十","puluh":"十(位)","ratus":"百","ribu":"千","juta":"百万",
+"hari":"天;日","minggu":"星期;周","bulan":"月;月份","tahun":"年","jam":"小时;点钟","pukul":"...点(钟)","minit":"分钟","masa":"时间","waktu":"时间;时刻","sekarang":"现在","nanti":"待会儿","esok":"明天","semalam":"昨天","tadi":"刚才","selalu":"总是","kadang-kadang":"有时","lambat":"迟;慢","awal":"早","lewat":"晚;迟",
+"pagi":"早上","petang":"下午","malam":"晚上","tengah":"中间;正中",
+"makan":"吃","minum":"喝","pergi":"去","datang":"来","balik":"回","pulang":"回去","jumpa":"见面","tengok":"看","lihat":"看","dengar":"听","cakap":"说","kata":"说","tanya":"问","jawab":"回答","tahu":"知道","faham":"明白","ingat":"记得;想","lupa":"忘记","fikir":"思考","rasa":"觉得;感觉;味道","suka":"喜欢","cinta":"爱","nampak":"看起来;看见","cari":"找","dapat":"得到;能","bagi":"给;对于","beri":"给","ambil":"拿;取","bawa":"带","hantar":"送;寄","tunggu":"等","duduk":"坐","berdiri":"站","tidur":"睡","bangun":"起床","mandi":"洗澡","masak":"煮;做饭","beli":"买","jual":"卖","bayar":"付款","sewa":"租","tempah":"预订","tukar":"换;兑换","buka":"开","tutup":"关","masuk":"进","keluar":"出","naik":"上;乘坐","turun":"下","jalan":"走;路","lari":"跑","berhenti":"停","sampai":"到达","tiba":"抵达","bertolak":"出发","guna":"使用","pakai":"穿;用","buat":"做","kerja":"工作","belajar":"学习","main":"玩","tolong":"请帮忙;帮助","bantu":"帮助","sila":"请","jemput":"请;邀请","cuba":"试","panggil":"叫;呼叫","harap":"希望","doakan":"祝愿","mula":"开始","habis":"结束;完","siap":"完成;准备好",
+"baik":"好","bagus":"棒","cantik":"漂亮","sedap":"好吃","besar":"大","kecil":"小","banyak":"多","sikit":"一点(口语)","sedikit":"一点","panjang":"长","pendek":"短","tinggi":"高","rendah":"低","baru":"新;刚","lama":"旧;久","cepat":"快","perlahan":"慢","mahal":"贵","murah":"便宜","panas":"热","sejuk":"冷","penting":"重要","senang":"容易;开心","susah":"难;难受","gembira":"高兴","sedih":"伤心","letih":"累","sibuk":"忙","lapang":"空闲","lapar":"饿","haus":"渴","sakit":"疼;生病","selamat":"平安;祝...","percuma":"免费","kosong":"空","penuh":"满","bersih":"干净","kotor":"脏","bising":"吵","selesa":"舒适","sesuai":"合适","istimewa":"特色;特别","terkenal":"有名","amat":"非常","sangat":"很","terlalu":"太","paling":"最","lebih":"更","kurang":"较少;不够",
+"orang":"人","kawan":"朋友","keluarga":"家庭","isteri":"妻子","suami":"丈夫","anak":"孩子","nama":"名字","umur":"年龄","kanak-kanak":"儿童","lelaki":"男","perempuan":"女","ketua":"领导;头儿",
+"tempat":"地方","bilik":"房间","rumah":"房子;家","hotel":"酒店","restoran":"餐厅","kedai":"商店","pasar":"市场","bandar":"城市","kampung":"村庄;乡下","negara":"国家","lapangan":"场地","stesen":"车站","jalan raya":"马路","tandas":"卫生间","tingkat":"楼层","pintu":"门","tingkap":"窗","meja":"桌子","kerusi":"椅子","katil":"床",
+"air":"水","nasi":"米饭","mee":"面","roti":"面包","daging":"肉","ayam":"鸡","ikan":"鱼","sayur":"蔬菜","buah":"水果","buah-buahan":"水果(总称)","telur":"蛋","susu":"牛奶","teh":"茶","kopi":"咖啡","gula":"糖","garam":"盐","cili":"辣椒","makanan":"食物","minuman":"饮料","sarapan":"早餐","sup":"汤",
+"wang":"钱","duit":"钱(口语)","harga":"价格","tiket":"票","bagasi":"行李","pasport":"护照","visa":"签证","kad":"卡","deposit":"押金","diskaun":"折扣","caj":"费用","tambang":"车费","bayaran":"付款;费用","kereta":"汽车","teksi":"出租车","bas":"巴士","kapal":"船","feri":"渡轮","penerbangan":"航班","kereta api":"火车","metro":"地铁","lif":"电梯","telefon":"电话","nombor":"号码","gambar":"照片;图","peta":"地图","hospital":"医院","ubat":"药","polis":"警察","kecemasan":"紧急情况","hilang":"丢失","curi":"偷","laporan":"报告;报案",
+"kiri":"左","kanan":"右","arah":"方向","laluan":"通道;路线","persimpangan":"路口","terus":"直走;继续","ikut":"跟着;沿着","seberang":"对面",
+"warna":"颜色","merah":"红","kuning":"黄","hijau":"绿","biru":"蓝","hitam":"黑","putih":"白",
+"cuaca":"天气","hujan":"雨","angin":"风","matahari":"太阳","suhu":"气温","musim":"季节","laut":"海","pantai":"海滩","pulau":"岛","gunung":"山","sungai":"河",
+"tumpang tanya":"请问","terima kasih":"谢谢","minta maaf":"对不起","apa khabar":"你好吗","jaga":"照顾;保重","seronok":"愉快;好玩","menarik":"有趣;吸引人","pemandangan":"风景","melancong":"旅游","pelancongan":"旅游业","cadang":"建议","cadangkan":"推荐","syarikat":"公司","kerjasama":"合作","mesyuarat":"会议","persidangan":"会议","projek":"项目","pihak":"一方;方面","hadiah":"礼物","cenderamata":"纪念品","perkhidmatan":"服务","kaunter":"柜台","daftar":"登记","semak":"查验;核对","tunjuk":"指示;显示","papan tanda":"指示牌","secara":"以...方式","antarabangsa":"国际","dalam talian":"在线;网上"
+};
+
+/* ================= 状态 ================= */
+const LS_KEY = 'malay900_v2';
+const todayKey = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const dayNum = k => Math.floor(new Date((k||todayKey())+'T00:00:00').getTime()/864e5);
+let S = load();
+function load(){
+  try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && s.cards){ if(!s.wordbook) s.wordbook={}; if(!s.settings.recLang) s.settings.recLang='ms-MY'; if(!s.settings.startId) s.settings.startId=1; return s; } }catch(e){}
+  return { cards:{}, settings:{newPerDay:10, rate:0.85, voiceURI:null, maxReview:80, recLang:'ms-MY', startId:1}, log:{}, knownWords:[], wordbook:{}, sessions:{} };
+}
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(S)); }
+
+/* 卡片: {lvl, ef, ivl, due, reps, lreps, lapses, intro} lvl:1认读 2听说 3运用 4精通 */
+function getCard(id){ return S.cards[id]; }
+function newCard(id){ S.cards[id] = {lvl:1, ef:2.5, ivl:0, due:dayNum(), reps:0, lreps:0, lapses:0, intro:todayKey()}; return S.cards[id]; }
+function grade(card, g){ // g: 0 again, 1 good, 2 easy
+  card.reps++;
+  if(g===0){ card.lapses++; card.lreps=0; card.ivl=1; card.ef=Math.max(1.3, card.ef-0.2); }
+  else{
+    card.lreps=(card.lreps||0)+1;
+    if(g===2) card.ef=Math.min(3.0, card.ef+0.05);
+    if(card.ivl<=0) card.ivl = g===2?3:1;
+    else if(card.ivl===1) card.ivl = g===2?5:3;
+    else card.ivl = Math.round(card.ivl * card.ef * (g===2?1.25:1));
+    card.ivl = Math.min(card.ivl, 365);
+    // 升级判定
+    if(card.lvl===1 && card.lreps>=3 && card.ivl>=7){ card.lvl=2; card.ivl=2; card.lreps=0; }
+    else if(card.lvl===2 && card.lreps>=3 && card.ivl>=12){ card.lvl=3; card.ivl=3; card.lreps=0; }
+    else if(card.lvl===3 && card.lreps>=2 && card.ivl>=30){ card.lvl=4; }
+  }
+  card.due = dayNum() + Math.max(1,card.ivl);
+}
+
+/* ================= TTS ================= */
+let VOICES=[], VOICE=null;
+function pickVoice(){
+  VOICES = speechSynthesis.getVoices();
+  const pref = S.settings.voiceURI && VOICES.find(v=>v.voiceURI===S.settings.voiceURI);
+  VOICE = pref
+    || VOICES.find(v=>/ms[-_]MY/i.test(v.lang))
+    || VOICES.find(v=>/^ms/i.test(v.lang))
+    || VOICES.find(v=>/id[-_]ID/i.test(v.lang))
+    || VOICES.find(v=>/^id/i.test(v.lang)) || null;
+  const b = document.getElementById('voiceBanner');
+  if(!VOICE){ b.textContent='⚠️ 未检测到马来语/印尼语语音包。建议：①用 Edge 浏览器打开本文件（自带 ms-MY 在线语音）；或 ② Windows 设置→时间和语言→语音→添加语音→Bahasa Melayu，装好后刷新本页。当前将无声。'; b.classList.remove('hidden'); }
+  else if(!/ms/i.test(VOICE.lang)){ b.textContent='ℹ️ 未找到马来语语音，暂用印尼语('+VOICE.name+')朗读，发音≈90%接近。建议用 Edge 打开本文件可获得马来西亚语原生语音。'; b.classList.remove('hidden'); }
+  else b.classList.add('hidden');
+}
+speechSynthesis.onvoiceschanged = pickVoice; pickVoice();
+function speak(text, rate){
+  if(!VOICE) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/\(.*?\)/g,''));
+  u.voice = VOICE; u.lang = VOICE.lang; u.rate = rate || S.settings.rate;
+  speechSynthesis.speak(u);
+}
+
+/* ================= 工具 ================= */
+const $ = s => document.querySelector(s);
+const view = () => document.getElementById('view');
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const BY_ID = {}; SENTENCES.forEach(s=>BY_ID[s.id]=s);
+function tokens(malay){ return malay.replace(/\(.*?\)/g,' ').replace(/[.,!?;:"“”'’]/g,' ').split(/\s+/).filter(w=>w.length>0); }
+/* 全书词频 */
+const FREQ = {};
+SENTENCES.forEach(s=>tokens(s.malay).forEach(w=>{const k=w.toLowerCase(); FREQ[k]=(FREQ[k]||0)+1;}));
+
+/* ============ 可点击单词 + 词义弹层 ============ */
+function wordify(malay){
+  return malay.split(/(\s+)/).map(part=>{
+    if(/^\s+$/.test(part)||!part) return part;
+    const clean = part.replace(/[.,!?;:"“”'’()（）]/g,'').toLowerCase();
+    if(!clean) return esc(part);
+    return '<span class="cw" data-w="'+esc(clean)+'" onclick="event.stopPropagation();showWord(this.dataset.w)">'+esc(part)+'</span>';
+  }).join('');
+}
+function lookupWord(w){
+  if(GLOSSARY[w]) return {key:w, g:GLOSSARY[w]};
+  const mk = Object.keys(GLOSSARY).find(k=>k.includes(' ') && k.split(' ').includes(w));
+  if(mk) return {key:mk, g:GLOSSARY[mk], multi:true};
+  return null;
+}
+function showWord(w){
+  const hit = lookupWord(w);
+  const exs = SENTENCES.filter(s=>tokens(s.malay).some(t=>t.toLowerCase()===w)).slice(0,3);
+  const wb = S.wordbook[w];
+  document.getElementById('sheetBody').innerHTML = `
+    <div class="row" style="justify-content:space-between">
+      <div><h3>${esc(w)}</h3> <button class="play" onclick="speak('${esc(w)}')">🔊</button></div>
+      <button class="btn gray small" onclick="closeSheet()">关闭 ✕</button>
+    </div>
+    <p style="margin:6px 0">${hit ? (hit.multi?'<span class="sub">（词组）'+esc(hit.key)+'：</span>':'') + '<b style="color:var(--p);font-size:17px">'+esc(hit.g)+'</b>' : '<span class="sub">词典暂无该词，请通过下方例句语境理解</span>'}
+      <span class="sub" style="margin-left:8px">全书出现 ${FREQ[w]||0} 次</span></p>
+    ${wb?`<p class="sub">📒 已在单词本：错 ${wb.err} 次 / 对 ${wb.right} 次</p>`:''}
+    <div style="margin-top:8px">${exs.map(s=>`<div class="ex" style="padding:6px 0;border-top:1px solid var(--line)">
+      <span class="cw" style="border:none;font-size:14.5px;color:var(--ink)">${esc(s.malay)}</span>
+      <button class="play" style="width:28px;height:28px;font-size:12px" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊</button><br>${esc(s.chinese)}</div>`).join('')}</div>
+    <div class="row" style="margin-top:12px">
+      ${wb?'<button class="btn gray" onclick="removeWB(\''+esc(w)+'\');showWord(\''+esc(w)+'\')">移出单词本</button>'
+          :'<button class="btn" onclick="addWB(\''+esc(w)+'\',\'manual\');showWord(\''+esc(w)+'\')">➕ 加入单词本</button>'}
+    </div>`;
+  document.getElementById('sheetWrap').classList.remove('hidden');
+}
+function closeSheet(){ document.getElementById('sheetWrap').classList.add('hidden'); }
+function addWB(w, src){
+  if(!S.wordbook[w]) S.wordbook[w]={err:0, right:0, added:todayKey(), src:src||'auto'};
+  if(src==='auto') S.wordbook[w].err++;
+  save();
+}
+function removeWB(w){ delete S.wordbook[w]; save(); if(NAV==='wordbook') render(); }
+function wbActive(){ // 未毕业的词（净对次数<3）
+  return Object.entries(S.wordbook).filter(([w,x])=>x.right-x.err<3);
+}
+
+/* ============ 跟读语音识别评分 ============ */
+function recAvail(){ return (typeof window!=='undefined') && (window.SpeechRecognition||window.webkitSpeechRecognition); }
+function lev(a,b){
+  if(a===b) return 0;
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  let prev=Array.from({length:n+1},(_,i)=>i);
+  for(let i=1;i<=m;i++){ const cur=[i];
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    prev=cur; }
+  return prev[n];
+}
+function scoreAgainst(target, heardList){
+  const T = tokens(target).map(x=>x.toLowerCase());
+  let best={pct:0, flags:T.map(()=>false), heard:''};
+  for(const heard of heardList){
+    const H = tokens(heard).map(x=>x.toLowerCase());
+    const used = new Array(H.length).fill(false);
+    const flags = T.map(t=>{
+      const tol = t.length>=5?2:(t.length>=3?1:0);
+      const i = H.findIndex((h,j)=>!used[j] && (h===t || lev(h,t)<=tol));
+      if(i>=0){ used[i]=true; return true; } return false;
+    });
+    const pct = Math.round(flags.filter(Boolean).length/T.length*100);
+    if(pct>=best.pct) best={pct, flags, heard};
+  }
+  return best;
+}
+let recObj=null;
+function startRec(target, onDone){
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  const r = new SR(); recObj=r;
+  r.lang=S.settings.recLang||'ms-MY'; r.interimResults=false; r.maxAlternatives=5;
+  let got=false;
+  r.onresult = e=>{ got=true; const alts=[]; for(let i=0;i<e.results[0].length;i++) alts.push(e.results[0][i].transcript); onDone(scoreAgainst(target, alts)); };
+  r.onerror = e=>{ got=true; onDone({error:e.error}); };
+  r.onend = ()=>{ if(!got) onDone({error:'no-speech'}); };
+  try{ r.start(); }catch(e){ onDone({error:'start-failed'}); }
+}
+function stopRec(){ try{ recObj&&recObj.stop(); }catch(e){} }
+
+/* ============ 朋友圈打卡卡片生成 ============ */
+function wrapLines(text, maxChars){
+  const words=text.split(' '); const lines=[]; let cur='';
+  for(const w of words){
+    if((cur+' '+w).trim().length>maxChars && cur){ lines.push(cur); cur=w; } else cur=(cur+' '+w).trim();
+  }
+  if(cur) lines.push(cur);
+  return lines;
+}
+function genCard(malay, chinese){
+  const cv=document.createElement('canvas'); cv.width=1080; cv.height=1350;
+  const g=cv.getContext('2d');
+  const gr=g.createLinearGradient(0,0,0,1350); gr.addColorStop(0,'#0d5c44'); gr.addColorStop(1,'#0a3a2c');
+  g.fillStyle=gr; g.fillRect(0,0,1080,1350);
+  g.fillStyle='rgba(255,255,255,.06)'; g.beginPath(); g.arc(930,150,300,0,7); g.fill();
+  g.beginPath(); g.arc(80,1250,220,0,7); g.fill();
+  g.fillStyle='rgba(255,255,255,.75)'; g.font='38px "Microsoft YaHei"';
+  g.fillText('🌺 我的马来语打卡', 80, 130);
+  g.fillStyle='rgba(255,255,255,.28)'; g.font='italic bold 160px Georgia';
+  g.fillText('“', 60, 340);
+  let y=430; g.fillStyle='#fff'; g.font='bold 62px "Microsoft YaHei"';
+  wrapLines(malay, 26).slice(0,6).forEach(l=>{ g.fillText(l, 80, y); y+=92; });
+  y+=30; g.fillStyle='rgba(255,255,255,.85)'; g.font='42px "Microsoft YaHei"';
+  wrapLines(chinese.split('').join(' '), 45).map(l=>l.replace(/ /g,'')).slice(0,4).forEach(l=>{ g.fillText(l, 80, y); y+=64; });
+  const days=Object.keys(S.log).length + (S.log[todayKey()]?0:1);
+  const c=levelCounts();
+  g.fillStyle='rgba(255,255,255,.55)'; g.font='34px "Microsoft YaHei"';
+  g.fillText(todayKey()+' · 学习第 '+days+' 天 · 已学 '+(900-c[0])+'/900 句', 80, 1190);
+  g.fillText('—— 《马来西亚语900句》每日打卡', 80, 1250);
+  const a=document.createElement('a');
+  a.href=cv.toDataURL('image/png'); a.download='马来语打卡_'+todayKey()+'.png'; a.click();
+}
+function genCardById(id){ const s=BY_ID[id]; genCard(s.malay, s.chinese); }
+
+function levelCounts(){
+  const c={0:0,1:0,2:0,3:0,4:0};
+  SENTENCES.forEach(s=>{ const k=S.cards[s.id]; c[k?k.lvl:0]++; });
+  return c;
+}
+function dueCards(){
+  const t=dayNum();
+  return Object.keys(S.cards).map(Number).filter(id=>S.cards[id].due<=t)
+    .sort((a,b)=>S.cards[a].due-S.cards[b].due).slice(0, S.settings.maxReview);
+}
+function nextNewIds(n){
+  // 从设置的起点章节开始取新句，末尾学完后回卷到前面未学的部分
+  const st = S.settings.startId||1;
+  const ordered = st>1 ? SENTENCES.filter(s=>s.id>=st).concat(SENTENCES.filter(s=>s.id<st)) : SENTENCES;
+  const ids=[]; for(const s of ordered){ if(!S.cards[s.id]){ ids.push(s.id); if(ids.length>=n) break; } } return ids;
+}
+function setStart(id, name){
+  S.settings.startId=id; save();
+  alert('已设置学习起点：'+name+'（第'+id+'句起）。今日"开始学习"将从这里取新句，学到书末后自动回卷补前面跳过的部分。');
+  render();
+}
+function streak(){
+  let n=0, d=dayNum();
+  const days = new Set(Object.keys(S.log).map(dayNum));
+  if(!days.has(d)) d--;
+  while(days.has(d)){n++;d--;}
+  return n;
+}
+const LVL_NAME={0:'未学',1:'①认读',2:'②听说',3:'③运用',4:'★精通'};
+const LVL_CLS={0:'b0',1:'b1',2:'b2',3:'b3',4:'bm'};
+
+/* ================= 导航 ================= */
+let NAV='home';
+document.querySelectorAll('footer button').forEach(b=>b.onclick=()=>{
+  if(SESSION.active && !confirm('学习进行中，确定离开？(进度已保存的部分不受影响)')) return;
+  SESSION.active=false; stopTimer();
+  NAV=b.dataset.nav;
+  document.querySelectorAll('footer button').forEach(x=>x.classList.toggle('on',x===b));
+  render();
+});
+function render(){ ({home:renderHome, browse:renderBrowse, wordbook:renderWordbook, stats:renderStats, settings:renderSettings})[NAV](); updateHdr(); }
+function updateHdr(){
+  $('#hdrMeta').textContent = todayKey()+' · 连续学习 '+streak()+' 天';
+}
+
+/* ================= 首页 ================= */
+function renderHome(){
+  const c=levelCounts(), due=dueCards().length, learned=900-c[0];
+  const todayLog = S.log[todayKey()];
+  const newN = Math.min(S.settings.newPerDay, c[0]);
+  const wbN = Math.min(6, wbActive().length);
+  const est = Math.round(newN*1.9 + due*0.28 + wbN*0.4 + 6);
+  view().innerHTML = `
+  <div class="card">
+    <h2>学习进度 <span class="sub">${learned}/900 句已开始 · ${c[4]} 句精通</span></h2>
+    ${[1,2,3].map(l=>{
+      const reached = [1,2,3].filter(x=>x>=l).reduce((t,x)=>t+c[x],0)+c[4];
+      const pct=(reached/900*100).toFixed(1);
+      const desc = l===1?'看懂马来语':(l===2?'听懂并能跟读':'凭中文独立造出句子');
+      return `<div class="lvlrow"><div class="t"><span><span class="badge ${LVL_CLS[l]}">${LVL_NAME[l]}</span> ${desc}</span><span class="sub">${reached}/900 (${pct}%)</span></div>
+      <div class="bar"><div style="width:${pct}%;background:${l===1?'var(--blue)':l===2?'var(--amber)':'var(--p)'}"></div></div></div>`;
+    }).join('')}
+  </div>
+  <div class="card">
+    <h2>今日任务</h2>
+    <div class="statgrid">
+      <div class="stat"><div class="n">${wbN}</div><div class="l">错词抽测</div></div>
+      <div class="stat"><div class="n">${newN}</div><div class="l">新句</div></div>
+      <div class="stat"><div class="n">${due}</div><div class="l">到期复习</div></div>
+      <div class="stat"><div class="n">≈${est}</div><div class="l">预计分钟${todayLog?'·今日已学':''}</div></div>
+    </div>
+    <button class="btn big" onclick="startSession()">▶ 开始今日学习（五环节 · 约40分钟）</button>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost small" onclick="quickShadow()">🎧 只做听力循环</button>
+      <button class="btn ghost small" onclick="quickQuiz()">✍️ 只做复习测试</button>
+    </div>
+  </div>
+  <div class="card sub" style="font-size:13px">
+    <b>方法说明</b>：每句话都会经历 <span class="badge b1">①认读</span>→<span class="badge b2">②听说</span>→<span class="badge b3">③运用</span>→<span class="badge bm">★精通</span> 四个阶段。程序按记忆曲线（SM-2 间隔重复算法）在你即将遗忘的时间点安排复习：答对间隔拉长（1→3→7→17→40天…），答错缩短重来。每天五个环节：错词抽测 → 重点单词（低频难词优先）→ 听力跟读（🎙语音识别打分，读错的词自动进单词本）→ 复习测试 → 造句运用。<b>任何界面里带下划线的马来语单词都可以点击查看释义</b>。坚持每天40分钟，按默认10句/天，约3个月学完全书、5-6个月全部达到精通。
+  </div>`;
+}
+
+/* ================= 学习会话 ================= */
+const SESSION={active:false, step:0, newIds:[], due:[], quizQueue:[], buildQueue:[], qi:0, bi:0, si:0, wi:0, words:[], t0:0, counts:{quiz:0,quizRight:0}};
+let timerInt=null;
+function startTimer(){ SESSION.t0=Date.now(); stopTimer(); timerInt=setInterval(()=>{ const s=Math.floor((Date.now()-SESSION.t0)/1000); $('#hdrTimer').textContent='⏱ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); },1000); }
+function stopTimer(){ if(timerInt){clearInterval(timerInt);timerInt=null;} $('#hdrTimer')&&($('#hdrTimer').textContent=''); }
+
+function startSession(){
+  SESSION.active=true; SESSION.step=1; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
+  SESSION.newIds = nextNewIds(S.settings.newPerDay);
+  SESSION.due = dueCards();
+  // 单词本抽测队列：错得最多的优先，每天最多6个
+  SESSION.wbQueue = wbActive().sort((a,b)=>(b[1].err-b[1].right)-(a[1].err-a[1].right)).slice(0,6).map(([w])=>w);
+  SESSION.wbi=0;
+  // 重点单词：从新句中选词——低频难词优先（高频词天天见反而好记，低频词才是遗忘重灾区）
+  const known=new Set(S.knownWords);
+  const cand={};
+  SESSION.newIds.forEach(id=>tokens(BY_ID[id].malay).forEach(w=>{
+    const k=w.toLowerCase(); if(known.has(k)) return;
+    if(!cand[k]) cand[k]={w:k, f:FREQ[k]||1, ex:id};
+  }));
+  SESSION.words = Object.values(cand).sort((a,b)=>a.f-b.f).slice(0,10);
+  SESSION.wi=0; SESSION.si=0; SESSION.qi=0; SESSION.bi=0;
+  // 测试队列：到期复习卡
+  SESSION.quizQueue = SESSION.due.filter(id=>S.cards[id].lvl<3);
+  SESSION.buildQueue = SESSION.due.filter(id=>S.cards[id].lvl>=3).slice(0,10);
+  startTimer(); renderStep();
+}
+function stepbar(){
+  const names=['① 错词抽测','② 重点单词','③ 听力跟读','④ 复习测试','⑤ 造句运用'];
+  return `<div class="stepbar">${names.map((n,i)=>`<div class="${i+1===SESSION.step?'on':(i+1<SESSION.step?'done':'')}">${n}</div>`).join('')}</div>`;
+}
+function renderStep(){
+  if(SESSION.step===1) renderWbQuiz();
+  else if(SESSION.step===2) renderWords();
+  else if(SESSION.step===3) renderShadow();
+  else if(SESSION.step===4) renderQuiz();
+  else if(SESSION.step===5) renderBuild();
+  else renderDone();
+}
+
+/* --- ① 错词抽测（单词本） --- */
+function renderWbQuiz(){
+  const q=SESSION.wbQueue;
+  if(!q.length || SESSION.wbi>=q.length){
+    if(!q.length) return nextStep();
+    view().innerHTML=stepbar()+`<div class="card center"><div class="done-icon">📒</div><p>错词抽测完成：${SESSION.counts.wbRight}/${SESSION.counts.wb} 正确</p><button class="btn big" onclick="nextStep()">进入重点单词 →</button></div>`;
+    return;
+  }
+  const w=q[SESSION.wbi], hit=lookupWord(w), wb=S.wordbook[w];
+  if(hit){ // 有词义 → 四选一
+    const wrongs = shuffle(Object.values(GLOSSARY).filter(g=>g!==hit.g)).slice(0,3);
+    const opts = shuffle([hit.g, ...wrongs]);
+    view().innerHTML = stepbar()+`<div class="card">
+      <h2>错词抽测 <span class="sub">${SESSION.wbi+1}/${q.length}</span> <span class="errn">已错${wb.err}次</span></h2>
+      <div class="row" style="margin:16px 0"><span class="malay">${esc(w)}</span><button class="play" onclick="speak('${esc(w)}')">🔊</button></div>
+      <div>${opts.map(o=>`<button class="opt" data-r="${o===hit.g?1:0}" onclick="answerWb(this,'${esc(w)}')">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+  } else { // 无词义 → 看例句自评
+    const exs = SENTENCES.filter(s=>tokens(s.malay).some(t=>t.toLowerCase()===w)).slice(0,2);
+    view().innerHTML = stepbar()+`<div class="card">
+      <h2>错词抽测 <span class="sub">${SESSION.wbi+1}/${q.length}</span> <span class="errn">已错${wb.err}次</span></h2>
+      <div class="row" style="margin:16px 0"><span class="malay">${esc(w)}</span><button class="play" onclick="speak('${esc(w)}')">🔊</button></div>
+      <p class="sub">回想这个词的意思，然后翻面对照例句：</p>
+      <div id="wbAns" class="center" style="margin-top:10px"><button class="btn ghost big" onclick="this.parentElement.innerHTML=document.getElementById('wbHidden').innerHTML">显示例句</button></div>
+      <div id="wbHidden" class="hidden">${exs.map(s=>`<div class="ex" style="border-top:1px solid var(--line);padding:6px 0">${wordify(s.malay)}<br>${esc(s.chinese)}</div>`).join('')}
+        <div class="gradebtns"><button class="btn g-again" onclick="gradeWb('${esc(w)}',0)">没想起来</button><button class="btn g-good" onclick="gradeWb('${esc(w)}',1)">想起来了</button></div></div>
+    </div>`;
+  }
+}
+function answerWb(el,w){
+  const right = el.dataset.r==='1';
+  document.querySelectorAll('.opt').forEach(o=>{o.disabled=true; if(o.dataset.r==='1')o.classList.add('right');});
+  if(!right) el.classList.add('wrong');
+  gradeWbCore(w,right);
+  const box=document.createElement('div'); box.className='gradebtns';
+  box.innerHTML=`<button class="btn ${right?'g-good':'g-again'}" onclick="SESSION.wbi++;renderWbQuiz()">${right?'下一个 →':'记住了，下一个 →'}</button>`;
+  el.parentElement.parentElement.appendChild(box);
+}
+function gradeWb(w,g){ gradeWbCore(w,g===1); SESSION.wbi++; renderWbQuiz(); }
+function gradeWbCore(w,right){
+  const wb=S.wordbook[w]; if(!wb) return;
+  SESSION.counts.wb++; if(right){SESSION.counts.wbRight++; wb.right++;} else wb.err++;
+  save();
+}
+function nextStep(){ SESSION.step++; renderStep(); }
+
+/* --- ① 重点单词 --- */
+function renderWords(){
+  if(!SESSION.words.length || !SESSION.newIds.length){
+    if(!SESSION.newIds.length){SESSION.step=3;return renderStep();} // 全书学完只复习
+    return nextStep();
+  }
+  view().innerHTML = stepbar()+`
+  <div class="card">
+    <h2>今天新句子中的重点单词 <span class="sub">${SESSION.words.length} 个 · 低频难词优先 · 目标≈6分钟</span></h2>
+    <div class="sub" style="margin-bottom:6px">按"全书出现次数"从少到多排列——高频词天天见不用担心，这些低频词才是遗忘重灾区。点🔊听发音，确实已掌握的点"认识"以后不再出现。</div>
+    ${SESSION.words.map((w,i)=>{
+      const g=GLOSSARY[w.w]; const ex=BY_ID[w.ex];
+      return `<div class="wordcard" id="wc${i}">
+        <div class="row"><button class="play" onclick="speak('${esc(w.w)}')">🔊</button>
+        <div style="flex:1"><span class="w">${esc(w.w)}</span><span class="m">${g?esc(g):'(见例句语境)'}</span><span class="sub" style="margin-left:6px">全书出现${w.f}次</span>
+        <div class="ex">${esc(ex.malay)}<br>${esc(ex.chinese)}</div></div>
+        <button class="btn gray small" onclick="knowWord('${esc(w.w)}',${i})">认识</button></div>
+      </div>`;}).join('')}
+    <button class="btn big" style="margin-top:12px" onclick="nextStep()">完成，进入听力跟读 →</button>
+  </div>`;
+}
+function knowWord(w,i){ if(!S.knownWords.includes(w)) S.knownWords.push(w); save(); document.getElementById('wc'+i).style.opacity=.35; }
+
+/* --- ② 听力跟读 --- */
+function renderShadow(){
+  const ids=SESSION.newIds;
+  if(!ids.length) return nextStep();
+  const i=SESSION.si;
+  if(i>=ids.length){
+    view().innerHTML=stepbar()+`<div class="card center"><div class="done-icon">🎧</div><p>跟读完成！新句已加入记忆队列，明天开始测试。</p><button class="btn big" onclick="nextStep()">进入复习测试 →</button></div>`;
+    return;
+  }
+  const s=BY_ID[ids[i]];
+  if(!S.cards[s.id]) newCard(s.id);
+  save();
+  const hasRec = recAvail();
+  view().innerHTML = stepbar()+`
+  <div class="card">
+    <h2>听力跟读 <span class="sub">${i+1}/${ids.length} · 目标≈12分钟</span></h2>
+    <div class="sub">先听2遍 → 出声跟读 → 点🎙让程序听你读并打分（不认识的词直接点它看释义）。</div>
+    <div style="margin:18px 0 6px" class="malay" id="shadowText">${wordify(s.malay)}</div>
+    <div class="zh sub">${esc(s.chinese)}</div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊 正常速</button>
+      <button class="btn ghost" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}',0.6)">🐢 慢速</button>
+      ${hasRec?`<button class="mic" id="micBtn" onclick="doShadowRec(${s.id})">🎙 跟读评分</button>`:''}
+    </div>
+    ${hasRec?'':'<div class="sub" style="margin-top:8px">⚠️ 当前浏览器不支持语音识别（跟读评分不可用），建议改用 Edge/Chrome 并联网。</div>'}
+    <div id="recResult"></div>
+    <div class="gradebtns">
+      ${i>0?'<button class="btn gray" onclick="SESSION.si--;renderShadow()">← 上一句</button>':''}
+      <button class="btn g-good" id="shadowNext" onclick="SESSION.si++;renderShadow()">下一句 →</button>
+    </div>
+  </div>`;
+  speak(s.malay);
+}
+function doShadowRec(id){
+  const s=BY_ID[id], btn=document.getElementById('micBtn'), out=document.getElementById('recResult');
+  speechSynthesis.cancel();
+  btn.classList.add('listening'); btn.textContent='🎙 请开始朗读…'; btn.disabled=true;
+  out.innerHTML='';
+  startRec(s.malay, res=>{
+    btn.classList.remove('listening'); btn.textContent='🎙 再测一次'; btn.disabled=false;
+    if(res.error){
+      const msg={'not-allowed':'麦克风权限被拒绝——请点击地址栏🔒图标允许麦克风','no-speech':'没有听到声音，请靠近麦克风大声读','network':'语音识别需要联网（Chrome/Edge 的识别在云端进行）','audio-capture':'未检测到麦克风设备'}[res.error]||('识别失败：'+res.error);
+      out.innerHTML=`<p class="sub" style="color:var(--red);margin-top:10px">⚠️ ${msg}</p>`;
+      return;
+    }
+    const T=tokens(s.malay);
+    const colored=T.map((w,j)=>`<span class="${res.flags[j]?'whit':'wmiss'} cw" data-w="${esc(w.toLowerCase().replace(/[.,!?]/g,''))}" onclick="showWord(this.dataset.w)">${esc(w)}</span>`).join(' ');
+    // 读错的词自动进单词本
+    const missed=T.filter((w,j)=>!res.flags[j]).map(w=>w.toLowerCase()).filter(w=>w.length>=3&&!/^\d+$/.test(w));
+    missed.forEach(w=>addWB(w,'auto'));
+    const lvl = res.pct>=80?['🌟 优秀！','var(--p)']:res.pct>=60?['👍 及格，红色词再练','var(--amber)']:['💪 再来一遍，先听慢速','var(--red)'];
+    out.innerHTML=`<div style="margin-top:12px;padding:12px;border-radius:10px;background:var(--bg)">
+      <span class="scorebig" style="color:${lvl[1]}">${res.pct}</span><span class="sub">/100</span>
+      <span style="margin-left:10px;font-weight:700;color:${lvl[1]}">${lvl[0]}</span>
+      <div style="margin-top:8px;font-size:17px;line-height:1.9">${colored}</div>
+      ${missed.length?`<div class="sub" style="margin-top:6px">未读准：${missed.map(esc).join('、')} → 已自动加入📒单词本</div>`:''}
+      ${res.heard?`<div class="sub" style="margin-top:4px">识别到：${esc(res.heard)}</div>`:''}
+      ${res.pct<30?`<div class="sub" style="margin-top:6px;color:var(--amber)">💡 分数异常低？若"识别到"显示的是中文或乱码，说明识别引擎语言不匹配——去 ⚙️设置 把"识别语言"切换为印尼语(id-ID)再试，印尼语引擎识别马来语朗读效果通常更好。</div>`:''}
+    </div>`;
+  });
+}
+
+/* --- ③ 复习测试 --- */
+function renderQuiz(){
+  const q=SESSION.quizQueue;
+  if(SESSION.qi>=q.length){
+    view().innerHTML=stepbar()+`<div class="card center"><div class="done-icon">✍️</div><p>测试完成：${SESSION.counts.quizRight}/${SESSION.counts.quiz} 正确</p><button class="btn big" onclick="nextStep()">进入造句运用 →</button></div>`;
+    return;
+  }
+  const id=q[SESSION.qi], card=S.cards[id], s=BY_ID[id];
+  if(card.lvl===1) quizL1(s,card); else quizL2(s,card);
+}
+function quizHead(card,extra){
+  return stepbar()+`<div class="card"><h2>复习测试 <span class="sub">${SESSION.qi+1}/${SESSION.quizQueue.length}</span> <span class="badge ${LVL_CLS[card.lvl]}">${LVL_NAME[card.lvl]}</span> ${extra||''}</h2>`;
+}
+function quizL1(s,card){ // 马→中 四选一
+  const wrong = shuffle(SENTENCES.filter(x=>x.id!==s.id && x.chinese!==s.chinese)).slice(0,3).map(x=>x.chinese);
+  const opts = shuffle([s.chinese, ...wrong]);
+  view().innerHTML = quizHead(card)+`
+    <div class="malay" style="margin:14px 0 4px" id="qMalay">${esc(s.malay)}</div>
+    <button class="play" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊</button>
+    <div style="margin-top:8px">${opts.map(o=>`<button class="opt" data-r="${o===s.chinese?1:0}" onclick="answerL1(this,${s.id})">${esc(o)}</button>`).join('')}</div>
+  </div>`;
+}
+function answerL1(el,id){
+  const right = el.dataset.r==='1'; const card=S.cards[id];
+  document.getElementById('qMalay').innerHTML = wordify(BY_ID[id].malay); // 答题后单词可点查释义
+  document.querySelectorAll('.opt').forEach(o=>{ o.disabled=true; if(o.dataset.r==='1') o.classList.add('right'); });
+  if(!right) el.classList.add('wrong');
+  SESSION.counts.quiz++; if(right) SESSION.counts.quizRight++;
+  grade(card, right?1:0); save();
+  const box=document.createElement('div'); box.className='gradebtns';
+  box.innerHTML = right
+    ? `<button class="btn g-easy" onclick="bonusEasy(${id})">很轻松(间隔+)</button><button class="btn g-good" onclick="SESSION.qi++;renderQuiz()">下一题 →</button>`
+    : `<button class="btn g-again" onclick="SESSION.qi++;renderQuiz()">记住了，下一题 →</button>`;
+  el.parentElement.parentElement.appendChild(box);
+}
+function bonusEasy(id){ const c=S.cards[id]; c.ivl=Math.round(c.ivl*1.3)+1; c.due=dayNum()+c.ivl; save(); SESSION.qi++; renderQuiz(); }
+function quizL2(s,card){ // 听音辨义 + 自评
+  view().innerHTML = quizHead(card,'<span class="sub">听音频→心里说出意思→再跟读一遍→翻面自评</span>')+`
+    <div class="center" style="margin:22px 0">
+      <button class="btn" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊 播放</button>
+      <button class="btn ghost" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}',0.6)">🐢 慢速</button>
+    </div>
+    <div id="ansZone" class="center"><button class="btn big ghost" onclick="revealL2(${s.id})">显示答案</button></div>
+  </div>`;
+  speak(s.malay);
+}
+function revealL2(id){
+  const s=BY_ID[id];
+  document.getElementById('ansZone').innerHTML = `
+    <div class="malay" style="margin:8px 0">${wordify(s.malay)}</div>
+    <div class="zh">${esc(s.chinese)}</div>
+    <div class="gradebtns">
+      <button class="btn g-again" onclick="gradeQuiz(${id},0)">没听懂</button>
+      <button class="btn g-good" onclick="gradeQuiz(${id},1)">听懂了</button>
+      <button class="btn g-easy" onclick="gradeQuiz(${id},2)">秒懂</button>
+    </div>`;
+}
+function gradeQuiz(id,g){ SESSION.counts.quiz++; if(g>0)SESSION.counts.quizRight++; grade(S.cards[id],g); save(); SESSION.qi++; renderQuiz(); }
+
+/* --- ④ 造句运用 --- */
+let BUILD={sel:[],toks:[]};
+function renderBuild(){
+  const q=SESSION.buildQueue;
+  if(SESSION.bi>=q.length){
+    // 自由造句提示
+    const tip = SESSION.newIds.length? BY_ID[SESSION.newIds[Math.floor(Math.random()*SESSION.newIds.length)]] : BY_ID[SENTENCES[Math.floor(Math.random()*900)].id];
+    view().innerHTML=stepbar()+`<div class="card">
+      <h2>自由造句（收尾）</h2>
+      <p class="sub">拿今天这句做模板，替换其中的成分（人/地点/数字/物品），写出你自己的句子：</p>
+      <div class="malay" style="margin:10px 0">${wordify(tip.malay)}</div>
+      <div class="zh sub">${esc(tip.chinese)}</div>
+      <input type="text" id="freeMalay" placeholder="输入你的马来语句子…" style="width:100%;padding:10px;font-size:16px;margin-top:12px" autocomplete="off">
+      <input type="text" id="freeZh" placeholder="它的中文意思（卡片副标题，可留空）" style="width:100%;padding:10px;font-size:14px;margin-top:8px" autocomplete="off">
+      <div class="row" style="margin-top:10px">
+        <button class="btn ghost" onclick="speak(document.getElementById('freeMalay').value)">🔊 听我的句子</button>
+        <button class="btn" onclick="genCard(document.getElementById('freeMalay').value||'${esc(tip.malay).replace(/'/g,"\\'")}', document.getElementById('freeZh').value||'${esc(tip.chinese).replace(/'/g,"\\'")}')">🖼 一键生成朋友圈打卡卡片</button>
+      </div>
+      <p class="sub" style="margin-top:8px">卡片会以图片(PNG)保存到下载文件夹，含今日句子、学习天数和进度，发朋友圈直接选图即可。</p>
+      <button class="btn big" style="margin-top:12px" onclick="finishSession()">✅ 完成今日学习</button>
+    </div>`;
+    return;
+  }
+  const id=q[SESSION.bi], s=BY_ID[id];
+  BUILD.toks = tokens(s.malay); BUILD.sel=[];
+  const disp = shuffle(BUILD.toks.map((w,i)=>({w,i})));
+  view().innerHTML = stepbar()+`
+  <div class="card">
+    <h2>造句运用 <span class="sub">${SESSION.bi+1}/${q.length}</span> <span class="badge b3">③运用</span></h2>
+    <div class="zh" style="margin:10px 0"><b>${esc(s.chinese)}</b></div>
+    <div class="sub">先在心里说出马来语，再点词块拼句——或点"⌨️键盘输入"直接打出来（更接近真实运用）：</div>
+    <div class="buildzone" id="bz"></div>
+    <div id="tiles">${disp.map(t=>`<span class="tile" data-i="${t.i}" onclick="pickTile(this)">${esc(t.w)}</span>`).join('')}</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost small" onclick="undoTile()">← 撤销</button>
+      <button class="btn small" onclick="checkBuild(${id})">检查拼句</button>
+      <button class="btn ghost small" onclick="document.getElementById('typedZone').classList.toggle('hidden')">⌨️ 键盘输入</button>
+      <button class="btn gray small" onclick="giveupBuild(${id})">不会，看答案</button>
+    </div>
+    <div id="typedZone" class="hidden" style="margin-top:10px">
+      <input type="text" id="typedInp" placeholder="直接输入整句马来语（不区分大小写，标点可省略）" style="width:100%;padding:10px;font-size:16px" autocomplete="off">
+      <button class="btn small" style="margin-top:8px" onclick="checkTyped(${id})">检查输入</button>
+    </div>
+    <div id="buildResult"></div>
+  </div>`;
+}
+function checkTyped(id){
+  const s=BY_ID[id];
+  const T=tokens(s.malay).map(x=>x.toLowerCase());
+  const H=tokens(document.getElementById('typedInp').value||'').map(x=>x.toLowerCase());
+  const flags=T.map((t,i)=>i<H.length && (H[i]===t || lev(H[i],t)<=(t.length>=6?1:0)));
+  const ok = H.length===T.length && flags.every(Boolean);
+  const r=document.getElementById('buildResult');
+  if(ok){
+    grade(S.cards[id],1); save(); speak(s.malay);
+    r.innerHTML=`<p style="color:var(--p);font-weight:700;margin-top:10px">✅ 正确！${wordify(s.malay)}</p>
+    <div class="gradebtns"><button class="btn ghost" onclick="genCardById(${id})">🖼 生成打卡卡片</button><button class="btn g-easy" onclick="bonusEasy2(${id})">很轻松</button><button class="btn g-good" onclick="SESSION.bi++;renderBuild()">下一句 →</button></div>`;
+  } else {
+    const diff=T.map((t,i)=>`<span class="${flags[i]?'whit':'wmiss'}">${esc(t)}</span>`).join(' ');
+    r.innerHTML=`<p style="color:var(--red);font-weight:700;margin-top:10px">还有出入（绿=对，红=错/缺）：</p><p style="font-size:16px;line-height:1.9">${diff}</p><p class="sub">修改后再检查，或继续点词块拼。</p>`;
+  }
+}
+function pickTile(el){ BUILD.sel.push({i:+el.dataset.i, el}); el.classList.add('used'); renderBZ(); }
+function undoTile(){ const l=BUILD.sel.pop(); if(l) l.el.classList.remove('used'); renderBZ(); }
+function renderBZ(){ document.getElementById('bz').innerHTML = BUILD.sel.map(t=>`<span class="tile">${esc(BUILD.toks[t.i])}</span>`).join(''); }
+function checkBuild(id){
+  const s=BY_ID[id];
+  const ok = BUILD.sel.length===BUILD.toks.length && BUILD.sel.every((t,j)=>BUILD.toks[t.i].toLowerCase()===BUILD.toks[j].toLowerCase());
+  const r=document.getElementById('buildResult');
+  if(ok){
+    grade(S.cards[id],1); save(); speak(s.malay);
+    r.innerHTML=`<p style="color:var(--p);font-weight:700;margin-top:10px">✅ 正确！${wordify(s.malay)}</p>
+    <div class="gradebtns"><button class="btn ghost" onclick="genCardById(${id})">🖼 卡片</button><button class="btn g-easy" onclick="bonusEasy2(${id})">很轻松</button><button class="btn g-good" onclick="SESSION.bi++;renderBuild()">下一句 →</button></div>`;
+  } else {
+    r.innerHTML=`<p style="color:var(--red);font-weight:700;margin-top:10px">还不对，再调整一下（可撤销重排）</p>`;
+  }
+}
+function bonusEasy2(id){ const c=S.cards[id]; c.ivl=Math.round(c.ivl*1.3)+1; c.due=dayNum()+c.ivl; save(); SESSION.bi++; renderBuild(); }
+function giveupBuild(id){
+  const s=BY_ID[id]; grade(S.cards[id],0); save(); speak(s.malay);
+  document.getElementById('buildResult').innerHTML=`<p style="margin-top:10px"><b>${wordify(s.malay)}</b></p>
+  <p class="sub">跟读一遍再走：</p><div class="gradebtns"><button class="btn g-again" onclick="SESSION.bi++;renderBuild()">记住了，下一句 →</button></div>`;
+}
+
+/* --- 完成 --- */
+function finishSession(){
+  const min = Math.round((Date.now()-SESSION.t0)/60000);
+  const k=todayKey();
+  S.log[k] = S.log[k] || {new:0, reviewed:0, minutes:0};
+  S.log[k].new += SESSION.newIds.length;
+  S.log[k].reviewed += SESSION.counts.quiz + SESSION.buildQueue.length;
+  S.log[k].minutes += min;
+  save(); SESSION.active=false; stopTimer();
+  const c=levelCounts();
+  view().innerHTML=`<div class="card center">
+    <div class="done-icon">🎉</div>
+    <h2>今日学习完成！用时 ${min} 分钟</h2>
+    <p class="sub" style="margin:8px 0">错词抽测 ${SESSION.counts.wb} 个（对${SESSION.counts.wbRight}）· 新学 ${SESSION.newIds.length} 句 · 复习 ${SESSION.counts.quiz} 题（正确率 ${SESSION.counts.quiz?Math.round(SESSION.counts.quizRight/SESSION.counts.quiz*100):100}%）· 造句 ${SESSION.buildQueue.length} 句</p>
+    <p class="sub">当前：①认读 ${c[1]} · ②听说 ${c[2]} · ③运用 ${c[3]} · ★精通 ${c[4]} · 连续 ${streak()} 天</p>
+    <div class="row" style="justify-content:center;margin-top:10px">
+      <button class="btn ghost" onclick="genCard('Hari ini saya belajar '+${SESSION.newIds.length}+' ayat bahasa Melayu baharu!','今日打卡：新学${SESSION.newIds.length}句 · 复习${SESSION.counts.quiz}题 · 连续${streak()}天')">🖼 生成今日打卡卡片</button>
+      <button class="btn" onclick="NAV='home';render()">返回首页</button>
+    </div>
+  </div>`;
+}
+function renderDone(){ finishSession(); }
+
+/* --- 快捷模式 --- */
+function quickShadow(){
+  const learned = SENTENCES.filter(s=>S.cards[s.id]);
+  const pool = (learned.length?shuffle(learned):SENTENCES.slice(0,20)).slice(0,20);
+  SESSION.active=true; SESSION.step=2; SESSION.newIds=pool.map(s=>s.id); SESSION.si=0;
+  SESSION.quizQueue=[]; SESSION.buildQueue=[]; SESSION.counts={quiz:0,quizRight:0};
+  const _next=nextStep; startTimer();
+  // 复用跟读界面，结束直接完成
+  SESSION.step=2; SESSION._shadowOnly=true; renderShadowOnly();
+}
+function renderShadowOnly(){
+  const ids=SESSION.newIds, i=SESSION.si;
+  if(i>=ids.length){ SESSION.active=false; stopTimer(); view().innerHTML=`<div class="card center"><div class="done-icon">🎧</div><p>听力循环完成（${ids.length}句）</p><button class="btn big" onclick="NAV='home';render()">返回</button></div>`; return; }
+  const s=BY_ID[ids[i]];
+  view().innerHTML = `<div class="card">
+    <h2>听力循环 <span class="sub">${i+1}/${ids.length}（随机20句已学内容）</span></h2>
+    <div class="malay" style="margin:16px 0 6px">${wordify(s.malay)}</div><div class="zh sub">${esc(s.chinese)}</div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊</button>
+      <button class="btn ghost" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}',0.6)">🐢</button>
+      ${recAvail()?`<button class="mic" id="micBtn" onclick="doShadowRec(${s.id})">🎙 评分</button>`:''}
+      <button class="btn g-good" onclick="SESSION.si++;renderShadowOnly()">下一句 →</button>
+    </div><div id="recResult"></div></div>`;
+  speak(s.malay);
+}
+function quickQuiz(){
+  SESSION.active=true; SESSION.newIds=[]; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
+  SESSION.due=dueCards(); SESSION.quizQueue=SESSION.due.filter(id=>S.cards[id].lvl<3);
+  SESSION.buildQueue=SESSION.due.filter(id=>S.cards[id].lvl>=3).slice(0,10);
+  SESSION.wbQueue=[]; SESSION.qi=0; SESSION.bi=0; SESSION.step=4; startTimer(); renderQuiz();
+}
+
+/* ================= 全书浏览 ================= */
+let openChap=null;
+function renderBrowse(){
+  const groups={};
+  SENTENCES.forEach(s=>{ (groups[s.chapterName]=groups[s.chapterName]||[]).push(s); });
+  view().innerHTML = `<div class="card"><h2>全书 900 句</h2>
+  ${Object.entries(groups).map(([name,arr],gi)=>{
+    const done=arr.filter(s=>S.cards[s.id]&&S.cards[s.id].lvl>=1).length;
+    const open = openChap===gi;
+    const isStart = S.settings.startId===arr[0].id;
+    return `<div class="chap" onclick="openChap=${open?'null':gi};renderBrowse()"><span>${open?'▾':'▸'} ${isStart?'▶ ':''}${esc(name)}</span>
+    <span class="row" style="gap:6px"><span class="sub">${arr[0].id}-${arr[arr.length-1].id} · 已学${done}/${arr.length}</span>
+    <button class="btn ${isStart?'':'ghost'} small" onclick="event.stopPropagation();setStart(${arr[0].id},'${esc(name)}')">${isStart?'当前起点':'从此开始学'}</button></span></div>
+    ${open?`<div class="slist">${arr.map(s=>{
+      const c=S.cards[s.id]; const lvl=c?c.lvl:0;
+      return `<div class="sitem"><button class="play" onclick="event.stopPropagation();speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊</button>
+      <div class="tx"><div class="ma">${s.id}. ${wordify(s.malay)}</div><div class="zc">${esc(s.chinese)}</div></div>
+      <span class="badge ${LVL_CLS[lvl]}">${LVL_NAME[lvl]}</span></div>`;}).join('')}</div>`:''}`;
+  }).join('')}</div>`;
+}
+
+/* ================= 单词本 ================= */
+function renderWordbook(){
+  const all = Object.entries(S.wordbook).sort((a,b)=>(b[1].err-b[1].right)-(a[1].err-a[1].right));
+  const active = all.filter(([w,x])=>x.right-x.err<3);
+  const grad = all.filter(([w,x])=>x.right-x.err>=3);
+  const item = ([w,x])=>{
+    const hit=lookupWord(w);
+    return `<div class="wbitem">
+      <button class="play" onclick="speak('${esc(w)}')">🔊</button>
+      <div style="flex:1" class="cw" data-w="${esc(w)}" onclick="showWord(this.dataset.w)" style="border:none">
+        <span class="w">${esc(w)}</span> <span class="g">${hit?esc(hit.g):'(点击看例句)'}</span><br>
+        <span class="sub" style="font-size:12px">${x.src==='auto'?'跟读误读自动收录':'手动加入'} · ${x.added}</span></div>
+      <span class="errn">错${x.err}</span><span class="okn">对${x.right}</span>
+      <button class="btn gray small" onclick="removeWB('${esc(w)}')">移除</button></div>`;
+  };
+  view().innerHTML = `
+  <div class="card"><h2>📒 常错单词本 <span class="sub">${active.length} 个待攻克 · ${grad.length} 个已毕业</span></h2>
+    <div class="sub" style="margin-bottom:8px">收录来源：跟读评分中读错的词（自动）+ 你点词后手动加入。每天学习的第①环节会从这里抽最多6个词测试；净答对3次即毕业。</div>
+    ${active.length?active.map(item).join(''):'<p class="sub" style="padding:14px 0">暂无待攻克的词。跟读评分读错的词会自动出现在这里。</p>'}
+  </div>
+  ${grad.length?`<div class="card"><h2>✅ 已毕业 <span class="sub">净答对≥3次</span></h2>${grad.map(item).join('')}</div>`:''}`;
+}
+
+/* ================= 统计 ================= */
+function renderStats(){
+  const c=levelCounts();
+  const days=Object.keys(S.log).sort();
+  const totalMin=days.reduce((t,k)=>t+(S.log[k].minutes||0),0);
+  const t=dayNum();
+  const forecast=[0,1,2,3,4,5,6].map(off=>Object.values(S.cards).filter(x=>x.due===t+off).length);
+  view().innerHTML=`
+  <div class="card"><h2>总体统计</h2>
+    <div class="statgrid">
+      <div class="stat"><div class="n">${900-c[0]}</div><div class="l">已学句子</div></div>
+      <div class="stat"><div class="n">${c[4]}</div><div class="l">已精通</div></div>
+      <div class="stat"><div class="n">${days.length}</div><div class="l">学习天数</div></div>
+      <div class="stat"><div class="n">${Math.round(totalMin/60*10)/10}</div><div class="l">累计小时</div></div>
+    </div>
+    <div class="lvlrow"><div class="t"><span class="badge b0">未学</span><span>${c[0]}</span></div></div>
+    <div class="lvlrow"><div class="t"><span class="badge b1">①认读</span><span>${c[1]}</span></div><div class="bar"><div style="width:${c[1]/9}%;background:var(--blue)"></div></div></div>
+    <div class="lvlrow"><div class="t"><span class="badge b2">②听说</span><span>${c[2]}</span></div><div class="bar"><div style="width:${c[2]/9}%;background:var(--amber)"></div></div></div>
+    <div class="lvlrow"><div class="t"><span class="badge b3">③运用</span><span>${c[3]}</span></div><div class="bar"><div style="width:${c[3]/9}%;background:var(--p)"></div></div></div>
+    <div class="lvlrow"><div class="t"><span class="badge bm">★精通</span><span>${c[4]}</span></div><div class="bar"><div style="width:${c[4]/9}%;background:var(--gold)"></div></div></div>
+  </div>
+  <div class="card"><h2>未来7天复习量预测</h2>
+    <div class="row" style="align-items:flex-end;height:90px;gap:6px">
+    ${forecast.map((n,i)=>`<div style="flex:1;text-align:center"><div style="background:var(--p);opacity:.75;border-radius:4px 4px 0 0;height:${Math.min(80,n*3)}px"></div><div class="sub" style="font-size:11px">${i===0?'今天':'+'+i}<br>${n}</div></div>`).join('')}
+    </div>
+  </div>
+  <div class="card"><h2>最近学习记录</h2>
+    ${days.slice(-14).reverse().map(k=>`<div class="row" style="justify-content:space-between;border-bottom:1px solid var(--line);padding:7px 0;font-size:13.5px"><span>${k}</span><span class="sub">新学${S.log[k].new} · 复习${S.log[k].reviewed} · ${S.log[k].minutes}分钟</span></div>`).join('')||'<p class="sub">暂无记录</p>'}
+  </div>`;
+}
+
+/* ================= 设置 ================= */
+function renderSettings(){
+  view().innerHTML=`
+  <div class="card"><h2>学习设置</h2>
+    <div style="margin:12px 0"><b>每天新句数量</b><div class="sub">10句/天≈3个月学完全书（推荐）；赶进度可调高，复习压力会相应增大</div>
+      <div class="row" style="margin-top:6px">${[5,8,10,12,15].map(n=>`<span class="pill ${S.settings.newPerDay===n?'on':''}" onclick="S.settings.newPerDay=${n};save();renderSettings()">${n}句</span>`).join('')}</div></div>
+    <div style="margin:12px 0"><b>朗读语速</b>
+      <div class="row" style="margin-top:6px">${[[0.7,'慢'],[0.85,'适中'],[1.0,'正常']].map(([r,n])=>`<span class="pill ${S.settings.rate===r?'on':''}" onclick="S.settings.rate=${r};save();renderSettings()">${n} ${r}</span>`).join('')}</div></div>
+    <div style="margin:12px 0"><b>语音选择</b><div class="sub">优先选 ms-MY（马来语），没有则用 id-ID（印尼语，发音接近）</div>
+      <select onchange="S.settings.voiceURI=this.value||null;save();pickVoice()" style="margin-top:6px;max-width:100%">
+        <option value="">自动选择</option>
+        ${VOICES.filter(v=>/^(ms|id)/i.test(v.lang)).map(v=>`<option value="${v.voiceURI}" ${S.settings.voiceURI===v.voiceURI?'selected':''}>${v.name} (${v.lang})</option>`).join('')}
+      </select></div>
+    <div style="margin:12px 0"><b>每日复习上限</b>
+      <div class="row" style="margin-top:6px">${[50,80,120].map(n=>`<span class="pill ${S.settings.maxReview===n?'on':''}" onclick="S.settings.maxReview=${n};save();renderSettings()">${n}题</span>`).join('')}</div></div>
+    <div style="margin:12px 0"><b>🎙 语音识别语言</b><div class="sub">跟读评分总是0分且"识别到"显示中文/乱码时，切换为印尼语——Google识别引擎对印尼语支持更好，且与马来语发音高度互通</div>
+      <div class="row" style="margin-top:6px">${[['ms-MY','马来语 ms-MY'],['id-ID','印尼语 id-ID（推荐备选）']].map(([v,n])=>`<span class="pill ${S.settings.recLang===v?'on':''}" onclick="S.settings.recLang='${v}';save();renderSettings()">${n}</span>`).join('')}</div></div>
+    <div style="margin:12px 0"><b>学习起点</b><div class="sub">当前从第 ${S.settings.startId} 句开始取新句（在📖全书页可任选章节作为起点，学完回卷补前面）</div>
+      ${S.settings.startId>1?'<button class="btn ghost small" style="margin-top:6px" onclick="S.settings.startId=1;save();renderSettings()">恢复从头开始</button>':''}</div>
+    <div style="margin:12px 0"><b>🎤 麦克风免重复授权</b><div class="sub">直接双击HTML（file://方式）浏览器无法记住麦克风授权，每次都会问。解决：改用文件夹里的「启动学习程序.bat」打开——它通过 localhost 本地服务打开页面，授权一次永久记住。</div></div>
+  </div>
+  <div class="card"><h2>数据管理</h2>
+    <div class="sub" style="margin-bottom:10px">进度保存在本浏览器中。换电脑/换浏览器前请先导出备份。</div>
+    <div class="row">
+      <button class="btn ghost" onclick="exportData()">📤 导出进度</button>
+      <button class="btn ghost" onclick="document.getElementById('impFile').click()">📥 导入进度</button>
+      <button class="btn warn" onclick="if(confirm('确定清空全部学习进度？此操作不可恢复！'))''+(localStorage.removeItem(LS_KEY)||location.reload())">🗑 重置全部</button>
+    </div>
+    <input type="file" id="impFile" class="hidden" accept=".json" onchange="importData(this)">
+  </div>
+  <div class="card sub" style="font-size:12.5px">数据来源：《马来西亚语900句》（广西人民出版社）全书 OCR 提取（900/900 完整，已人工核对）。间隔重复算法：简化 SM-2。等级体系：①认读(看懂)→②听说(听懂+跟读)→③运用(凭中文重构句子)→★精通(30天以上间隔仍答对)。</div>`;
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(S)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='malay900_progress_'+todayKey()+'.json'; a.click();
+}
+function importData(inp){
+  const f=inp.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!d.cards) throw 0; S=d; save(); alert('导入成功！'); render(); }catch(e){ alert('文件格式不正确'); } };
+  r.readAsText(f);
+}
+
+render();
+</script>
+</body>
+</html>
