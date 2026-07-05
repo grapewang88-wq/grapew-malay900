@@ -211,25 +211,51 @@ const BY_CLEAN_MALAY = {};
 let curAudio = null;
 function cleanTxt(t){ return t.replace(/\(.*?\)|（.*?）/g,'').trim(); }
 SENTENCES.forEach(s=>BY_CLEAN_MALAY[cleanTxt(s.malay)]=s.id);
-function speak(text, rate){
+/* 发音路由：整句命中→句音频；单词→词音频；多词自由句→逐词拼读(全为真人原声)；均不中→TTS兜底 */
+function speakRoute(text){
   const t = cleanTxt(text);
+  const sid = BY_CLEAN_MALAY[t];
+  if(sid) return {type:'sentence', src:AUDIO_BASE+'s/'+sid+'.mp3', t};
+  const toks = t.toLowerCase().split(/\s+/).map(w=>w.replace(/[.,!?;:"“”'’]/g,'')).filter(Boolean);
+  if(toks.length===1 && /^[a-z][a-z-]+$/.test(toks[0])) return {type:'word', src:AUDIO_BASE+'w/'+toks[0]+'.mp3', t};
+  if(toks.length>1){
+    const hits = toks.filter(w=>/^[a-z][a-z-]+$/.test(w));
+    if(hits.length>=Math.ceil(toks.length/2)) return {type:'seq', srcs:hits.map(w=>AUDIO_BASE+'w/'+w+'.mp3'), t};
+  }
+  return {type:'tts', t};
+}
+let seqToken=0;
+function speak(text, rate){
   const r = rate || S.settings.rate;
   const pr = r>=1 ? 1.0 : (r>=0.8 ? 0.9 : 0.65); // 音频变速(保持音调)
-  let src = null;
-  const sid = BY_CLEAN_MALAY[t];
-  if(sid) src = AUDIO_BASE+'s/'+sid+'.mp3';
-  else { const w=t.toLowerCase(); if(/^[a-z][a-z-]+$/.test(w)) src = AUDIO_BASE+'w/'+w+'.mp3'; }
-  if(src){
+  const plan = speakRoute(text);
+  seqToken++;
+  if(curAudio){ curAudio.pause(); }
+  if(plan.type==='sentence' || plan.type==='word'){
     try{
-      if(curAudio){ curAudio.pause(); }
-      const a = new Audio(src); curAudio = a;
+      const a = new Audio(plan.src); curAudio = a;
       a.playbackRate = pr; try{ a.preservesPitch = true; }catch(e){}
-      a.onerror = ()=>ttsSpeak(t, r);
-      a.play().catch(()=>ttsSpeak(t, r));
+      a.onerror = ()=>ttsSpeak(plan.t, r);
+      a.play().catch(()=>ttsSpeak(plan.t, r));
       return;
     }catch(e){}
   }
-  ttsSpeak(t, r);
+  if(plan.type==='seq'){ playSeq(plan.srcs, pr, seqToken); return; }
+  ttsSpeak(plan.t, r);
+}
+function playSeq(srcs, pr, token){ // 逐词拼读：依次播放，加载失败的词跳过
+  let i=0;
+  const next=()=>{
+    if(token!==seqToken || i>=srcs.length) return;
+    try{
+      const a = new Audio(srcs[i++]); curAudio = a;
+      a.playbackRate = pr; try{ a.preservesPitch = true; }catch(e){}
+      a.onended = ()=>setTimeout(next, 100);
+      a.onerror = ()=>next();
+      a.play().catch(()=>next());
+    }catch(e){ next(); }
+  };
+  next();
 }
 function ttsSpeak(text, rate){
   speechSynthesis.cancel();
@@ -780,7 +806,7 @@ function renderBuild(){
       <input type="text" id="freeMalay" placeholder="输入你的马来语句子…" style="width:100%;padding:10px;font-size:16px;margin-top:12px" autocomplete="off">
       <input type="text" id="freeZh" placeholder="它的中文意思（卡片副标题，可留空）" style="width:100%;padding:10px;font-size:14px;margin-top:8px" autocomplete="off">
       <div class="row" style="margin-top:10px">
-        <button class="btn ghost" onclick="speak(document.getElementById('freeMalay').value)">🔊 听我的句子</button>
+        <button class="btn ghost" onclick="speak(document.getElementById('freeMalay').value)">🔊 听我的句子(逐词原声拼读)</button>
         <button class="btn" onclick="genCard(document.getElementById('freeMalay').value||'${esc(tip.malay).replace(/'/g,"\\'")}', document.getElementById('freeZh').value||'${esc(tip.chinese).replace(/'/g,"\\'")}')">🖼 一键生成朋友圈打卡卡片</button>
       </div>
       <p class="sub" style="margin-top:8px">卡片会以图片(PNG)保存到下载文件夹，含今日句子、学习天数和进度，发朋友圈直接选图即可。</p>
