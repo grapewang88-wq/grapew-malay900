@@ -197,19 +197,45 @@ function pickVoice(){
     || VOICES.find(v=>/id[-_]ID/i.test(v.lang))
     || VOICES.find(v=>/^id/i.test(v.lang)) || null;
   const b = document.getElementById('voiceBanner');
-  if(!VOICE){ b.innerHTML='⚠️ 语音列表里没有马来语/印尼语——仍会用系统引擎<b>强制尝试</b>马来语朗读，点右侧按钮测试 → <button class="btn small" onclick="speak(\'Selamat pagi! Apa khabar?\')" style="vertical-align:middle">🔊 测试发音</button><br><span style="font-size:12px">若无声或读成英语：安卓→安装"Google 语音服务(Speech Services by Google)"，系统设置→文字转语音→选Google引擎→下载马来语数据；iPhone→设置→辅助功能→朗读内容→声音→马来语→下载；电脑→用Edge打开。装好后刷新，或到⚙️设置手动选语音。</span>'; b.classList.remove('hidden'); }
-  else if(!/ms/i.test(VOICE.lang)){ b.textContent='ℹ️ 未找到马来语语音，暂用印尼语('+VOICE.name+')朗读，发音≈90%接近。'; b.classList.remove('hidden'); }
+  // 内置真人音频为主力发音方式，系统TTS仅作兜底，无匹配语音也不再打扰
+  if(!VOICE){ b.innerHTML='ℹ️ 本应用使用内置马来语真人发音（无需系统语音包）。点测试确认 → <button class="btn small" onclick="speak(\'Selamat pagi! Apa khabar?\')" style="vertical-align:middle">🔊 测试发音</button>'; b.classList.remove('hidden'); }
   else b.classList.add('hidden');
 }
 speechSynthesis.onvoiceschanged = pickVoice; pickVoice();
 // 部分手机浏览器的语音列表延迟加载/需用户手势后才可见：延时重试 + 首次触摸时再试
 [600,1500,3500].forEach(t=>setTimeout(()=>{ if(!VOICE) pickVoice(); }, t));
 document.addEventListener('touchstart', ()=>{ if(!VOICE) pickVoice(); }, {passive:true});
+/* 发音：优先内置真人音频(audio/目录，微软ms-MY神经语音预生成)，失败降级系统TTS */
+const AUDIO_BASE = 'audio/';
+const BY_CLEAN_MALAY = {};
+let curAudio = null;
+function cleanTxt(t){ return t.replace(/\(.*?\)|（.*?）/g,'').trim(); }
+SENTENCES.forEach(s=>BY_CLEAN_MALAY[cleanTxt(s.malay)]=s.id);
 function speak(text, rate){
+  const t = cleanTxt(text);
+  const r = rate || S.settings.rate;
+  const pr = r>=1 ? 1.0 : (r>=0.8 ? 0.9 : 0.65); // 音频变速(保持音调)
+  let src = null;
+  const sid = BY_CLEAN_MALAY[t];
+  if(sid) src = AUDIO_BASE+'s/'+sid+'.mp3';
+  else { const w=t.toLowerCase(); if(/^[a-z][a-z-]+$/.test(w)) src = AUDIO_BASE+'w/'+w+'.mp3'; }
+  if(src){
+    try{
+      if(curAudio){ curAudio.pause(); }
+      const a = new Audio(src); curAudio = a;
+      a.playbackRate = pr; try{ a.preservesPitch = true; }catch(e){}
+      a.onerror = ()=>ttsSpeak(t, r);
+      a.play().catch(()=>ttsSpeak(t, r));
+      return;
+    }catch(e){}
+  }
+  ttsSpeak(t, r);
+}
+function ttsSpeak(text, rate){
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text.replace(/\(.*?\)/g,''));
+  const u = new SpeechSynthesisUtterance(text);
   if(VOICE){ u.voice = VOICE; u.lang = VOICE.lang; }
-  else u.lang = 'ms-MY'; // 没有匹配语音也强制按马来语发声——多数安卓引擎能处理
+  else u.lang = 'ms-MY';
   u.rate = rate || S.settings.rate;
   speechSynthesis.speak(u);
 }
