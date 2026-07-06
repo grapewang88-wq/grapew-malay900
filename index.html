@@ -346,7 +346,7 @@ function wbActive(){ // 未毕业的词（净对次数<3）
 }
 
 /* ============ 跟读语音识别评分 ============ */
-function recAvail(){ return (typeof window!=='undefined') && (window.SpeechRecognition||window.webkitSpeechRecognition); }
+function recAvail(){ return !S.settings.recDisabled && (typeof window!=='undefined') && (window.SpeechRecognition||window.webkitSpeechRecognition); }
 function lev(a,b){
   if(a===b) return 0;
   const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
@@ -522,6 +522,13 @@ function genCard(malay, chinese){
   a.href=cv.toDataURL('image/png'); a.download='马来语打卡_'+todayKey()+'.png'; a.click();
 }
 function genCardById(id){ const s=BY_ID[id]; genCard(s.malay, s.chinese); }
+function genCardFree(tipMalay, tipZh){
+  const m=(document.getElementById('freeMalay').value||'').trim();
+  const z=(document.getElementById('freeZh').value||'').trim();
+  // 用户写了自己的句子但没写中文 → 中文留空，绝不套用例句翻译（意思对不上）
+  if(m) genCard(m, z);
+  else genCard(tipMalay, tipZh); // 没写句子 → 整体使用例句及其翻译
+}
 
 function levelCounts(){
   const c={0:0,1:0,2:0,3:0,4:0};
@@ -557,8 +564,7 @@ const LVL_CLS={0:'b0',1:'b1',2:'b2',3:'b3',4:'bm'};
 /* ================= 导航 ================= */
 let NAV='home';
 document.querySelectorAll('footer button').forEach(b=>b.onclick=()=>{
-  if(SESSION.active && !confirm('学习进行中，确定离开？(进度已保存的部分不受影响)')) return;
-  SESSION.active=false; stopTimer();
+  if(SESSION.active){ saveSession(); SESSION.active=false; stopTimer(); } // 进度自动保存，可从首页继续
   if(typeof LOOP!=='undefined' && LOOP.on){ LOOP.on=false; LOOP.playing=false; loopClear(); relWakeLock(); }
   NAV=b.dataset.nav;
   document.querySelectorAll('footer button').forEach(x=>x.classList.toggle('on',x===b));
@@ -595,7 +601,9 @@ function renderHome(){
       <div class="stat"><div class="n">${due}</div><div class="l">到期复习</div></div>
       <div class="stat"><div class="n">≈${est}</div><div class="l">预计分钟${todayLog?'·今日已学':''}</div></div>
     </div>
-    <button class="btn big" onclick="startSession()">▶ 开始今日学习（五环节 · 约40分钟）</button>
+    ${(()=>{ const st=resumable(); return st
+      ? `<button class="btn big" onclick="startSession()">▶ 继续今日学习（第${st.step}环节 · 已用${Math.round((st.elapsed||0)/60000)}分钟）</button>`
+      : `<button class="btn big" onclick="startSession()">▶ 开始今日学习（五环节 · 约40分钟）</button>`; })()}
     <div class="row" style="margin-top:10px">
       <button class="btn ghost small" onclick="quickShadow()">🎧 只做听力循环</button>
       <button class="btn ghost small" onclick="quickQuiz()">✍️ 只做复习测试</button>
@@ -608,13 +616,38 @@ function renderHome(){
 }
 
 /* ================= 学习会话 ================= */
-const SESSION={active:false, step:0, newIds:[], due:[], quizQueue:[], buildQueue:[], qi:0, bi:0, si:0, wi:0, words:[], t0:0, counts:{quiz:0,quizRight:0}};
+const SESSION={active:false, step:0, newIds:[], due:[], quizQueue:[], buildQueue:[], wbQueue:[], wbi:0, qi:0, bi:0, si:0, wi:0, words:[], t0:0, elapsed0:0, _quick:false, counts:{quiz:0,quizRight:0,wb:0,wbRight:0}};
+/* --- 会话进度持久化：任何环节退出都保存，回来接着学 --- */
+function saveSession(){
+  if(!SESSION.active || SESSION._quick) return;
+  S.sessionState={date:todayKey(), step:SESSION.step, newIds:SESSION.newIds, wbQueue:SESSION.wbQueue, wbi:SESSION.wbi,
+    words:SESSION.words, si:SESSION.si, quizQueue:SESSION.quizQueue, qi:SESSION.qi,
+    buildQueue:SESSION.buildQueue, bi:SESSION.bi, counts:SESSION.counts,
+    elapsed:(Date.now()-SESSION.t0)+(SESSION.elapsed0||0)};
+  save();
+}
+function pauseSession(){
+  saveSession(); SESSION.active=false; stopTimer();
+  NAV='home';
+  document.querySelectorAll('footer button').forEach(x=>x.classList.toggle('on',x.dataset.nav==='home'));
+  render();
+}
+function resumable(){ return S.sessionState && S.sessionState.date===todayKey() ? S.sessionState : null; }
 let timerInt=null;
 function startTimer(){ SESSION.t0=Date.now(); stopTimer(); timerInt=setInterval(()=>{ const s=Math.floor((Date.now()-SESSION.t0)/1000); $('#hdrTimer').textContent='⏱ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); },1000); }
 function stopTimer(){ if(timerInt){clearInterval(timerInt);timerInt=null;} $('#hdrTimer')&&($('#hdrTimer').textContent=''); }
 
 function startSession(){
-  SESSION.active=true; SESSION.step=1; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
+  const st=resumable();
+  if(st){ // 继续今日未完成的会话
+    SESSION.active=true; SESSION._quick=false;
+    SESSION.step=st.step; SESSION.newIds=st.newIds; SESSION.wbQueue=st.wbQueue||[]; SESSION.wbi=st.wbi||0;
+    SESSION.words=st.words||[]; SESSION.si=st.si||0; SESSION.quizQueue=st.quizQueue||[]; SESSION.qi=st.qi||0;
+    SESSION.buildQueue=st.buildQueue||[]; SESSION.bi=st.bi||0; SESSION.counts=st.counts||{quiz:0,quizRight:0,wb:0,wbRight:0};
+    SESSION.elapsed0=st.elapsed||0;
+    startTimer(); renderStep(); return;
+  }
+  SESSION.active=true; SESSION._quick=false; SESSION.step=1; SESSION.elapsed0=0; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
   SESSION.newIds = nextNewIds(S.settings.newPerDay);
   SESSION.due = dueCards();
   // 单词本抽测队列：错得最多的优先，每天最多6个
@@ -636,9 +669,11 @@ function startSession(){
 }
 function stepbar(){
   const names=['① 错词抽测','② 重点单词','③ 听力跟读','④ 复习测试','⑤ 造句运用'];
-  return `<div class="stepbar">${names.map((n,i)=>`<div class="${i+1===SESSION.step?'on':(i+1<SESSION.step?'done':'')}">${n}</div>`).join('')}</div>`;
+  return `<div class="stepbar">${names.map((n,i)=>`<div class="${i+1===SESSION.step?'on':(i+1<SESSION.step?'done':'')}">${n}</div>`).join('')}</div>
+  <div style="text-align:right;margin:-4px 0 10px"><span class="pill" onclick="pauseSession()">🏠 保存进度并退出</span></div>`;
 }
 function renderStep(){
+  saveSession(); // 每个环节推进都落盘，随时退出随时续
   if(SESSION.step===1) renderWbQuiz();
   else if(SESSION.step===2) renderWords();
   else if(SESSION.step===3) renderShadow();
@@ -757,10 +792,14 @@ function doShadowRec(id){
   startRec(s.malay, res=>{
     btn.classList.remove('listening'); btn.textContent='🎙 再测一次'; btn.disabled=false;
     if(res.error){
-      const msg={'not-allowed':'麦克风权限被拒绝——请点击地址栏🔒图标允许麦克风','no-speech':'没有听到声音，请靠近麦克风大声读','network':'语音识别需要联网（Chrome/Edge 的识别在云端进行）','audio-capture':'未检测到麦克风设备'}[res.error]||('识别失败：'+res.error);
-      out.innerHTML=`<p class="sub" style="color:var(--red);margin-top:10px">⚠️ ${msg}</p>`;
+      const svcFail = ['aborted','service-not-allowed','language-not-supported','network'].includes(res.error);
+      if(svcFail){ S.settings.recFails=(S.settings.recFails||0)+1; save(); }
+      const msg={'not-allowed':'麦克风权限被拒绝——请点击地址栏🔒图标允许麦克风','no-speech':'没有听到声音，请靠近麦克风大声读','network':'语音识别服务连不上（识别需依赖浏览器的云端服务）','audio-capture':'未检测到麦克风设备','aborted':'本机浏览器的语音识别服务不可用（国产安卓无谷歌语音服务时常见，非应用问题）','service-not-allowed':'系统未提供语音识别服务'}[res.error]||('识别失败：'+res.error);
+      out.innerHTML=`<p class="sub" style="color:var(--red);margin-top:10px">⚠️ ${msg}</p>
+      ${svcFail?`<p class="sub">改用<b>自评方式</b>：出声跟读后，点句中你读不顺的词查看发音并加入📒单词本，然后直接下一句。${(S.settings.recFails||0)>=3?'<br>已连续失败多次，可在⚙️设置关闭跟读评分按钮，界面更清爽。':''}</p>`:''}`;
       return;
     }
+    S.settings.recFails=0; save();
     const T=tokens(s.malay);
     const colored=T.map((w,j)=>`<span class="${res.flags[j]?'whit':'wmiss'} cw" data-w="${esc(w.toLowerCase().replace(/[.,!?]/g,''))}" onclick="showWord(this.dataset.w)">${esc(w)}</span>`).join(' ');
     // 读错的词自动进单词本
@@ -853,7 +892,7 @@ function renderBuild(){
       <input type="text" id="freeZh" placeholder="它的中文意思（卡片副标题，可留空）" style="width:100%;padding:10px;font-size:14px;margin-top:8px" autocomplete="off">
       <div class="row" style="margin-top:10px">
         <button class="btn ghost" onclick="speakFree()">🔊 听我的句子(逐词原声拼读)</button>
-        <button class="btn" onclick="genCard(document.getElementById('freeMalay').value||'${esc(tip.malay).replace(/'/g,"\\'")}', document.getElementById('freeZh').value||'${esc(tip.chinese).replace(/'/g,"\\'")}')">🖼 一键生成朋友圈打卡卡片</button>
+        <button class="btn" onclick="genCardFree('${esc(tip.malay).replace(/'/g,"\\'")}', '${esc(tip.chinese).replace(/'/g,"\\'")}')">🖼 一键生成朋友圈打卡卡片</button>
       </div>
       <div id="freeNote" class="sub" style="margin-top:6px"></div>
       <p class="sub" style="margin-top:8px">卡片会以图片(PNG)保存到下载文件夹，含今日句子、学习天数和进度，发朋友圈直接选图即可。</p>
@@ -924,7 +963,8 @@ function giveupBuild(id){
 
 /* --- 完成 --- */
 function finishSession(){
-  const min = Math.round((Date.now()-SESSION.t0)/60000);
+  const min = Math.round(((Date.now()-SESSION.t0)+(SESSION.elapsed0||0))/60000);
+  delete S.sessionState; // 会话完成，清除断点
   const k=todayKey();
   S.log[k] = S.log[k] || {new:0, reviewed:0, minutes:0};
   S.log[k].new += SESSION.newIds.length;
@@ -949,7 +989,7 @@ function renderDone(){ finishSession(); }
 function quickShadow(){
   const learned = SENTENCES.filter(s=>S.cards[s.id]);
   const pool = (learned.length?shuffle(learned):SENTENCES.slice(0,20)).slice(0,20);
-  SESSION.active=true; SESSION.step=2; SESSION.newIds=pool.map(s=>s.id); SESSION.si=0;
+  SESSION.active=true; SESSION._quick=true; SESSION.step=2; SESSION.newIds=pool.map(s=>s.id); SESSION.si=0;
   SESSION.quizQueue=[]; SESSION.buildQueue=[]; SESSION.counts={quiz:0,quizRight:0};
   const _next=nextStep; startTimer();
   // 复用跟读界面，结束直接完成
@@ -971,7 +1011,7 @@ function renderShadowOnly(){
   speak(s.malay);
 }
 function quickQuiz(){
-  SESSION.active=true; SESSION.newIds=[]; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
+  SESSION.active=true; SESSION._quick=true; SESSION.newIds=[]; SESSION.counts={quiz:0,quizRight:0,wb:0,wbRight:0};
   SESSION.due=dueCards(); SESSION.quizQueue=SESSION.due.filter(id=>S.cards[id].lvl<3);
   SESSION.buildQueue=SESSION.due.filter(id=>S.cards[id].lvl>=3).slice(0,10);
   SESSION.wbQueue=[]; SESSION.qi=0; SESSION.bi=0; SESSION.step=4; startTimer(); renderQuiz();
@@ -1070,8 +1110,12 @@ function renderSettings(){
       <button class="btn small" onclick="speak('Selamat pagi! Apa khabar?')">🔊 测试</button></div></div>
     <div style="margin:12px 0"><b>每日复习上限</b>
       <div class="row" style="margin-top:6px">${[50,80,120].map(n=>`<span class="pill ${S.settings.maxReview===n?'on':''}" onclick="S.settings.maxReview=${n};save();renderSettings()">${n}题</span>`).join('')}</div></div>
-    <div style="margin:12px 0"><b>🎙 语音识别语言</b><div class="sub">跟读评分总是0分且"识别到"显示中文/乱码时，切换为印尼语——Google识别引擎对印尼语支持更好，且与马来语发音高度互通</div>
-      <div class="row" style="margin-top:6px">${[['ms-MY','马来语 ms-MY'],['id-ID','印尼语 id-ID（推荐备选）']].map(([v,n])=>`<span class="pill ${S.settings.recLang===v?'on':''}" onclick="S.settings.recLang='${v}';save();renderSettings()">${n}</span>`).join('')}</div></div>
+    <div style="margin:12px 0"><b>🎙 跟读评分（语音识别）</b><div class="sub">评分0分且"识别到"显示中文时切换识别语言为印尼语；识别服务不可用（报aborted，国产安卓常见）可直接关闭此功能，改用跟读自评</div>
+      <div class="row" style="margin-top:6px">
+        <span class="pill ${!S.settings.recDisabled?'on':''}" onclick="S.settings.recDisabled=false;save();renderSettings()">开启</span>
+        <span class="pill ${S.settings.recDisabled?'on':''}" onclick="S.settings.recDisabled=true;save();renderSettings()">关闭(自评模式)</span>
+        ${[['ms-MY','识别:马来语'],['id-ID','识别:印尼语']].map(([v,n])=>`<span class="pill ${S.settings.recLang===v?'on':''}" onclick="S.settings.recLang='${v}';save();renderSettings()">${n}</span>`).join('')}
+      </div></div>
     <div style="margin:12px 0"><b>学习起点</b><div class="sub">当前从第 ${S.settings.startId} 句开始取新句（在📖全书页可任选章节作为起点，学完回卷补前面）</div>
       ${S.settings.startId>1?'<button class="btn ghost small" style="margin-top:6px" onclick="S.settings.startId=1;save();renderSettings()">恢复从头开始</button>':''}</div>
     <div style="margin:12px 0"><b>🎤 麦克风免重复授权</b><div class="sub">直接双击HTML（file://方式）浏览器无法记住麦克风授权，每次都会问。解决：改用文件夹里的「启动学习程序.bat」打开——它通过 localhost 本地服务打开页面，授权一次永久记住。</div></div>
