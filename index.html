@@ -466,7 +466,7 @@ function loopGroup(d){ // 上一组/下一组，越界回卷
   LOOP.gStart=g; loopSetGroup(); renderLoop();
   if(LOOP.playing) loopStep();
 }
-function loopClear(){ if(LOOP.timer){clearTimeout(LOOP.timer);LOOP.timer=null;} speechSynthesis.cancel(); if(curAudio)curAudio.pause(); }
+function loopClear(){ if(LOOP.timer){clearTimeout(LOOP.timer);LOOP.timer=null;} speechSynthesis.cancel(); if(curAudio)curAudio.pause(); if(loopAudio){try{loopAudio.pause();}catch(e){} loopAudio=null;} }
 function loopExit(){ LOOP.on=false; LOOP.playing=false; loopClear(); relWakeLock(); NAV='browse'; render(); }
 function loopToggle(){ LOOP.playing=!LOOP.playing; if(LOOP.playing) loopStep(); else loopClear(); renderLoop(); }
 function loopJump(d){ loopClear(); LOOP.i=(LOOP.i+d+LOOP.ids.length)%LOOP.ids.length; renderLoop(); if(LOOP.playing) loopStep(); }
@@ -491,9 +491,39 @@ function playMalayAudio(s, cb){
   a.onerror=()=>{ ttsSpeak(cleanTxt(s.malay)); LOOP.timer=setTimeout(done, 4000); };
   a.play().catch(()=>{ ttsSpeak(cleanTxt(s.malay)); LOOP.timer=setTimeout(done, 4000); });
 }
+/* 跟背播放核心：优先"合成音频歌单模式"（中文+停顿+马来语已合成为单文件，
+   一个<audio>连续接续播放=媒体播放，锁屏后系统允许继续，且有锁屏播放控制）；
+   合成文件缺失时降级到旧的 TTS+定时器链（锁屏会停，仅作兜底） */
+let loopAudio=null;
 function loopStep(){
   if(!LOOP.on||!LOOP.playing) return;
   const s=BY_ID[LOOP.ids[LOOP.i]];
+  LOOP.phase='ms'; renderLoop();
+  const a=new Audio(AUDIO_BASE+'c/'+s.id+'.mp3');
+  if(loopAudio){ try{loopAudio.pause();}catch(e){} }
+  if(curAudio){ try{curAudio.pause();}catch(e){} }
+  loopAudio=a;
+  a.onended=()=>{ if(!LOOP.on||!LOOP.playing) return; loopAdvance(); loopStep(); };
+  a.onerror=()=>loopStepLegacy(s); // 合成文件不可用→旧链路兜底
+  a.play().then(()=>updateMediaSession(s)).catch(()=>loopStepLegacy(s));
+}
+function loopAdvance(){ LOOP.i++; if(LOOP.i>=LOOP.ids.length){ LOOP.i=0; LOOP.round++; } }
+function updateMediaSession(s){
+  if(!('mediaSession' in navigator)) return;
+  try{
+    navigator.mediaSession.metadata=new MediaMetadata({
+      title: cleanTxt(s.malay),
+      artist: s.chinese.replace(/（.*?）/g,''),
+      album: '马来语900句 · 跟背 '+LOOP.chap
+    });
+    navigator.mediaSession.setActionHandler('play', ()=>{ if(LOOP.on){LOOP.playing=true; loopStep();} });
+    navigator.mediaSession.setActionHandler('pause', ()=>{ if(LOOP.on){LOOP.playing=false; loopClear();} });
+    navigator.mediaSession.setActionHandler('previoustrack', ()=>{ if(LOOP.on) loopJump(-1); });
+    navigator.mediaSession.setActionHandler('nexttrack', ()=>{ if(LOOP.on) loopJump(1); });
+  }catch(e){}
+}
+function loopStepLegacy(s){ // 旧链路：系统TTS读中文+分段音频（锁屏会暂停）
+  if(!LOOP.on||!LOOP.playing) return;
   LOOP.phase='zh'; renderLoop();
   speakZh(s.chinese, ()=>{
     if(!LOOP.on||!LOOP.playing) return;
@@ -504,8 +534,7 @@ function loopStep(){
         if(!LOOP.on||!LOOP.playing) return;
         LOOP.timer=setTimeout(()=>{       // 句间间隔 2 秒
           if(!LOOP.on||!LOOP.playing) return;
-          LOOP.i++;
-          if(LOOP.i>=LOOP.ids.length){ LOOP.i=0; LOOP.round++; }
+          loopAdvance();
           loopStep();
         }, 2000);
       });
@@ -522,8 +551,8 @@ function renderLoop(){
     <div class="sub">🔖 本组：本章第 ${from}-${to} 句（第 ${gCur}/${gTotal} 组，全章 ${n} 句）· 组内第 ${LOOP.round} 轮 · 当前 ${LOOP.i+1}/${LOOP.ids.length}</div>
     <div class="sub">节奏：中文→1.5秒(心里想马来语)→原声→2秒→下一句，本组10句循环</div>
     <div style="margin:20px 0 8px">
-      <div class="zh" style="font-size:19px;${LOOP.phase==='zh'?'font-weight:700':'opacity:.55'}">🀄 ${esc(s.chinese)}</div>
-      <div class="malay" style="margin-top:12px;${LOOP.phase==='ms'?'':'opacity:.35'}">${wordify(s.malay)}</div>
+      <div class="zh" style="font-size:19px;${LOOP.phase==='zh'?'font-weight:700':''}">🀄 ${esc(s.chinese)}</div>
+      <div class="malay" style="margin-top:12px;${LOOP.phase==='zh'?'opacity:.35':''}">${wordify(s.malay)}</div>
     </div>
     <div class="row" style="margin-top:18px;justify-content:center;gap:14px">
       <button class="btn ghost" onclick="loopJump(-1)">⏮ 上一句</button>
@@ -535,7 +564,7 @@ function renderLoop(){
       <button class="btn ghost small" onclick="loopGroup(1)">⏩ 下一组10句</button>
       <button class="btn gray small" onclick="loopExit()">✕ 退出</button>
     </div>
-    <p class="sub" style="margin-top:14px">💡 听到中文后在心里（或出声）说出马来语，1.5秒后对照原声；本组背熟点"下一组"，书签自动记住进度，下次进来接着背。播放期间屏幕保持常亮。</p>
+    <p class="sub" style="margin-top:14px">💡 听到中文后在心里（或出声）说出马来语，1.5秒后对照原声；本组背熟点"下一组"，书签自动记进度。<b>支持锁屏/息屏继续播放</b>，锁屏界面可直接 暂停/上一句/下一句。若锁屏后仍被系统中断：手机设置→电池→找到浏览器→允许后台运行。</p>
   </div>`;
 }
 
