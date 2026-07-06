@@ -163,8 +163,8 @@ const todayKey = () => { const d=new Date(); return d.getFullYear()+'-'+String(d
 const dayNum = k => Math.floor(new Date((k||todayKey())+'T00:00:00').getTime()/864e5);
 let S = load();
 function load(){
-  try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && s.cards){ if(!s.wordbook) s.wordbook={}; if(!s.bookmarks) s.bookmarks={}; if(!s.settings.recLang) s.settings.recLang='ms-MY'; if(!s.settings.startId) s.settings.startId=1; return s; } }catch(e){}
-  return { cards:{}, settings:{newPerDay:10, rate:0.85, voiceURI:null, maxReview:80, recLang:'ms-MY', startId:1}, log:{}, knownWords:[], wordbook:{}, bookmarks:{}, sessions:{} };
+  try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && s.cards){ if(!s.wordbook) s.wordbook={}; if(!s.bookmarks) s.bookmarks={}; if(!s.settings.recLang) s.settings.recLang='ms-MY'; if(!s.settings.startId) s.settings.startId=1; if(s.settings.asrMode===undefined){ s.settings.asrMode=s.settings.recDisabled?'off':'browser'; s.settings.asrUrl=''; s.settings.asrToken=''; } return s; } }catch(e){}
+  return { cards:{}, settings:{newPerDay:10, rate:0.85, voiceURI:null, maxReview:80, recLang:'ms-MY', startId:1, asrMode:'browser', asrUrl:'', asrToken:''}, log:{}, knownWords:[], wordbook:{}, bookmarks:{}, sessions:{} };
 }
 function save(){ localStorage.setItem(LS_KEY, JSON.stringify(S)); }
 
@@ -384,6 +384,56 @@ function startRec(target, onDone){
   try{ r.start(); }catch(e){ onDone({error:'start-failed'}); }
 }
 function stopRec(){ try{ recObj&&recObj.stop(); }catch(e){} }
+
+/* ============ 云端识别（腾讯云ASR中转，国内直连无需VPN/GMS） ============ */
+/* 录音：getUserMedia → WebAudio 采集 → 重采样16kHz → PCM16 WAV → base64 */
+let WREC={stream:null, ctx:null, node:null, src:null, chunks:[], recording:false, t0:0, timer:null};
+async function wavRecStart(){
+  WREC.stream = await navigator.mediaDevices.getUserMedia({audio:{channelCount:1, echoCancellation:true, noiseSuppression:true}});
+  WREC.ctx = new (window.AudioContext||window.webkitAudioContext)();
+  WREC.src = WREC.ctx.createMediaStreamSource(WREC.stream);
+  WREC.node = WREC.ctx.createScriptProcessor(4096,1,1);
+  WREC.chunks=[]; WREC.recording=true; WREC.t0=Date.now();
+  WREC.node.onaudioprocess = e=>{ if(WREC.recording) WREC.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+  WREC.src.connect(WREC.node); WREC.node.connect(WREC.ctx.destination);
+}
+function wavRecStop(){
+  WREC.recording=false;
+  const srcRate = WREC.ctx ? WREC.ctx.sampleRate : 48000;
+  try{ WREC.node&&WREC.node.disconnect(); WREC.src&&WREC.src.disconnect(); }catch(e){}
+  try{ WREC.stream&&WREC.stream.getTracks().forEach(t=>t.stop()); }catch(e){}
+  try{ WREC.ctx&&WREC.ctx.close(); }catch(e){}
+  // 合并 + 重采样到16k
+  let len=0; WREC.chunks.forEach(c=>len+=c.length);
+  const all=new Float32Array(len); let o=0; WREC.chunks.forEach(c=>{all.set(c,o);o+=c.length;});
+  WREC.chunks=[];
+  const ratio=srcRate/16000, outLen=Math.floor(all.length/ratio);
+  const pcm=new Int16Array(outLen);
+  for(let i=0;i<outLen;i++){ const v=all[Math.floor(i*ratio)]||0; pcm[i]=Math.max(-32768,Math.min(32767,Math.round(v*32767))); }
+  return { base64: wavBase64(pcm,16000), secs: Math.round((Date.now()-WREC.t0)/1000) };
+}
+function wavBase64(pcm, rate){
+  const dataLen=pcm.length*2, buf=new ArrayBuffer(44+dataLen), v=new DataView(buf);
+  const ws=(off,s)=>{for(let i=0;i<s.length;i++)v.setUint8(off+i,s.charCodeAt(i));};
+  ws(0,'RIFF'); v.setUint32(4,36+dataLen,true); ws(8,'WAVE'); ws(12,'fmt ');
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  ws(36,'data'); v.setUint32(40,dataLen,true);
+  for(let i=0;i<pcm.length;i++) v.setInt16(44+i*2,pcm[i],true);
+  const bytes=new Uint8Array(buf); let bin='';
+  for(let i=0;i<bytes.length;i+=8192) bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));
+  return btoa(bin);
+}
+async function cloudRecognize(base64){
+  const r = await fetch(S.settings.asrUrl, {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({audio:base64, engine:(S.settings.recLang==='id-ID'?'16k_id':'16k_ms'), token:S.settings.asrToken||''})});
+  const j = await r.json();
+  if(!r.ok || j.error) throw new Error(j.error||('HTTP '+r.status));
+  return j.text||'';
+}
+function cloudReady(){ return !!(S.settings.asrUrl && /^https:\/\//.test(S.settings.asrUrl)); }
+/* 跟读评分入口能力判定：云端已配置 或 浏览器识别可用 */
+function anyRecAvail(){ return (S.settings.asrMode!=='off') && ((S.settings.asrMode==='cloud'&&cloudReady()) || (S.settings.asrMode!=='cloud'&&recAvail())); }
 
 /* ============ 章节循环跟背 ============ */
 /* 流程：中文(系统TTS) → 1.5秒 → 马来语(内置音频) → 2秒 → 下一句；章末回到第一句无限循环 */
@@ -763,7 +813,7 @@ function renderShadow(){
   const s=BY_ID[ids[i]];
   if(!S.cards[s.id]) newCard(s.id);
   save();
-  const hasRec = recAvail();
+  const hasRec = anyRecAvail();
   view().innerHTML = stepbar()+`
   <div class="card">
     <h2>听力跟读 <span class="sub">${i+1}/${ids.length} · 目标≈12分钟</span></h2>
@@ -784,7 +834,40 @@ function renderShadow(){
   </div>`;
   speak(s.malay);
 }
-function doShadowRec(id){
+function doShadowRec(id){ // 分流：云端识别（腾讯，国内直连）/ 浏览器识别（需谷歌服务）
+  if(S.settings.asrMode==='cloud'){ cloudShadowToggle(id); return; }
+  browserShadowRec(id);
+}
+let CLOUDREC={busy:false, recording:false, timer:null};
+async function cloudShadowToggle(id){
+  const s=BY_ID[id], btn=document.getElementById('micBtn'), out=document.getElementById('recResult');
+  if(CLOUDREC.busy) return;
+  if(!CLOUDREC.recording){
+    speechSynthesis.cancel(); if(curAudio)curAudio.pause();
+    out.innerHTML='';
+    try{ await wavRecStart(); }
+    catch(e){ out.innerHTML='<p class="sub" style="color:var(--red);margin-top:10px">⚠️ 无法打开麦克风：'+esc(e.message||e.name||'未知')+'（请允许麦克风权限后重试）</p>'; return; }
+    CLOUDREC.recording=true;
+    btn.classList.add('listening');
+    let sec=0; btn.textContent='⏺ 录音中 0s · 读完点我';
+    CLOUDREC.timer=setInterval(()=>{ sec++; if(btn)btn.textContent='⏺ 录音中 '+sec+'s · 读完点我'; if(sec>=25) cloudShadowToggle(id); },1000);
+    return;
+  }
+  clearInterval(CLOUDREC.timer); CLOUDREC.recording=false; CLOUDREC.busy=true;
+  btn.classList.remove('listening'); btn.textContent='☁️ 识别中…'; btn.disabled=true;
+  try{
+    const rec=wavRecStop();
+    if(rec.secs<1) throw new Error('录音太短，请读完整句再停止');
+    const text=await cloudRecognize(rec.base64);
+    if(!text) throw new Error('未识别到语音内容，请大声一些');
+    const res=scoreAgainst(s.malay,[text]); res.heard=text;
+    showScore(id,res,out);
+  }catch(e){
+    out.innerHTML='<p class="sub" style="color:var(--red);margin-top:10px">⚠️ 云端识别失败：'+esc(e.message||'未知错误')+'</p><p class="sub">若是地址/口令问题，去⚙️设置检查"云端识别"配置并点测试连接。</p>';
+  }
+  btn.disabled=false; btn.textContent='🎙 再测一次'; CLOUDREC.busy=false;
+}
+function browserShadowRec(id){
   const s=BY_ID[id], btn=document.getElementById('micBtn'), out=document.getElementById('recResult');
   speechSynthesis.cancel();
   btn.classList.add('listening'); btn.textContent='🎙 请开始朗读…'; btn.disabled=true;
@@ -800,21 +883,26 @@ function doShadowRec(id){
       return;
     }
     S.settings.recFails=0; save();
-    const T=tokens(s.malay);
-    const colored=T.map((w,j)=>`<span class="${res.flags[j]?'whit':'wmiss'} cw" data-w="${esc(w.toLowerCase().replace(/[.,!?]/g,''))}" onclick="showWord(this.dataset.w)">${esc(w)}</span>`).join(' ');
-    // 读错的词自动进单词本
-    const missed=T.filter((w,j)=>!res.flags[j]).map(w=>w.toLowerCase()).filter(w=>w.length>=3&&!/^\d+$/.test(w));
-    missed.forEach(w=>addWB(w,'auto'));
-    const lvl = res.pct>=80?['🌟 优秀！','var(--p)']:res.pct>=60?['👍 及格，红色词再练','var(--amber)']:['💪 再来一遍，先听慢速','var(--red)'];
-    out.innerHTML=`<div style="margin-top:12px;padding:12px;border-radius:10px;background:var(--bg)">
-      <span class="scorebig" style="color:${lvl[1]}">${res.pct}</span><span class="sub">/100</span>
-      <span style="margin-left:10px;font-weight:700;color:${lvl[1]}">${lvl[0]}</span>
-      <div style="margin-top:8px;font-size:17px;line-height:1.9">${colored}</div>
-      ${missed.length?`<div class="sub" style="margin-top:6px">未读准：${missed.map(esc).join('、')} → 已自动加入📒单词本</div>`:''}
-      ${res.heard?`<div class="sub" style="margin-top:4px">识别到：${esc(res.heard)}</div>`:''}
-      ${res.pct<30?`<div class="sub" style="margin-top:6px;color:var(--amber)">💡 分数异常低？若"识别到"显示的是中文或乱码，说明识别引擎语言不匹配——去 ⚙️设置 把"识别语言"切换为印尼语(id-ID)再试，印尼语引擎识别马来语朗读效果通常更好。</div>`:''}
-    </div>`;
+    showScore(id, res, out);
   });
+}
+/* 评分结果渲染（云端/浏览器两条识别链路共用） */
+function showScore(id, res, out){
+  const s=BY_ID[id];
+  const T=tokens(s.malay);
+  const colored=T.map((w,j)=>`<span class="${res.flags[j]?'whit':'wmiss'} cw" data-w="${esc(w.toLowerCase().replace(/[.,!?]/g,''))}" onclick="showWord(this.dataset.w)">${esc(w)}</span>`).join(' ');
+  // 读错的词自动进单词本
+  const missed=T.filter((w,j)=>!res.flags[j]).map(w=>w.toLowerCase()).filter(w=>w.length>=3&&!/^\d+$/.test(w));
+  missed.forEach(w=>addWB(w,'auto'));
+  const lvl = res.pct>=80?['🌟 优秀！','var(--p)']:res.pct>=60?['👍 及格，红色词再练','var(--amber)']:['💪 再来一遍，先听慢速','var(--red)'];
+  out.innerHTML=`<div style="margin-top:12px;padding:12px;border-radius:10px;background:var(--bg)">
+    <span class="scorebig" style="color:${lvl[1]}">${res.pct}</span><span class="sub">/100</span>
+    <span style="margin-left:10px;font-weight:700;color:${lvl[1]}">${lvl[0]}</span>
+    <div style="margin-top:8px;font-size:17px;line-height:1.9">${colored}</div>
+    ${missed.length?`<div class="sub" style="margin-top:6px">未读准：${missed.map(esc).join('、')} → 已自动加入📒单词本</div>`:''}
+    ${res.heard?`<div class="sub" style="margin-top:4px">识别到：${esc(res.heard)}</div>`:''}
+    ${res.pct<30?`<div class="sub" style="margin-top:6px;color:var(--amber)">💡 分数异常低？若"识别到"显示的是中文或乱码，说明识别语言不匹配——去 ⚙️设置 切换识别语言为印尼语再试（印尼语引擎识别马来语朗读通常效果更好）。</div>`:''}
+  </div>`;
 }
 
 /* --- ③ 复习测试 --- */
@@ -1005,7 +1093,7 @@ function renderShadowOnly(){
     <div class="row" style="margin-top:14px">
       <button class="btn" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}')">🔊</button>
       <button class="btn ghost" onclick="speak('${esc(s.malay).replace(/'/g,"\\'")}',0.6)">🐢</button>
-      ${recAvail()?`<button class="mic" id="micBtn" onclick="doShadowRec(${s.id})">🎙 评分</button>`:''}
+      ${anyRecAvail()?`<button class="mic" id="micBtn" onclick="doShadowRec(${s.id})">🎙 评分</button>`:''}
       <button class="btn g-good" onclick="SESSION.si++;renderShadowOnly()">下一句 →</button>
     </div><div id="recResult"></div></div>`;
   speak(s.malay);
@@ -1110,12 +1198,20 @@ function renderSettings(){
       <button class="btn small" onclick="speak('Selamat pagi! Apa khabar?')">🔊 测试</button></div></div>
     <div style="margin:12px 0"><b>每日复习上限</b>
       <div class="row" style="margin-top:6px">${[50,80,120].map(n=>`<span class="pill ${S.settings.maxReview===n?'on':''}" onclick="S.settings.maxReview=${n};save();renderSettings()">${n}题</span>`).join('')}</div></div>
-    <div style="margin:12px 0"><b>🎙 跟读评分（语音识别）</b><div class="sub">评分0分且"识别到"显示中文时切换识别语言为印尼语；识别服务不可用（报aborted，国产安卓常见）可直接关闭此功能，改用跟读自评</div>
+    <div style="margin:12px 0"><b>🎙 跟读评分（语音识别）</b><div class="sub">三种模式：<b>云端识别</b>=腾讯云中转，国内直连不需要VPN/谷歌服务（需先按部署指南搭好云函数并填入下方地址）；<b>浏览器识别</b>=依赖系统的谷歌语音服务（国产安卓通常不可用）；<b>关闭</b>=跟读自评</div>
       <div class="row" style="margin-top:6px">
-        <span class="pill ${!S.settings.recDisabled?'on':''}" onclick="S.settings.recDisabled=false;save();renderSettings()">开启</span>
-        <span class="pill ${S.settings.recDisabled?'on':''}" onclick="S.settings.recDisabled=true;save();renderSettings()">关闭(自评模式)</span>
-        ${[['ms-MY','识别:马来语'],['id-ID','识别:印尼语']].map(([v,n])=>`<span class="pill ${S.settings.recLang===v?'on':''}" onclick="S.settings.recLang='${v}';save();renderSettings()">${n}</span>`).join('')}
-      </div></div>
+        ${[['cloud','☁️ 云端识别(推荐)'],['browser','浏览器识别'],['off','关闭(自评)']].map(([v,n])=>`<span class="pill ${S.settings.asrMode===v?'on':''}" onclick="S.settings.asrMode='${v}';save();renderSettings()">${n}</span>`).join('')}
+        ${[['ms-MY','马来语'],['id-ID','印尼语']].map(([v,n])=>`<span class="pill ${S.settings.recLang===v?'on':''}" onclick="S.settings.recLang='${v}';save();renderSettings()">识别:${n}</span>`).join('')}
+      </div>
+      ${S.settings.asrMode==='cloud'?`<div style="margin-top:10px">
+        <input type="text" id="asrUrlInp" placeholder="云函数地址 https://...scf.tencentcs.com/... " value="${esc(S.settings.asrUrl||'')}" style="width:100%;padding:9px;font-size:13px" autocomplete="off">
+        <input type="text" id="asrTokenInp" placeholder="口令（与云函数环境变量 APP_TOKEN 一致，没设可留空）" value="${esc(S.settings.asrToken||'')}" style="width:100%;padding:9px;font-size:13px;margin-top:6px" autocomplete="off">
+        <div class="row" style="margin-top:8px">
+          <button class="btn small" onclick="S.settings.asrUrl=document.getElementById('asrUrlInp').value.trim();S.settings.asrToken=document.getElementById('asrTokenInp').value.trim();save();alert('已保存')">保存配置</button>
+          <button class="btn ghost small" onclick="testAsr()">🔌 测试连接</button>
+        </div>
+        <div class="sub" style="margin-top:6px">${cloudReady()?'✅ 已配置云端识别地址':'⬜ 尚未配置——部署指南见 D:\\马来语学习\\腾讯云识别后端\\部署指南.md'}</div>
+      </div>`:''}</div>
     <div style="margin:12px 0"><b>学习起点</b><div class="sub">当前从第 ${S.settings.startId} 句开始取新句（在📖全书页可任选章节作为起点，学完回卷补前面）</div>
       ${S.settings.startId>1?'<button class="btn ghost small" style="margin-top:6px" onclick="S.settings.startId=1;save();renderSettings()">恢复从头开始</button>':''}</div>
     <div style="margin:12px 0"><b>🎤 麦克风免重复授权</b><div class="sub">直接双击HTML（file://方式）浏览器无法记住麦克风授权，每次都会问。解决：改用文件夹里的「启动学习程序.bat」打开——它通过 localhost 本地服务打开页面，授权一次永久记住。</div></div>
@@ -1130,6 +1226,18 @@ function renderSettings(){
     <input type="file" id="impFile" class="hidden" accept=".json" onchange="importData(this)">
   </div>
   <div class="card sub" style="font-size:12.5px">数据来源：《马来西亚语900句》（广西人民出版社）全书 OCR 提取（900/900 完整，已人工核对）。间隔重复算法：简化 SM-2。等级体系：①认读(看懂)→②听说(听懂+跟读)→③运用(凭中文重构句子)→★精通(30天以上间隔仍答对)。</div>`;
+}
+async function testAsr(){
+  const url=(document.getElementById('asrUrlInp')?document.getElementById('asrUrlInp').value.trim():S.settings.asrUrl);
+  const tok=(document.getElementById('asrTokenInp')?document.getElementById('asrTokenInp').value.trim():S.settings.asrToken);
+  if(!/^https:\/\//.test(url)){ alert('请先填写 https:// 开头的云函数地址'); return; }
+  S.settings.asrUrl=url; S.settings.asrToken=tok; save();
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ping:1,token:tok||''})});
+    const j=await r.json();
+    if(j.pong) alert('✅ 连接成功！云函数密钥配置'+(j.ready?'正常，可以开始使用云端跟读评分了':'缺失——去云函数控制台检查环境变量 TENCENT_SECRET_ID/KEY'));
+    else alert('⚠️ 响应异常：'+(j.error||JSON.stringify(j)));
+  }catch(e){ alert('❌ 连接失败：'+e.message+'\n检查地址是否正确、云函数是否已发布'); }
 }
 function exportData(){
   const blob=new Blob([JSON.stringify(S)],{type:'application/json'});
